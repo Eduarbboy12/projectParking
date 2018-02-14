@@ -7,14 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class user {
+public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "Id")
 	private long Id;
 	
-	public user(Long Id) {
+	public User(Long Id) {
 		this.Id = Id;
 	}
 	
@@ -41,7 +41,7 @@ public class user {
 	
 	private transient String confirmPassword;
 	
-	public user(String Nombre, String Apellido, String Documento, String Telefono, String Direccion, String Mail, String Clave) {
+	public User(String Nombre, String Apellido, String Documento, String Telefono, String Direccion, String Mail, String Clave) {
 		this.Nombre = Nombre;
 		this.Apellido = Apellido;
 		this.Documento=Documento;
@@ -51,7 +51,7 @@ public class user {
 		this.Clave=Clave;
 	}
 	
-	public user() {
+	public User() {
 		// TODO Auto-generated constructor stub
 	}
 	
