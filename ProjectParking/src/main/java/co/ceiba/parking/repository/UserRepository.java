@@ -1,5 +1,12 @@
 package co.ceiba.parking.repository;
 
-public class UserRepository {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import co.ceiba.parking.Entity.User;
+
+@Repository
+public interface UserRepository extends CrudRepository<User, Long> {
+	public User findByMail(String mail);
 
 }
