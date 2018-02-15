@@ -7,7 +7,7 @@ import co.ceiba.parking.Entity.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User,Long> {
-	//public User findByMail(String email);
+	//public User findById(Long Id);
 	/***public Person findUsingEmail(String email);******/
 	
 }

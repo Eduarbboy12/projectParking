@@ -43,32 +43,7 @@ app.controller('UserController', ['$scope', '$resource',function($scope,$resourc
 		$scope.userForm.Direccion="";
 		$scope.userForm.Mail="";
 		$scope.userForm.Clave="";
-    };
-    
-    $scope.deleteRec = function(){
-    	User = $resource(
-    		    "http://localhost:8080/delete/:id",
-    		    {},
-    		    {save: {method:'DELETE', params: {id: '@id'}}}
-    	);
-    	
-			
-		User.delete({id: $scope.userForm.Id}).then(function successCallback(response) {
-			$scope.Message = response;
-		}, function errorCallback(response) {
-		    
-		});
-				
-		$scope.userForm.Id = "";
-		$scope.userForm.Nombre="";
-		$scope.userForm.Apellido="";
-		$scope.userForm.Documento="";
-		$scope.userForm.Telefono="";
-		$scope.userForm.Direccion="";
-		$scope.userForm.Mail="";
-		$scope.userForm.Clave="";
-    };
-    
+    };    
     
     $scope.update = function(){
     		
@@ -101,4 +76,37 @@ app.controller('UserController', ['$scope', '$resource',function($scope,$resourc
 		$scope.userForm.Clave="";
     };
     
+}])
+
+
+.controller('LoginController', ['$scope', '$resource',function($scope,$resource) {
+	
+	$scope.login = function () {
+		
+		var login = {};
+		
+		function fetchUserByLogin(user, password){
+			console.log(user);
+			console.log(password);
+	        $scope.users = $resource('http://localhost:8080/login').query(function(data){
+	        	console.log(data);
+	        	return data;
+	    	});
+	    };
+		
+		login.correo = $scope.logForm.correo;
+		login.clave = $scope.logForm.clave;
+		//console.log(login.clave);
+		
+		fetchUserByLogin(login.correo, login.clave);
+		
+		window.location.href = "views/main/main.html";
+		
+	};
+	
 }]);
+
+
+
+
+

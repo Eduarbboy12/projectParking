@@ -74,5 +74,11 @@ public class UserController {
 		}
 		return "The user id is: " + userId;
 	}
+	
+	@RequestMapping("/login")
+	@ResponseBody
+	public Object login(String usuario, String clave) {
+		return userService.findAll();
+	}
 
 }

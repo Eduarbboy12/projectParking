@@ -20,8 +20,6 @@ public class UserService {
 	}
 	
 	public User save(User user){
-		System.out.println(user.getNombre());
-		System.out.println(user.getApellido());
         return userRepository.save(user);
     }
 	
@@ -32,6 +30,7 @@ public class UserService {
 	
 	public User findByEmail(String email) {
 		// TODO Auto-generated method stub
+		//userRepository.findByMail(email);
 		return null;
 	}
 
