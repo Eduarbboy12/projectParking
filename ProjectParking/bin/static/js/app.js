@@ -85,22 +85,18 @@ app.controller('UserController', ['$scope', '$resource',function($scope,$resourc
 		
 		var login = {};
 		
-		function fetchUserByLogin(user, password){
-			console.log(user);
-			console.log(password);
-	        $scope.users = $resource('http://localhost:8080/login').query(function(data){
-	        	console.log(data);
-	        	return data;
-	    	});
-	    };
+		User = $resource(
+    		    "http://localhost:8080/get-by-email",
+    		    {},
+    		    {findByEmail: {method:'GET',isArray:false}}
+    	);
 		
 		login.correo = $scope.logForm.correo;
 		login.clave = $scope.logForm.clave;
-		//console.log(login.clave);
 		
-		fetchUserByLogin(login.correo, login.clave);
+		$scope.Message = User.findByEmail(login.correo);
 		
-		window.location.href = "views/main/main.html";
+		//window.location.href = "views/main/main.html";
 		
 	};
 	

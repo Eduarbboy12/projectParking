@@ -28,9 +28,10 @@ public class UserService {
 		return;
 	}
 	
-	public User findByEmail(String email) {
+	public User findByEmail(String mail) {
 		// TODO Auto-generated method stub
-		//userRepository.findByMail(email);
+		System.out.println("mail prueba:" + mail);
+		userRepository.findByMail(mail);
 		return null;
 	}
 

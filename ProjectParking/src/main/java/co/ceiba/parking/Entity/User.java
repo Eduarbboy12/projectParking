@@ -33,21 +33,21 @@ public class User {
 	@Column(name = "Direccion")
     private String Direccion;
 	
-	@Column(name = "Mail", nullable = false, unique = true)
-    private String Mail;
+	@Column(name = "mail", nullable = false, unique = true)
+    private String mail;
 	
 	@Column(name = "Clave")
     private String Clave;
 	
 	private transient String confirmPassword;
 	
-	public User(String Nombre, String Apellido, String Documento, String Telefono, String Direccion, String Mail, String Clave) {
+	public User(String Nombre, String Apellido, String Documento, String Telefono, String Direccion, String mail, String Clave) {
 		this.Nombre = Nombre;
 		this.Apellido = Apellido;
 		this.Documento=Documento;
 		this.Telefono=Telefono;
 		this.Direccion=Direccion;
-		this.Mail=Mail;
+		this.mail=mail;
 		this.Clave=Clave;
 	}
 	
@@ -82,7 +82,7 @@ public class User {
 	}
 	
 	public String getMail() {
-		return Mail;
+		return mail;
 	}
 	
 	public String getClave() {
@@ -115,8 +115,8 @@ public class User {
 		this.Telefono = Telefono;
 	}
 	
-	public void setMail(String Mail) {
-		this.Mail = Mail;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 	
 	public void setClave(String Clave) {
