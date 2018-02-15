@@ -20,6 +20,8 @@ public class UserService {
 	}
 	
 	public User save(User user){
+		System.out.println(user.getNombre());
+		System.out.println(user.getApellido());
         return userRepository.save(user);
     }
 	

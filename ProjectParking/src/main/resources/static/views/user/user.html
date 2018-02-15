@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<body ng-app="myApp">
+	<div ng-controller="UserController">
+		<h1>Create User</h1>
+		<form name="userForm">
+
+			<table border="1">
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Documento</th>
+					<th>Telefono</th>
+					<th>Direccion</th>
+					<th>Mail</th>
+				</tr>
+				<tr ng-repeat="row in users">
+					<td><span ng-bind="row.id"></span></td>
+					<td><span ng-bind="row.nombre"></span></td>
+					<td><span ng-bind="row.apellido"></span></td>
+					<td><span ng-bind="row.documento"></span></td>
+					<td><span ng-bind="row.telefono"></span></td>
+					<td><span ng-bind="row.direccion"></span></td>
+					<td><span ng-bind="row.mail"></span></td>
+					<td>
+					
+				</tr>
+			</table>
+			
+			<p class="bg-info info-msg" id="info1">{{Message}}</p>
+			
+			<div class="form-group">
+				<label class=blue_font>Nombre</label> <input class=form-control
+					type="text" id="nombre" ng-model="userForm.nombre"
+					placeholder="Nombre" autocomplete="off">
+			</div>
+			
+			<div class="form-group">
+				<label class=blue_font>Apellido</label> <input class=form-control
+					type="text" id="apellido" ng-model="userForm.apellido"
+					placeholder="Apellido" autocomplete="off">
+			</div>
+			
+			<div class="form-group">
+				<label class=blue_font>Documento</label> <input class=form-control
+					type="text" id="documento" ng-model="userForm.documento"
+					placeholder="Documento" autocomplete="off">
+			</div>
+			
+			<div class="form-group">
+				<label class=blue_font>Telefono</label> <input class=form-control
+					type="text" id="telefono" ng-model="userForm.telefono"
+					placeholder="Telefono" autocomplete="off">
+			</div>
+			
+			<div class="form-group">
+				<label class=blue_font>Direccion</label> <input class=form-control
+					type="text" id="direccion" ng-model="userForm.direccion"
+					placeholder="Direccion" autocomplete="off">
+			</div>
+			
+			<div class="form-group">
+				<label class=blue_font>Mail</label> <input class=form-control
+					type="text" id="mail" ng-model="userForm.mail" placeholder="Mail"
+					autocomplete="off">
+			</div>
+
+			<div class="form-group">
+				<label class=blue_font>Clave</label> <input class=form-control
+					type="text" id="clave" ng-model="userForm.clave"
+					placeholder="Clave" autocomplete="off">
+			</div>
+
+
+			<div class="btn-wrapper">
+				<div class="row-gutter-5">
+					<div class="col-md-4 col-xs-6 col-sm-6">
+						<button class="btn btn_blue" type="button"
+							data-ng-click="create()" id="Create">Create</button>
+					</div>
+					<div class="col-md-4 col-xs-6 col-sm-6">
+						<button class="btn btn_blue" type="button"
+							data-ng-click="refresh()" id="refresh">Refresh</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class=blue_font>ID</label> <input class=form-control
+					type="text" id="ID" ng-model="userForm.id" placeholder="ID"
+					autocomplete="off">
+			</div>
+			<div class="btn-wrapper">
+				<div class="row-gutter-5">
+					<div class="col-md-4 col-xs-6 col-sm-6">
+						<button class="btn btn_blue" type="button"
+							data-ng-click="deleteRec()" id="Delete">Delete</button>
+					</div>
+					<div class="col-md-4 col-xs-6 col-sm-6">
+						<button class="btn btn_blue" type="button"
+							data-ng-click="update()" id="Update">Update</button>
+					</div>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<script src="../../js/angular.min.js"></script>
+	<script src="../../js/angular-resource.min.js"></script>
+	<script src="../../js/app.js"></script>
+	<link rel="stylesheet" href="../../css/style.css">
+	<link rel="stylesheet" href="../../css/theme-default.css">
+	<link rel="stylesheet" href="../../css/theme-blue.css">
+	<link rel="stylesheet" href="../../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../css/custom.css">
+</body>
+</html>

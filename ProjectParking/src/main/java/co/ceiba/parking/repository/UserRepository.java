@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 import co.ceiba.parking.Entity.User;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
-	public User findByMail(String mail);
-
+public interface UserRepository extends CrudRepository<User,Long> {
+	//public User findByMail(String email);
+	/***public Person findUsingEmail(String email);******/
+	
 }

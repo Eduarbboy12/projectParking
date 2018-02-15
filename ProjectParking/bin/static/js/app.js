@@ -3,9 +3,11 @@ var app = angular.module('myApp', ['ngResource']);
 app.controller('UserController', ['$scope', '$resource',function($scope,$resource) {
     
     function fetchAllUser(){
-        $scope.users = $resource('http://localhost:8080/user'
-        ).query(function(data){return data;});
+        $scope.users = $resource('http://localhost:8080/user').query(function(data){
+        	return data;
+    	});
     };
+    
     fetchAllUser();
     
     $scope.refresh = function(){
@@ -21,14 +23,14 @@ app.controller('UserController', ['$scope', '$resource',function($scope,$resourc
     	
     	var user = {};
 		
-		user.Id = $scope.userForm.Id;
-		user.Nombre = $scope.userForm.Nombre;
-		user.Apellido = $scope.userForm.Apellido;
-		user.Documento = $scope.userForm.Documento;
-		user.Telefono = $scope.userForm.Telefono;
-		user.Direccion = $scope.userForm.Direccion;
-		user.Mail = $scope.userForm.Mail;
-		user.Clave = $scope.userForm.Clave;
+		user.id = $scope.userForm.id;
+		user.nombre = $scope.userForm.nombre;
+		user.apellido = $scope.userForm.apellido;
+		user.documento = $scope.userForm.documento;
+		user.telefono = $scope.userForm.telefono;
+		user.direccion = $scope.userForm.direccion;
+		user.mail = $scope.userForm.mail;
+		user.clave = $scope.userForm.clave;
 		user.confirmPassword = "";
 		
 		$scope.Message = User.save(user);
