@@ -2,9 +2,29 @@
 <html lang="en-US">
 <body ng-app="myApp">
 	<div ng-controller="LoginController">
-		<h1>Login</h1>
+		<h1>Parqueadero</h1>
 		<form name="logForm">
 			<p class="bg-info info-msg" id="info1">{{Message}}</p>
+			
+			<div class="form-group">
+				<label class=blue_font>Tipo Vehiculo</label> 					
+					<select class=form-control
+						id="tipo" name="tipo" ng-model="logForm.tipo">
+						<option value="op1">Carro</option>
+						<option value="op2">Moto</option>
+					</select>
+			</div>
+			
+			<div class="form-group">
+				<label class=blue_font>Placa</label> 
+				<input class=form-control
+					type="text" id="placa" ng-model="logForm.placa"
+					placeholder="Placa" autocomplete="off" required="required">
+			</div>
+			
+			
+			
+			
 		</form>
 	</div>
 	<script src="../../js/angular.min.js"></script>

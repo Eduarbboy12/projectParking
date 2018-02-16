@@ -12,8 +12,7 @@ app.controller(
 								.query(function(data) {
 									return data;
 								});
-					}
-					;
+					};
 
 					fetchAllUser();
 
@@ -52,6 +51,27 @@ app.controller(
 						$scope.userForm.Mail = "";
 						$scope.userForm.Clave = "";
 					};
+					
+					$scope.deleteRec = function(){
+				    	User = $resource(
+				    		    "http://localhost:8080/delete/:id",
+				    		    {},
+				    		    {save: {method:'DELETE', params: {id: '@id'}}}
+				    	);
+				    	
+							
+						User.delete({id: $scope.personForm.id}).then(function successCallback(response) {
+							$scope.Message = response;
+						}, function errorCallback(response) {
+						    
+						});
+								
+						$scope.personForm.id = "";
+						$scope.personForm.name="";
+						$scope.personForm.mobile="";
+						$scope.personForm.password="";
+						$scope.personForm.email="";
+				    };
 
 					$scope.update = function() {
 
@@ -91,21 +111,11 @@ app.controller(
 				} ])
 
 .controller('LoginController',
-		[ '$scope', '$resource', function($scope, $resource) {
+		[ '$scope', '$resource', '$http', function($scope, $resource, $http) {
 
 			$scope.login = function() {
 
 				var login = {};
-
-				User = $resource("http://localhost:8080/get-by-email/:mail", {}, {
-					findByEmail : {
-						method : 'GET',
-						isArray : false,
-						params : {
-							mail : '@mail'
-						}
-					}
-				});
 
 				login.correo = $scope.logForm.correo;
 				login.clave = $scope.logForm.clave;
@@ -113,7 +123,15 @@ app.controller(
 				if (login.correo !== undefined) {
 					if(login.clave !== undefined){
 						
-						$scope.Message = User.findByEmail({mail : login.correo});
+						$scope.Message = $http.get("http://localhost:8080/get-by-email/" + login.correo)
+					    .then(function(response) {
+					        $scope.response = response.data;
+					        if($scope.response.mail !== undefined){
+					        	window.location.href = "./views/main/main.html";
+					        } else {
+					        	$scope.Message = "Usuario incorrecto";
+					        }
+					    });						
 						
 					} else {
 						$scope.Message = "El campo Contraseña es obligatorio";

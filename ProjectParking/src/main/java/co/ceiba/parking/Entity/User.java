@@ -11,44 +11,44 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "Id")
-	private long Id;
+	@Column(name = "id")
+	private long id;
 	
-	public User(Long Id) {
-		this.Id = Id;
+	public User(Long id) {
+		this.id = id;
 	}
 	
-	@Column(name = "Nombre")
-    private String Nombre;
+	@Column(name = "nombre")
+    private String nombre;
 	
-	@Column(name = "Apellido")
-    private String Apellido;
+	@Column(name = "apellido")
+    private String apellido;
 	
-	@Column(name = "Documento", nullable = false, unique = true)
-    private String Documento;
+	@Column(name = "documento", nullable = false, unique = true)
+    private String documento;
 	
-	@Column(name = "Telefono")
-    private String Telefono;
+	@Column(name = "telefono")
+    private String telefono;
 	
-	@Column(name = "Direccion")
-    private String Direccion;
+	@Column(name = "direccion")
+    private String direccion;
 	
 	@Column(name = "mail", nullable = false, unique = true)
     private String mail;
 	
-	@Column(name = "Clave")
-    private String Clave;
+	@Column(name = "clave")
+    private String clave;
 	
 	private transient String confirmPassword;
 	
-	public User(String Nombre, String Apellido, String Documento, String Telefono, String Direccion, String mail, String Clave) {
-		this.Nombre = Nombre;
-		this.Apellido = Apellido;
-		this.Documento=Documento;
-		this.Telefono=Telefono;
-		this.Direccion=Direccion;
+	public User(String nombre, String apellido, String documento, String telefono, String direccion, String mail, String clave) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.documento=documento;
+		this.telefono=telefono;
+		this.direccion=direccion;
 		this.mail=mail;
-		this.Clave=Clave;
+		this.clave=clave;
 	}
 	
 	public User() {
@@ -58,27 +58,27 @@ public class User {
 	// GETTERS
 	
 	public Long getId() {
-		return Id;
+		return id;
 	}
 	
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 	
 	public String getApellido() {
-		return Apellido;
+		return apellido;
 	}
 	
 	public String getDocumento() {
-		return Documento;
+		return documento;
 	}
 	
 	public String getDireccion() {
-		return Direccion;
+		return direccion;
 	}
 	
 	public String getTelefono() {
-		return Telefono;
+		return telefono;
 	}
 	
 	public String getMail() {
@@ -86,41 +86,41 @@ public class User {
 	}
 	
 	public String getClave() {
-		return Clave;
+		return clave;
 	}
 	
 	//SETTERS
 	
-	public void setId(Long Id) {
-		this.Id = Id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
-	public void setNombre(String Nombre) {
-		this.Nombre = Nombre;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
-	public void setApellido(String Apellido) {
-		this.Apellido = Apellido;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 	
-	public void setDocumento(String Documento) {
-		this.Documento = Documento;
+	public void setDocumento(String documento) {
+		this.documento = documento;
 	}
 	
-	public void setDireccion(String Direccion) {
-		this.Direccion = Direccion;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 	
-	public void setTelefono(String Telefono) {
-		this.Telefono = Telefono;
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
 	
-	public void setClave(String Clave) {
-		this.Clave = Clave;
+	public void setClave(String clave) {
+		this.clave = clave;
 	}
 	
 	public String getConfirmPassword() {
