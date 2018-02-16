@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+<title></title>
+</head>
 <body ng-app="myApp">
-	<div ng-controller="LoginController">
-		<h1>Login</h1>
-		<form name="logForm">
-			
-			<p class="bg-info info-msg" id="info1">{{Message}}</p>
-			
-			<div class="form-group">
-				<label class=blue_font>Correo Electrónico</label> 
-				<input class=form-control
-					type="text" id="correo" ng-model="logForm.correo"
-					placeholder="Correo Electrónico" autocomplete="off" required="required">
+
+	<div ng-controller="LoginController" class="login-page ng-scope">
+		<div class="img-container">
+			<div class="text-center pull-right photo">
+				<img src="img/logoParking.png"
+					class="user-avatar img-circle img-responsive">
+				<h1>
+					Parking<br> <span>Ceiba</span><br> <small>V.1.0.0</small>
+				</h1>
 			</div>
-			
-			<div class="form-group">
-				<label class=blue_font>Contraseña</label> 
-				<input class=form-control
-					type="password" id="clave" ng-model="logForm.clave"
-					placeholder="Contraseña" autocomplete="off" required="required">
-			</div>
-			
-			<div class="btn-wrapper">
-				<div class="row-gutter-5">
-					<div class="col-md-0">
-						<button class="btn btn_blue" type="button"
-							data-ng-click="login()" id="Create">Iniciar Sesión</button>
+		</div>
+		<div class="form-content">
+			<h1>Login</h1>
+			<form name="logForm">
+
+				<p class="alert alert-warning" id="info1">{{Message}}</p>
+
+				<div class="form-group">
+					<label class=blue_font>Correo ElectrÃ³nico</label> <input
+						class=form-control type="text" id="correo"
+						ng-model="logForm.correo" placeholder="Correo ElectrÃ³nico"
+						autocomplete="off" required="required">
+				</div>
+
+				<div class="btn-wrapper">
+					<div class="row-gutter-5">
+						<div class="col-md-0">
+							<button class="btn btn-primary btn-lg btn-white" type="button"
+								data-ng-click="login()" id="Create">Ingresar</button>
+						</div>
 					</div>
 				</div>
-			</div>
+				<div class="remember">
+					<label class="checkbox1" for="Option"> <input id="Option"
+						type="checkbox"> <span></span>
+					</label> remember me <span class="pass"> forgot password?</span>
+				</div>
 
-		</form>
+			</form>
+		</div>
 	</div>
+
+
 	<script src="./js/angular.min.js"></script>
 	<script src="./js/angular-resource.min.js"></script>
 	<script src="./js/app.js"></script>
-	<link rel="stylesheet" href="./css/style.css">
-	<link rel="stylesheet" href="./css/theme-default.css">
-	<link rel="stylesheet" href="./css/theme-blue.css">
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
-	<link rel="stylesheet" href="./css/custom.css">
+	<link rel=stylesheet href="./css/main.css">
+	<link rel=stylesheet href="./css/vendor.css">
 </body>
 </html>

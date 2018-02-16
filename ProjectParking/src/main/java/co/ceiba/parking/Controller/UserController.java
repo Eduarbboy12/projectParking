@@ -61,26 +61,12 @@ public class UserController {
 		}
 		return "User succesfully updated!";
 	}
-
-	@RequestMapping("/get-by-email/{mail}")
+	
+	@RequestMapping(value = "/get-by-email/{mail}", method = RequestMethod.GET)
 	@ResponseBody
-	public String getByEmail(@PathVariable String mail) {
-		System.out.println("mailcontroller:" + mail);
-		String userId = "";
-		try {
-			User user = userService.findByEmail(mail);
-			userId = String.valueOf(user.getId());
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
-			return "User not found";
-		}
-		return "The user id is: " + userId;
+	public Object getByEmail(@PathVariable String mail) {
+		System.out.println(userService.findByEmail(mail));
+		return userService.findByEmail(mail);
 	}
 	
-//	@RequestMapping("/login")
-//	@ResponseBody
-//	public Object login(String usuario, String clave) {
-//		return userService.findAll();
-//	}
-
 }
