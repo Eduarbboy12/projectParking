@@ -2,49 +2,88 @@
 <html lang="en-US">
 <body ng-app="myApp">
 	<div ng-controller="LoginController">
-		<h1>Parqueadero</h1>
-		<form name="logForm">
-			<p class="bg-info info-msg" id="info1">{{Message}}</p>
-			
-			<div class="form-group">
-				<label class=blue_font>Tipo Vehiculo</label> 					
-					<select class=form-control
-						id="tipo" name="tipo" ng-model="logForm.tipo">
-						<option value="op1">Carro</option>
-						<option value="op2">Moto</option>
-					</select>
-			</div>
-			
-			<div class="form-group">
-				<label class=blue_font>Placa</label> 
-				<input class=form-control
-					type="text" id="placa" ng-model="logForm.placa"
-					placeholder="Placa" autocomplete="off">
-			</div>
-			
-			<div class="form-group">
-				<label class=blue_font>Fecha Entrada</label> 
-				<input class=form-control
-					type="datetime" id="placa" ng-model="logForm.placa"
-					placeholder="Fecha Entrada" autocomplete="off">
-			</div>
-			
-			<div class="form-group">
-				<label class=blue_font>Fecha Salida</label> 
-				<input class=form-control
-					type="datetime" id="placa" ng-model="logForm.placa"
-					placeholder="Fecha Salida" autocomplete="off">
-			</div>
 
-		</form>
+		<snap-drawer>
+		<div class=snap-menu>
+			<div class="sidebar-header text-center">
+				<img src="../../img/logoParking.png" class="sidebar-img img-circle">
+			</div>
+			<ul class=snap-ul>
+				<li><a href="#">Inicio</a></li>
+				<li><a href="../user/user.html">Crear Usuario</a></li>
+			</ul>
+		</div>
+		</snap-drawer>
+
+
+		<snap-content snap-opt-tap-to-close="false" class="snap-content"
+			style="transform: translate3d(250px, 0px, 0px);"> <a
+			snap-toggle="left" ng-click="menuOpen = !menuOpen"> <span
+			class="menutoggle">
+		</span>
+		</a>
+		<div class="fr">
+			<h2>Ingreso Parqueadero</h2>
+			<br>
+		</div>
+		<div>
+			<div style="width: 60%; padding-left: 20px;">
+				<form name="mainForm">
+					<p class="bg-info info-msg" id="info1">{{Message}}</p>
+
+					<div class="form-group">
+						<label class=blue_font>Tipo Vehiculo</label> <select
+							class=form-control id="tipo" name="tipo" ng-model="mainForm.tipo">
+							<option value="op1">Carro</option>
+							<option value="op2">Moto</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label class=blue_font>Placa</label> <input class=form-control
+							type="text" id="placa" ng-model="mainForm.placa"
+							placeholder="Placa" autocomplete="off">
+					</div>
+
+					<div class="form-group">
+						<label class=blue_font>Fecha Entrada</label> <input
+							class=form-control type="text" id="fechaEntrada"
+							ng-model="mainForm.fechaEntrada" placeholder="Fecha Entrada"
+							autocomplete="off">
+					</div>
+
+					<div class="form-group">
+						<label class=blue_font>Fecha Salida</label> <input
+							class=form-control type="datetime" id="fechasalida"
+							ng-model="mainForm.fechasalida" placeholder="Fecha Salida"
+							autocomplete="off">
+					</div>
+					
+					<div class="btn-wrapper">
+					<div class="row-gutter-5">
+						<div class="col-md-0">
+							<button class="btn btn-primary btn-lg btn-white" type="button"
+								data-ng-click="" id="Create">Registrar</button>
+						</div>
+					</div>
+				</div>
+
+				</form>
+			</div>
+		</div>
+		</snap-content>
+		
+
 	</div>
+
+
 	<script src="../../js/angular.min.js"></script>
 	<script src="../../js/angular-resource.min.js"></script>
 	<script src="../../js/app.js"></script>
-	<link rel="stylesheet" href="../../css/style.css">
-	<link rel="stylesheet" href="../../css/theme-default.css">
-	<link rel="stylesheet" href="../../css/theme-blue.css">
+	<script src="../../js/vendor.js"></script>
+	<script src="../../js/scripts.js"></script>
 	<link rel="stylesheet" href="../../css/bootstrap.min.css">
-	<link rel="stylesheet" href="../../css/custom.css">
+	<link rel=stylesheet href="../../css/main.css">
+	<link rel=stylesheet href="../../css/vendor.css">
 </body>
 </html>
