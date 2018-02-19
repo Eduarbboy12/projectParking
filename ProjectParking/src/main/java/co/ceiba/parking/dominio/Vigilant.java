@@ -2,12 +2,7 @@ package co.ceiba.parking.dominio;
 
 import java.time.LocalDate;
 
-import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
-
 import co.ceiba.parking.dominio.exception.VehicleException;
-import co.ceiba.parking.dominio.repositorio.InvoiceRepository;
-import co.ceiba.parking.dominio.repositorio.UserRepository;
-import co.ceiba.parking.dominio.repositorio.VehicleRepository;
 import co.ceiba.parking.persistence.entity.InvoiceEntity;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
 import co.ceiba.parking.service.InvoiceService;
@@ -55,12 +50,26 @@ public class Vigilant {
 		LocalDate fechaSalida = LocalDate.now();
 	}
 	
+//	public boolean isOccuped(String placa) {
+//		VehicleEntity vehicle = this.vehicleService.findByPlaca(placa);
+////		VehicleEntity vehicle = this.vehicleRepository.getByPlaca(placa);
+//		if(vehicle.getPlaca() != null) {
+////			Invoice invoice = this.invoiceRepository.getByVehiculo(vehicle);
+//			InvoiceEntity invoice = this.invoiceService.findById(vehicle.getId());
+//			if(invoice.getSalida() != null) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		} else {
+//			return false;
+//		}
+//	}
+	
 	public boolean isOccuped(String placa) {
-		VehicleEntity vehicle = this.vehicleService.findByPlaca(placa);
-//		VehicleEntity vehicle = this.vehicleRepository.getByPlaca(placa);
+		Vehicle vehicle = this.vehicleService.getByPlaca(placa);
 		if(vehicle.getPlaca() != null) {
-//			Invoice invoice = this.invoiceRepository.getByVehiculo(vehicle);
-			InvoiceEntity invoice = this.invoiceService.findById(vehicle.getId());
+			Invoice invoice = this.invoiceService.getVehiculo(vehicle);
 			if(invoice.getSalida() != null) {
 				return true;
 			} else {
@@ -70,9 +79,5 @@ public class Vigilant {
 			return false;
 		}
 	}
-
-	
-	
-	
 
 }
