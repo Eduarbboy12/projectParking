@@ -30,7 +30,7 @@ public class VehicleController {
 	public String create(@RequestBody VehicleEntity vehicleEntity) {
 		String userId = "";
 		try {
-			vehicleService.save(vehicleEntity);
+			vehicleService.saveController(vehicleEntity);
 			userId = String.valueOf(vehicleEntity.getId());
 		} catch (Exception ex) {
 			return "Error creating the user: " + ex.toString();

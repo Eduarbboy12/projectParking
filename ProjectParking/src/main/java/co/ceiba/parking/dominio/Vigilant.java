@@ -2,12 +2,7 @@ package co.ceiba.parking.dominio;
 
 import java.time.LocalDate;
 
-import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
-
 import co.ceiba.parking.dominio.exception.VehicleException;
-import co.ceiba.parking.dominio.repositorio.InvoiceRepository;
-import co.ceiba.parking.dominio.repositorio.UserRepository;
-import co.ceiba.parking.dominio.repositorio.VehicleRepository;
 import co.ceiba.parking.persistence.entity.InvoiceEntity;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
 import co.ceiba.parking.service.InvoiceService;
@@ -44,7 +39,7 @@ public class Vigilant {
 	public void InVehicle(String placa, String tipo) {
 		LocalDate fechaIngreso = LocalDate.now();
 		if(!isOccuped(placa)) {
-			
+			System.out.println(placa);
 			//this.vehicleRepository.
 		} else {
 			throw new VehicleException(NO_HAY_MAS_CUPOS_DISPONIBLES);
@@ -55,12 +50,26 @@ public class Vigilant {
 		LocalDate fechaSalida = LocalDate.now();
 	}
 	
+//	public boolean isOccuped(String placa) {
+//		VehicleEntity vehicle = this.vehicleService.findByPlaca(placa);
+////		VehicleEntity vehicle = this.vehicleRepository.getByPlaca(placa);
+//		if(vehicle.getPlaca() != null) {
+////			Invoice invoice = this.invoiceRepository.getByVehiculo(vehicle);
+//			InvoiceEntity invoice = this.invoiceService.findById(vehicle.getId());
+//			if(invoice.getSalida() != null) {
+//				return true;
+//			} else {
+//				return false;
+//			}
+//		} else {
+//			return false;
+//		}
+//	}
+	
 	public boolean isOccuped(String placa) {
-		VehicleEntity vehicle = this.vehicleService.findByPlaca(placa);
-//		VehicleEntity vehicle = this.vehicleRepository.getByPlaca(placa);
-		if(vehicle.getPlaca() != null) {
-//			Invoice invoice = this.invoiceRepository.getByVehiculo(vehicle);
-			InvoiceEntity invoice = this.invoiceService.findById(vehicle.getId());
+		Vehicle vehicle = this.vehicleService.getByPlaca(placa);
+		if(vehicle != null || vehicle.getPlaca() != null) {
+			Invoice invoice = this.invoiceService.getVehiculo(vehicle);
 			if(invoice.getSalida() != null) {
 				return true;
 			} else {
@@ -70,9 +79,5 @@ public class Vigilant {
 			return false;
 		}
 	}
-
-	
-	
-	
 
 }

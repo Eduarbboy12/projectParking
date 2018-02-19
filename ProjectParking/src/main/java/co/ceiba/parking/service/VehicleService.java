@@ -3,7 +3,9 @@ package co.ceiba.parking.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.ceiba.parking.dominio.Vehicle;
 import co.ceiba.parking.dominio.Vigilant;
+import co.ceiba.parking.dominio.repositorio.VehicleRepository;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
 import co.ceiba.parking.persistence.repository.jpa.VehicleRepositoryJPA;
 
@@ -11,7 +13,9 @@ import co.ceiba.parking.persistence.repository.jpa.VehicleRepositoryJPA;
 @Service
 public class VehicleService {
 	
-	public Vigilant vigilant;
+	private Vigilant vigilant;
+	
+	private VehicleRepository vehicleRepository;
 	
 	@Autowired
 	private VehicleRepositoryJPA vehicleRepositoryJPA;
@@ -43,6 +47,10 @@ public class VehicleService {
 	
 	public void saveController(VehicleEntity vehicle) {
 		vigilant.InVehicle(vehicle.getPlaca(), vehicle.getTipo());
+	}
+	
+	public Vehicle getByPlaca(String placa) {
+		return vehicleRepository.getByPlaca(placa);
 	}
 	
 
