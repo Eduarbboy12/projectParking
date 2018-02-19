@@ -3,12 +3,15 @@ package co.ceiba.parking.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.ceiba.parking.dominio.Vigilant;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
 import co.ceiba.parking.persistence.repository.jpa.VehicleRepositoryJPA;
 
 
 @Service
 public class VehicleService {
+	
+	public Vigilant vigilant;
 	
 	@Autowired
 	private VehicleRepositoryJPA vehicleRepositoryJPA;
@@ -37,5 +40,10 @@ public class VehicleService {
 	public VehicleEntity findByTipo(String tipo) {
 		return vehicleRepositoryJPA.findByTipo(tipo);
 	}
+	
+	public void saveController(VehicleEntity vehicle) {
+		vigilant.InVehicle(vehicle.getPlaca(), vehicle.getTipo());
+	}
+	
 
 }
