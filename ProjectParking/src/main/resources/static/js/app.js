@@ -126,7 +126,7 @@ app.controller(
 					        if($scope.response.mail !== undefined){
 					        	window.location.href = "./views/main/main.html";
 					        } else {
-					        	$scope.Message = "El campo Correo Electrónico incorrecto";
+					        	$scope.Message = "El campo Correo Electrónico es incorrecto";
 					        }
 					    });						
 				} else {

@@ -5,18 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
-@Entity
+@Entity(name = "User")
+@NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "id")
 	private long id;
-	
-	public User(Long id) {
-		this.id = id;
-	}
 	
 	@Column(name = "nombre")
     private String nombre;
@@ -39,7 +37,9 @@ public class User {
 	@Column(name = "clave")
     private String clave;
 	
-	private transient String confirmPassword;
+	public User(Long id) {
+		this.id = id;
+	}
 	
 	public User(String nombre, String apellido, String documento, String telefono, String direccion, String mail, String clave) {
 		this.nombre = nombre;
@@ -56,7 +56,6 @@ public class User {
 	}
 	
 	// GETTERS
-	
 	public Long getId() {
 		return id;
 	}
@@ -90,7 +89,6 @@ public class User {
 	}
 	
 	//SETTERS
-	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -123,13 +121,4 @@ public class User {
 		this.clave = clave;
 	}
 	
-	public String getConfirmPassword() {
-        return confirmPassword;
-	}
-	
-	public void setConfirmPassword(String confirmPassword) {
-	        this.confirmPassword = confirmPassword;
-	}
-	
-
 }

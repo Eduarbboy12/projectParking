@@ -1,6 +1,13 @@
-var app = angular.module('myApp', [ 'ngResource' ]);
+'use strict';
 
-app.controller(
+
+var urlServicios = 'http://';
+
+
+angular.module('myApp.controllers', ['ngResource', 'ui.router', 'snap', 'ngAnimate'])
+
+
+	.controller(
 		'UserController',
 		[
 				'$scope',
