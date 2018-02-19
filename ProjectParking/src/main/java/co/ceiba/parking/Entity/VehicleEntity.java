@@ -7,9 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
-@Entity(name = "Vehicle")
-@NamedQuery(name = "Vehicle.findById", query = "SELECT v FROM Vehicle v WHERE v.id = :id")
-public class Vehicle {
+@Entity(name = "VehicleEntity")
+@NamedQuery(name = "VehicleEntity.findById", query = "SELECT v FROM Vehicle v WHERE v.id = :id")
+public class VehicleEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -23,10 +23,6 @@ public class Vehicle {
 	
 	@Column(name = "cilindraje")
     private String cilindraje;
-	
-	public Vehicle(Long id) {
-		this.id = id;
-	}
 
 	public long getId() {
 		return id;

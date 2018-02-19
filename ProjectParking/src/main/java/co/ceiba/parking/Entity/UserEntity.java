@@ -7,9 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
-@Entity(name = "User")
-@NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
-public class User {
+@Entity(name = "UserEntity")
+@NamedQuery(name = "UserEntity.findById", query = "SELECT u FROM User u WHERE u.id = :id")
+public class UserEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -37,11 +37,11 @@ public class User {
 	@Column(name = "clave")
     private String clave;
 	
-	public User(Long id) {
+	public UserEntity(Long id) {
 		this.id = id;
 	}
 	
-	public User(String nombre, String apellido, String documento, String telefono, String direccion, String mail, String clave) {
+	public UserEntity(String nombre, String apellido, String documento, String telefono, String direccion, String mail, String clave) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.documento=documento;
@@ -51,7 +51,7 @@ public class User {
 		this.clave=clave;
 	}
 	
-	public User() {
+	public UserEntity() {
 		// TODO Auto-generated constructor stub
 	}
 	

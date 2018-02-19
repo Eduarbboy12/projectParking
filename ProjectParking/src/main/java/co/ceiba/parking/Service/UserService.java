@@ -2,7 +2,7 @@ package co.ceiba.parking.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import co.ceiba.parking.Entity.User;
+import co.ceiba.parking.Entity.UserEntity;
 import co.ceiba.parking.repository.UserRepository;
 
 @Service
@@ -15,20 +15,20 @@ public class UserService {
         return userRepository.findAll();
     }
 	
-	public User findById(long Id) {
+	public UserEntity findById(long Id) {
 		return userRepository.findOne(Id);
 	}
 	
-	public User save(User user){
+	public UserEntity save(UserEntity user){
         return userRepository.save(user);
     }
 	
-	public void delete(User user) {
+	public void delete(UserEntity user) {
 		userRepository.delete(user);
 		return;
 	}
 	
-	public User findByEmail(String mail) {
+	public UserEntity findByEmail(String mail) {
 		return userRepository.findByMail(mail);
 	}
 

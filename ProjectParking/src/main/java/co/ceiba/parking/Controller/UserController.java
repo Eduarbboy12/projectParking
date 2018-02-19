@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import co.ceiba.parking.Entity.User;
+import co.ceiba.parking.Entity.UserEntity;
 import co.ceiba.parking.Service.UserService;
 
 @Controller
@@ -25,7 +25,7 @@ public class UserController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String create(@RequestBody User user) {
+	public String create(@RequestBody UserEntity user) {
 		String userId = "";
 		try {
 			userService.save(user);
@@ -41,7 +41,7 @@ public class UserController {
 	@ResponseBody
 	public String delete(@PathVariable long id) {
 		try {
-			User user = userService.findById(id);
+			UserEntity user = userService.findById(id);
 			userService.delete(user);
 		} catch (Exception ex) {
 			return "Error deleting the user:" + ex.toString();
@@ -51,7 +51,7 @@ public class UserController {
 
 	@RequestMapping("/update/{id}")
 	@ResponseBody
-	public String updateUser(@RequestBody User user, @PathVariable Long id) {
+	public String updateUser(@RequestBody UserEntity user, @PathVariable Long id) {
 		try {
 			// Person user = personService.findById(id);
 			user.setId(id);
