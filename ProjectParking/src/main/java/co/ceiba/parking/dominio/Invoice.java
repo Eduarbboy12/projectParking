@@ -2,7 +2,7 @@ package co.ceiba.parking.dominio;
 
 import java.util.Date;
 
-import co.ceiba.parking.Entity.VehicleEntity;
+import co.ceiba.parking.persistence.entity.VehicleEntity;
 
 public class Invoice {
 

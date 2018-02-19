@@ -2,14 +2,15 @@ package co.ceiba.parking.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import co.ceiba.parking.Entity.UserEntity;
-import co.ceiba.parking.repository.UserRepository;
+
+import co.ceiba.parking.persistence.entity.UserEntity;
+import co.ceiba.parking.persistence.repository.jpa.UserRepositoryJPA;
 
 @Service
 public class UserService {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepositoryJPA userRepository;
 	
 	public Object findAll(){
         return userRepository.findAll();

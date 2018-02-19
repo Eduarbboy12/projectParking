@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-@EntityScan(basePackageClasses=co.ceiba.parking.Entity.UserEntity.class)
+@EntityScan(basePackageClasses=co.ceiba.parking.persistence.entity.UserEntity.class)
 @SpringBootApplication
 public class ProjectParkingApplication {
 
