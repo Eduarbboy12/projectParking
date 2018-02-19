@@ -3,11 +3,12 @@ package co.ceiba.parking.persistence.repository;
 import javax.persistence.EntityManager;
 
 import co.ceiba.parking.dominio.User;
+import co.ceiba.parking.dominio.repositorio.UserRepository;
 import co.ceiba.parking.persistence.builder.UserBuilder;
 import co.ceiba.parking.persistence.entity.UserEntity;
 import co.ceiba.parking.persistence.repository.jpa.UserRepositoryJPA;
 
-public class UserRepositoryPersistence {
+public class UserRepositoryPersistence implements UserRepository{
 	
 	private EntityManager entityManager;
 	private UserRepositoryJPA userRepositoryJPA;
@@ -16,6 +17,7 @@ public class UserRepositoryPersistence {
 		this.entityManager = entityManager;
 	}
 	
+	@Override
 	public User getByMail(String mail) {
 		UserEntity userEntity = userRepositoryJPA.findByMail(mail);
 		return UserBuilder.convertirADominio(userEntity);
