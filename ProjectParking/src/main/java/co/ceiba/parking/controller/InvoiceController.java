@@ -18,7 +18,7 @@ public class InvoiceController {
 	@Autowired
 	private InvoiceService invoiceService;
 
-	@RequestMapping(value = "/vehicle", method = RequestMethod.GET)
+	@RequestMapping(value = "/invoice", method = RequestMethod.GET)
 	@ResponseBody
 	public Object index() {
 		return invoiceService.findAll();
