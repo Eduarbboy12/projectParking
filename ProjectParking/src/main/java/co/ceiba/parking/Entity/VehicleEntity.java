@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 @Entity(name = "VehicleEntity")
-@NamedQuery(name = "VehicleEntity.findById", query = "SELECT v FROM Vehicle v WHERE v.id = :id")
 public class VehicleEntity {
 	
 	@Id

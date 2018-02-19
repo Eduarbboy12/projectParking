@@ -30,7 +30,7 @@ public class InvoiceEntity {
 	private Date salida;
 	
 	@Column(name = "valortotal")
-	private Double valortotal;
+	private double valortotal;
 
 	public long getId() {
 		return id;
@@ -64,14 +64,12 @@ public class InvoiceEntity {
 		this.salida = salida;
 	}
 
-	public Double getValortotal() {
+	public double getValortotal() {
 		return valortotal;
 	}
 
-	public void setValortotal(Double valortotal) {
+	public void setValortotal(double valortotal) {
 		this.valortotal = valortotal;
 	}
 	
-	
-
 }

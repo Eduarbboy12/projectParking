@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 @Entity(name = "UserEntity")
-@NamedQuery(name = "UserEntity.findById", query = "SELECT u FROM User u WHERE u.id = :id")
 public class UserEntity {
 	
 	@Id
@@ -34,21 +33,17 @@ public class UserEntity {
 	@Column(name = "mail", nullable = false, unique = true)
     private String mail;
 	
-	@Column(name = "clave")
-    private String clave;
-	
 	public UserEntity(Long id) {
 		this.id = id;
 	}
 	
-	public UserEntity(String nombre, String apellido, String documento, String telefono, String direccion, String mail, String clave) {
+	public UserEntity(String nombre, String apellido, String documento, String telefono, String direccion, String mail) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.documento=documento;
 		this.telefono=telefono;
 		this.direccion=direccion;
 		this.mail=mail;
-		this.clave=clave;
 	}
 	
 	public UserEntity() {
@@ -84,10 +79,6 @@ public class UserEntity {
 		return mail;
 	}
 	
-	public String getClave() {
-		return clave;
-	}
-	
 	//SETTERS
 	public void setId(Long id) {
 		this.id = id;
@@ -115,10 +106,6 @@ public class UserEntity {
 	
 	public void setMail(String mail) {
 		this.mail = mail;
-	}
-	
-	public void setClave(String clave) {
-		this.clave = clave;
 	}
 	
 }

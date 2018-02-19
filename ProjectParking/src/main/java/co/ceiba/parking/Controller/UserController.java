@@ -53,7 +53,6 @@ public class UserController {
 	@ResponseBody
 	public String updateUser(@RequestBody UserEntity user, @PathVariable Long id) {
 		try {
-			// Person user = personService.findById(id);
 			user.setId(id);
 			userService.save(user);
 		} catch (Exception ex) {
@@ -65,7 +64,7 @@ public class UserController {
 	@RequestMapping(value = "/get-by-email/{mail}", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getByEmail(@PathVariable String mail) {
-		System.out.println(userService.findByEmail(mail));
+		System.out.println("controller:" + userService.findByEmail(mail));
 		return userService.findByEmail(mail);
 	}
 	
