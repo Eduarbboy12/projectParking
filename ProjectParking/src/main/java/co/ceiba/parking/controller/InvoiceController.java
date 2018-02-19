@@ -1,4 +1,4 @@
-package co.ceiba.parking.Controller;
+package co.ceiba.parking.controller;
 
 import org.springframework.stereotype.Controller;
 

@@ -1,7 +1,7 @@
 package co.ceiba.parking.dominio;
 
-import co.ceiba.parking.Service.UserService;
 import co.ceiba.parking.persistence.entity.UserEntity;
+import co.ceiba.parking.service.UserService;
 
 public class Vigilant {
 	
