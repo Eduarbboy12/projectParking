@@ -1,4 +1,4 @@
-package co.ceiba.parking.Controller;
+package co.ceiba.parking.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.ceiba.parking.Service.UserService;
 import co.ceiba.parking.persistence.entity.UserEntity;
+import co.ceiba.parking.service.UserService;
 
 @Controller
 public class UserController {
