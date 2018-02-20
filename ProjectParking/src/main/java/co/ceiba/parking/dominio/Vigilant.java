@@ -36,9 +36,9 @@ public class Vigilant {
 		if (!isOccuped(vehicle.getPlaque())) {
 			String placaValidate = vehicle.getPlaque().toUpperCase();
 			if (placaValidate.charAt(0) == 'A') {
-				if(isAuthorized(inputDate)) {
-					if(spaceAvailable(vehicle.getType())) {
-						
+				if (isAuthorized(inputDate)) {
+					if (spaceAvailable(vehicle.getType())) {
+
 					}
 				} else {
 					throw new VehicleException(CAR_NOT_IS_AUTORIZED_BY_PLACA);
@@ -115,7 +115,7 @@ public class Vigilant {
 		}
 		return invoice;
 	}
-	
+
 	/**
 	 * 
 	 * @param StartDate
@@ -123,42 +123,41 @@ public class Vigilant {
 	 */
 	public boolean isAuthorized(LocalDateTime StartDate) {
 		DayOfWeek dateOfWeek = StartDate.getDayOfWeek();
-		System.out.println(dateOfWeek);
-		if(dateOfWeek.equals(DayOfWeek.SUNDAY) || dateOfWeek.equals(DayOfWeek.MONDAY)) {
+		if (dateOfWeek.equals(DayOfWeek.SUNDAY) || dateOfWeek.equals(DayOfWeek.MONDAY)) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * 
 	 * @return
 	 */
 	public boolean spaceAvailable(String type) {
-		if(type == "CARRO") {
-			if(isSpaceAviableCar()) {
+		if (type == "CARRO") {
+			if (isSpaceAviableCar()) {
 				return true;
 			}
 			return false;
 		} else {
-			if(isSpaceAviableMotorByke()) {
+			if (isSpaceAviableMotorByke()) {
 				return true;
 			}
 			return false;
 		}
 	}
-	
+
 	public boolean isSpaceAviableCar() {
 		int countCarStore = 1;
-		if(countCarStore > SPACE_AVAILABLE_CAR) {
+		if (countCarStore > SPACE_AVAILABLE_CAR) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	public boolean isSpaceAviableMotorByke() {
 		int countCarStore = 1;
-		if(countCarStore > SPACE_AVAILABLE_MOTORBYKE) {
+		if (countCarStore > SPACE_AVAILABLE_MOTORBYKE) {
 			return false;
 		}
 		return true;

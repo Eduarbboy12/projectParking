@@ -169,6 +169,55 @@ public class VigilantTest {
 		assertNull(invoiceExist);
 	}
 	
+	/************************** is occuped *******************************/
+	@Test
+	public void isOccupedExistTest() {
+		
+		// arrange
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conPlaque("ABC123").build();
+		
+		UserService userService = mock(UserService.class);
+		VehicleService vehicleService = mock(VehicleService.class);
+		InvoiceService invoiceService = mock(InvoiceService.class);
+		RateService rateService = mock(RateService.class);
+		
+		when(vehicleService.getByPlaque(vehicle.getPlaque())).thenReturn(vehicle);
+		
+		Vigilant vigilante = new Vigilant(userService, vehicleService, invoiceService, rateService);
+		
+		// act
+		boolean vehicleIsOccuped = vigilante.isOccuped(vehicle.getPlaque());
+		
+		// Assert
+		assertTrue(vehicleIsOccuped);
+	}
+	
+	@Test
+	public void isNotOccupedExistTest() {
+		
+		// arrange
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.build();
+		
+		UserService userService = mock(UserService.class);
+		VehicleService vehicleService = mock(VehicleService.class);
+		InvoiceService invoiceService = mock(InvoiceService.class);
+		RateService rateService = mock(RateService.class);
+		
+		when(vehicleService.getByPlaque(vehicle.getPlaque())).thenReturn(null);
+		
+		Vigilant vigilante = new Vigilant(userService, vehicleService, invoiceService, rateService);
+		
+		// act
+		boolean vehicleIsOccuped = vigilante.isOccuped(vehicle.getPlaque());
+		
+		// Assert
+		assertFalse(vehicleIsOccuped);
+	}
+	
 	@Test
 	public void inputVehicleTest() {
 		
@@ -181,8 +230,6 @@ public class VigilantTest {
 		VehicleService vehicleService = mock(VehicleService.class);
 		InvoiceService invoiceService = mock(InvoiceService.class);
 		RateService rateService = mock(RateService.class);
-		
-		//when(invoiceService.getVehiculo(invoice.getVehicle())).thenReturn(invoice);
 		
 		Vigilant vigilante = new Vigilant(userService, vehicleService, invoiceService, rateService);
 		
@@ -235,14 +282,6 @@ public class VigilantTest {
 		// Assert
 		Assert.assertTrue(vigilante.isAuthorized(StartDateValidate));
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
 

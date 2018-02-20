@@ -5,7 +5,7 @@ import co.ceiba.parking.dominio.Vehicle;
 public class VehicleTestDataBuilder {
 	
 	private static final String TYPE = "CARRO";
-	private static final String PLAQUE = "ABC123";
+	private static final String PLAQUE = "ABC1234";
 	private static final String CYLINDER = "200";
 	private static final String DOCUMENT = "1102360555";
 	
