@@ -49,7 +49,7 @@ public class VehicleService {
 		vigilant.InputVehicle(vehicle.getPlaque(), vehicle.getType());
 	}
 	
-	public Vehicle getByPlaca(String plaque) {
+	public Vehicle getByPlaque(String plaque) {
 		return vehicleRepository.getByPlaque(plaque);
 	}
 	

@@ -32,8 +32,6 @@ public class Vigilant {
 	public void InputVehicle(String plaque, String type) {
 		LocalDate inputDate = LocalDate.now();
 		if(!isOccuped(plaque)) {
-			System.out.println("placa: " + plaque);
-			System.out.println("fecha: " + inputDate);
 			
 			
 			
@@ -47,18 +45,66 @@ public class Vigilant {
 		LocalDate outputDate = LocalDate.now();
 	}
 	
+	/**
+	 * 
+	 * @param plaque
+	 * @return
+	 */
 	public boolean isOccuped(String plaque) {
-		Vehicle vehicle = this.vehicleService.getByPlaca(plaque);
-		if(vehicle != null || vehicle.getPlaque() != null) {
-			Invoice invoice = this.invoiceService.getVehiculo(vehicle);
-			if(invoice.getDateoutput() != null) {
-				return true;
+		if(vehicleExist(plaque)) {
+			Vehicle vehicle = isVehicleExist(plaque);
+			if(vehicle != null && vehicle.getPlaque() != null) {
+				Invoice invoice =isInvoiceExist(vehicle);
+				if(invoice != null && invoice.getDateoutput() != null) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
-		} else {
-			return false;
 		}
+		return false;
 	}
+	
+	/**
+	 * 
+	 * @param plaque
+	 * @return
+	 */
+	public boolean vehicleExist(String plaque) {
+		Vehicle vehicle = this.vehicleService.getByPlaque(plaque);
+		if(vehicle != null && vehicle.getPlaque() != null &&  vehicle.getPlaque().equals(plaque)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param plaque
+	 * @return
+	 */
+	public Vehicle isVehicleExist(String plaque) {
+		Vehicle vehicle = this.vehicleService.getByPlaque(plaque);
+		if(vehicle != null && vehicle.getPlaque() != null &&  vehicle.getPlaque().equals(plaque)) {
+			return vehicle;
+		}
+		return vehicle;
+	}
+	
+	/**
+	 * 
+	 * @param vehicle
+	 * @return
+	 */
+	public Invoice isInvoiceExist(Vehicle vehicle) {
+		Invoice invoice = this.invoiceService.getVehiculo(vehicle);
+		if(invoice != null && invoice.getVehicleEntity().getPlaque() != null) {
+			return invoice;
+		}
+		return invoice;
+	}
+	
 
 }
