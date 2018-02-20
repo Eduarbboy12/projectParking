@@ -2,10 +2,10 @@ package co.ceiba.parking.dominio;
 
 public class Car extends Vehicle {
 	
-	public static final String TIPO = "CARRO";
+	public static final String TYPE = "CARRO";
 	
-	public Car(String placa, String cilindraje) {
-		super(TIPO, placa, cilindraje);
+	public Car(String plaque, String cylinder, String document) {
+		super(TYPE, plaque, cylinder, document);
 	}
 
 }

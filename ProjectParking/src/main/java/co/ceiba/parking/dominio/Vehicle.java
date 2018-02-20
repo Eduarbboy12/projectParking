@@ -2,38 +2,48 @@ package co.ceiba.parking.dominio;
 
 public class Vehicle {
 	
-	private String tipo;
-	private String placa;
-	private String cilindraje;
+	private String type;
+	private String plaque;
+	private String cylinder;
+	private String document;
 	
-	public Vehicle(String tipo, String placa, String cilindraje) {
-		this.tipo = tipo;
-		this.placa = placa;
-		this.cilindraje = cilindraje;
+	public Vehicle(String type, String plaque, String cylinder, String document) {
+		this.type = type;
+		this.plaque = plaque;
+		this.cylinder = cylinder;
+		this.document = document;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getType() {
+		return type;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public String getPlaca() {
-		return placa;
+	public String getPlaque() {
+		return plaque;
 	}
 
-	public void setPlaca(String placa) {
-		this.placa = placa;
+	public void setPlaque(String plaque) {
+		this.plaque = plaque;
 	}
 
-	public String getCilindraje() {
-		return cilindraje;
+	public String getCylinder() {
+		return cylinder;
 	}
 
-	public void setCilindraje(String cilindraje) {
-		this.cilindraje = cilindraje;
+	public void setCylinder(String cylinder) {
+		this.cylinder = cylinder;
+	}
+
+	public String getDocument() {
+		return document;
+	}
+
+	public void setDocument(String document) {
+		this.document = document;
 	}
 	
 

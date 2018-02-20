@@ -19,7 +19,7 @@ public class InvoiceRepositotyPersistence implements InvoiceRepository {
 	}
 	
 	public Invoice getByVehiculo(Vehicle vehicle) {
-		InvoiceEntity invoiceEntity = invoiceRepositoryJPA.findByVehicle(vehicle);
+		InvoiceEntity invoiceEntity = invoiceRepositoryJPA.findByVehicleEntity(vehicle);
 		return InvoiceBuilder.convertirADominio(invoiceEntity);
 	}
 

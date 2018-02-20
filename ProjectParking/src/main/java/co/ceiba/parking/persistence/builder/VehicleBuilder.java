@@ -11,16 +11,17 @@ public class VehicleBuilder {
 	public static Vehicle convertirADominio(VehicleEntity vehicleEntity) {
 		Vehicle vehicle = null;
 		if (vehicleEntity != null) {
-			vehicle = new Vehicle(vehicleEntity.getTipo(), vehicleEntity.getPlaca(), vehicleEntity.getCilindraje());
+			vehicle = new Vehicle(vehicleEntity.getType(), vehicleEntity.getPlaque(), vehicleEntity.getCylinder(), vehicleEntity.getDocument());
 		}
 		return vehicle;
 	}
-	
+
 	public static VehicleEntity convertirAEntity(Vehicle vehicle) {
 		VehicleEntity vehicleEntity = new VehicleEntity();
-		vehicleEntity.setCilindraje(vehicle.getCilindraje());
-		vehicleEntity.setPlaca(vehicle.getPlaca());
-		vehicleEntity.setTipo(vehicle.getTipo());
+		vehicleEntity.setCylinder(vehicle.getCylinder());
+		vehicleEntity.setPlaque(vehicle.getPlaque());
+		vehicleEntity.setType(vehicle.getType());
+		vehicleEntity.setDocument(vehicle.getDocument());
 		return vehicleEntity;
 	}
 

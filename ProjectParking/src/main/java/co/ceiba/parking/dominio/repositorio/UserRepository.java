@@ -9,6 +9,6 @@ public interface UserRepository {
 	 * @param mail
 	 * @return
 	 */
-	User getByMail(String mail);
+	User getByUser(String user);
 
 }

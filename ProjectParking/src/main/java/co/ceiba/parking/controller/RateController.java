@@ -9,28 +9,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.ceiba.parking.persistence.entity.UserEntity;
-import co.ceiba.parking.service.UserService;
+import co.ceiba.parking.persistence.entity.RateEntity;
+import co.ceiba.parking.service.RateService;
 
 @Controller
-public class UserController {
-
+public class RateController {
+	
 	@Autowired
-	private UserService userService;
-
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	private RateService rateService;
+	
+	@RequestMapping(value = "/rate", method = RequestMethod.GET)
 	@ResponseBody
 	public Object index() {
-		return userService.findAll();
+		return rateService.findAll();
 	}
-
-	@RequestMapping(value = "/create", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	
+	@RequestMapping(value = "/createrate", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String create(@RequestBody UserEntity user) {
+	public String create(@RequestBody RateEntity rateEntity) {
 		String userId = "";
 		try {
-			userService.save(user);
-			userId = String.valueOf(user.getId());
+			rateService.save(rateEntity);
+			userId = String.valueOf(rateEntity.getId());
 		} catch (Exception ex) {
 			return "Error creating the user: " + ex.toString();
 		}
@@ -38,35 +38,28 @@ public class UserController {
 
 	}
 	
-	@RequestMapping("/delete/{id}")
+	@RequestMapping("/deleterate/{id}")
 	@ResponseBody
 	public String delete(@PathVariable long id) {
 		try {
-			UserEntity user = userService.findById(id);
-			userService.delete(user);
+			RateEntity rateEntity = rateService.findById(id);
+			rateService.delete(rateEntity);
 		} catch (Exception ex) {
 			return "Error deleting the user:" + ex.toString();
 		}
 		return "User succesfully deleted!";
 	}
-
-	@RequestMapping("/update/{id}")
+	
+	@RequestMapping("/updaterate/{id}")
 	@ResponseBody
-	public String updateUser(@RequestBody UserEntity user, @PathVariable Long id) {
+	public String updateVehicle(@RequestBody RateEntity rateEntity, @PathVariable Long id) {
 		try {
-			user.setId(id);
-			userService.save(user);
+			rateEntity.setId(id);
+			rateService.save(rateEntity);
 		} catch (Exception ex) {
 			return "Error updating the user: " + ex.toString();
 		}
 		return "User succesfully updated!";
 	}
-	
-	@RequestMapping(value = "/get-by-email/{mail}", method = RequestMethod.GET)
-	@ResponseBody
-	public Object getByUser(@PathVariable String user) {
-		System.out.println("controller:" + userService.findByUser(user));
-		return userService.findByUser(user);
-	}
-	
+
 }

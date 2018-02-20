@@ -2,52 +2,73 @@ package co.ceiba.parking.dominio;
 
 import java.util.Date;
 
+import co.ceiba.parking.persistence.entity.RateEntity;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
 
 public class Invoice {
 
-	private VehicleEntity vehicle;
-	private Date ingreso;
-	private Date salida;
-	private double valortotal;
+	private VehicleEntity vehicleEntity;
+	private RateEntity rateEntity;
+	private Date dateinput;
+	private Date dateoutput;
+	private double valuepay;
+	private double timeparking;
 	
-	public Invoice(VehicleEntity vehicle, Date ingreso, Date salida, double valortotal) {
-		this.vehicle = vehicle;
-		this.ingreso = ingreso;
-		this.salida = salida;
-		this.valortotal = valortotal;
+	public Invoice(VehicleEntity vehicleEntity, RateEntity rateEntity, Date dateinput, Date dateoutput, double valuepay, double timeparking) {
+		this.vehicleEntity = vehicleEntity;
+		this.rateEntity = rateEntity;
+		this.dateinput = dateinput;
+		this.dateoutput = dateoutput;
+		this.valuepay = valuepay;
+		this.timeparking = timeparking;
 	}
 
-	public VehicleEntity getVehicle() {
-		return vehicle;
+	public VehicleEntity getVehicleEntity() {
+		return vehicleEntity;
 	}
 
-	public void setVehicle(VehicleEntity vehicle) {
-		this.vehicle = vehicle;
+	public void setVehicleEntity(VehicleEntity vehicleEntity) {
+		this.vehicleEntity = vehicleEntity;
 	}
 
-	public Date getIngreso() {
-		return ingreso;
+	public RateEntity getRateEntity() {
+		return rateEntity;
 	}
 
-	public void setIngreso(Date ingreso) {
-		this.ingreso = ingreso;
+	public void setRateEntity(RateEntity rateEntity) {
+		this.rateEntity = rateEntity;
 	}
 
-	public Date getSalida() {
-		return salida;
+	public Date getDateinput() {
+		return dateinput;
 	}
 
-	public void setSalida(Date salida) {
-		this.salida = salida;
+	public void setDateinput(Date dateinput) {
+		this.dateinput = dateinput;
 	}
 
-	public double getValortotal() {
-		return valortotal;
+	public Date getDateoutput() {
+		return dateoutput;
 	}
 
-	public void setValortotal(double valortotal) {
-		this.valortotal = valortotal;
+	public void setDateoutput(Date dateoutput) {
+		this.dateoutput = dateoutput;
+	}
+
+	public double getValuepay() {
+		return valuepay;
+	}
+
+	public void setValuepay(double valuepay) {
+		this.valuepay = valuepay;
+	}
+
+	public double getTimeparking() {
+		return timeparking;
+	}
+
+	public void setTimeparking(double timeparking) {
+		this.timeparking = timeparking;
 	}
 	
 }

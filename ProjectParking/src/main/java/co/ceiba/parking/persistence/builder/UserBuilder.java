@@ -11,20 +11,18 @@ public class UserBuilder {
 	public static User convertirADominio(UserEntity userEntity) {
 		User user = null;
 		if (userEntity != null) {
-			user = new User(userEntity.getNombre(), userEntity.getApellido(), userEntity.getDireccion(),
-					userEntity.getDocumento(), userEntity.getMail(), userEntity.getTelefono());
+			user = new User(userEntity.getName(), userEntity.getLastName(), userEntity.getDocument(),
+					userEntity.getUser());
 		}
 		return user;
 	}
 	
 	public static UserEntity convertirAEntity(User user) {
 		UserEntity userEntity = new UserEntity();
-		userEntity.setNombre(user.getNombre());
-		userEntity.setApellido(user.getApellido());
-		userEntity.setDireccion(user.getDireccion());
-		userEntity.setDocumento(user.getDocumento());
-		userEntity.setMail(user.getMail());
-		userEntity.setTelefono(user.getTelefono());
+		userEntity.setName(user.getName());
+		userEntity.setLastName(user.getLastName());
+		userEntity.setDocument(user.getDocument());
+		userEntity.setUser(user.getUser());
 		return userEntity;
 	}
 

@@ -15,97 +15,58 @@ public class UserEntity {
 	@Column(name = "id")
 	private long id;
 	
-	@Column(name = "nombre")
-    private String nombre;
+	@Column(name = "name")
+    private String name;
 	
-	@Column(name = "apellido")
-    private String apellido;
+	@Column(name = "lastName")
+    private String lastName;
 	
-	@Column(name = "documento", nullable = false, unique = true)
-    private String documento;
+	@Column(name = "document", nullable = false, unique = true)
+    private String document;
 	
-	@Column(name = "telefono")
-    private String telefono;
-	
-	@Column(name = "direccion")
-    private String direccion;
-	
-	@Column(name = "mail", nullable = false, unique = true)
-    private String mail;
-	
-	public UserEntity(Long id) {
-		this.id = id;
-	}
-	
-	public UserEntity(String nombre, String apellido, String documento, String telefono, String direccion, String mail) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.documento=documento;
-		this.telefono=telefono;
-		this.direccion=direccion;
-		this.mail=mail;
-	}
-	
-	public UserEntity() {
-		// TODO Auto-generated constructor stub
-	}
+	@Column(name = "user", nullable = false, unique = true)
+    private String user;
 	
 	// GETTERS
 	public Long getId() {
 		return id;
 	}
-	
-	public String getNombre() {
-		return nombre;
+
+	public String getName() {
+		return name;
 	}
-	
-	public String getApellido() {
-		return apellido;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	public String getDocumento() {
-		return documento;
+
+	public String getLastName() {
+		return lastName;
 	}
-	
-	public String getDireccion() {
-		return direccion;
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-	
-	public String getTelefono() {
-		return telefono;
+
+	public String getDocument() {
+		return document;
 	}
-	
-	public String getMail() {
-		return mail;
+
+	public void setDocument(String document) {
+		this.document = document;
 	}
-	
-	//SETTERS
-	public void setId(Long id) {
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public void setId(long id) {
 		this.id = id;
 	}
 	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-	
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
-	
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-	
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
 	
 }

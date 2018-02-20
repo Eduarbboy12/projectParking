@@ -2,68 +2,48 @@ package co.ceiba.parking.dominio;
 
 public class User {
 	
-	private String nombre;
-	private String apellido;
-	private String documento;
-	private String telefono;
-	private String direccion;
-	private String mail;
+	private String name;
+	private String lastName;
+	private String document;
+	private String user;
 	
-	public User(String nombre, String apellido, String documento, String telefono, String direccion, String mail) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.documento=documento;
-		this.telefono=telefono;
-		this.direccion=direccion;
-		this.mail=mail;
+	public User(String name, String lastName, String document, String user) {
+		this.name = name;
+		this.lastName = lastName;
+		this.document=document;
+		this.user=user;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getApellido() {
-		return apellido;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getDocumento() {
-		return documento;
+	public String getDocument() {
+		return document;
 	}
 
-	public void setDocumento(String documento) {
-		this.documento = documento;
+	public void setDocument(String document) {
+		this.document = document;
 	}
 
-	public String getTelefono() {
-		return telefono;
+	public String getUser() {
+		return user;
 	}
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setUser(String user) {
+		this.user = user;
 	}
 	
 }

@@ -12,17 +12,19 @@ public class InvoiceBuilder {
 	public static Invoice convertirADominio(InvoiceEntity invoiceEntity) {
 		Invoice invoice = null;
 		if(invoiceEntity != null) {
-			invoice = new Invoice(invoiceEntity.getVehicle(), invoiceEntity.getIngreso(), invoiceEntity.getSalida(), invoiceEntity.getValortotal());
+			invoice = new Invoice(invoiceEntity.getVehicleEntity(), invoiceEntity.getRateEntity(), invoiceEntity.getDateinput(), invoiceEntity.getDateoutput(), invoiceEntity.getTimeparking(), invoiceEntity.getValuepay());
 		}
 		return invoice;
 	}
 	
 	public static InvoiceEntity convertirAEntity(Invoice invoice) {
 		InvoiceEntity invoiceEntity = new InvoiceEntity();
-		invoiceEntity.setIngreso(invoice.getIngreso());
-		invoiceEntity.setSalida(invoice.getSalida());
-		invoiceEntity.setValortotal(invoice.getValortotal());
-		invoiceEntity.setVehicle(invoice.getVehicle());
+		invoiceEntity.setVehicleEntity(invoice.getVehicleEntity());
+		invoiceEntity.setRateEntity(invoice.getRateEntity());
+		invoiceEntity.setDateinput(invoice.getDateinput());
+		invoiceEntity.setDateoutput(invoice.getDateoutput());
+		invoiceEntity.setTimeparking(invoice.getTimeparking());
+		invoiceEntity.setValuepay(invoice.getValuepay());
 		return invoiceEntity;
 	}
 

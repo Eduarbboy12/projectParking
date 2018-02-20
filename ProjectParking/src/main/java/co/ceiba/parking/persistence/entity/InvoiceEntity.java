@@ -20,18 +20,25 @@ public class InvoiceEntity {
 	private long id;
 	
 	@ManyToOne
-	@JoinColumn(name="vehicle",referencedColumnName="id")
-	private VehicleEntity vehicle;
+	@JoinColumn(name="vehicleEntity",referencedColumnName="id")
+	private VehicleEntity vehicleEntity;
 	
-	@Column(name = "ingreso")
-	private Date ingreso;
+	@ManyToOne
+	@JoinColumn(name="rateEntity",referencedColumnName="id")
+	private RateEntity rateEntity;
 	
-	@Column(name = "salida")
-	private Date salida;
+	@Column(name = "dateinput")
+	private Date dateinput;
 	
-	@Column(name = "valortotal")
-	private double valortotal;
+	@Column(name = "dateoutput")
+	private Date dateoutput;
 
+	@Column(name = "timeparking")
+	private double timeparking;
+	
+	@Column(name = "valuepay")
+	private double valuepay;
+	
 	public long getId() {
 		return id;
 	}
@@ -40,36 +47,52 @@ public class InvoiceEntity {
 		this.id = id;
 	}
 
-	public VehicleEntity getVehicle() {
-		return vehicle;
+	public VehicleEntity getVehicleEntity() {
+		return vehicleEntity;
 	}
 
-	public void setVehicle(VehicleEntity vehicle) {
-		this.vehicle = vehicle;
+	public void setVehicleEntity(VehicleEntity vehicleEntity) {
+		this.vehicleEntity = vehicleEntity;
 	}
 
-	public Date getIngreso() {
-		return ingreso;
+	public RateEntity getRateEntity() {
+		return rateEntity;
 	}
 
-	public void setIngreso(Date ingreso) {
-		this.ingreso = ingreso;
+	public void setRateEntity(RateEntity rateEntity) {
+		this.rateEntity = rateEntity;
 	}
 
-	public Date getSalida() {
-		return salida;
+	public Date getDateinput() {
+		return dateinput;
 	}
 
-	public void setSalida(Date salida) {
-		this.salida = salida;
+	public void setDateinput(Date dateinput) {
+		this.dateinput = dateinput;
 	}
 
-	public double getValortotal() {
-		return valortotal;
+	public Date getDateoutput() {
+		return dateoutput;
 	}
 
-	public void setValortotal(double valortotal) {
-		this.valortotal = valortotal;
+	public void setDateoutput(Date dateoutput) {
+		this.dateoutput = dateoutput;
+	}
+
+	public double getTimeparking() {
+		return timeparking;
+	}
+
+	public void setTimeparking(double timeparking) {
+		this.timeparking = timeparking;
+	}
+
+	public double getValuepay() {
+		return valuepay;
+	}
+
+	public void setValuepay(double valuepay) {
+		this.valuepay = valuepay;
 	}
 	
 }

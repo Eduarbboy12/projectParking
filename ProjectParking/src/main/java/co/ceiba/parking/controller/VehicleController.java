@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.ceiba.parking.persistence.entity.UserEntity;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
 import co.ceiba.parking.service.VehicleService;
 

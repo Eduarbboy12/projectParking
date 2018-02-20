@@ -17,12 +17,12 @@ public class VehicleRepositoryPersistence implements VehicleRepository {
 		this.entityManager = entityManager;
 	}
 	
-	public Vehicle getByPlaca(String placa) {
-		VehicleEntity vehicleEntity =  vehicleRepositoryJPA.findByPlaca(placa);
+	public Vehicle getByPlaque(String plaque) {
+		VehicleEntity vehicleEntity = vehicleRepositoryJPA.findByPlaque(plaque);
 		return VehicleBuilder.convertirADominio(vehicleEntity);
 	}
 	
-	public void saveVehiculo(Vehicle vehicle) {
+	public void saveVehicle(Vehicle vehicle) {
 		
 	}
 

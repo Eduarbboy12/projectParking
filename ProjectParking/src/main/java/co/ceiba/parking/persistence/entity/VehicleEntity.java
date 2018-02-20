@@ -5,23 +5,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 
 @Entity(name = "VehicleEntity")
 public class VehicleEntity {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
-	@Column(name = "tipo", nullable = false)
-	private String tipo;
-	
-	@Column(name = "placa")
-    private String placa;
-	
-	@Column(name = "cilindraje")
-    private String cilindraje;
+
+	@Column(name = "type", nullable = false)
+	private String type;
+
+	@Column(name = "plaque", nullable = false)
+	private String plaque;
+
+	@Column(name = "cylinder")
+	private String cylinder;
+
+	@Column(name = "document")
+	private String document;
 
 	public long getId() {
 		return id;
@@ -31,28 +33,36 @@ public class VehicleEntity {
 		this.id = id;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getType() {
+		return type;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public String getPlaca() {
-		return placa;
+	public String getPlaque() {
+		return plaque;
 	}
 
-	public void setPlaca(String placa) {
-		this.placa = placa;
+	public void setPlaque(String plaque) {
+		this.plaque = plaque;
 	}
 
-	public String getCilindraje() {
-		return cilindraje;
+	public String getCylinder() {
+		return cylinder;
 	}
 
-	public void setCilindraje(String cilindraje) {
-		this.cilindraje = cilindraje;
+	public void setCylinder(String cylinder) {
+		this.cylinder = cylinder;
 	}
-	
+
+	public String getDocument() {
+		return document;
+	}
+
+	public void setDocument(String document) {
+		this.document = document;
+	}
+
 }

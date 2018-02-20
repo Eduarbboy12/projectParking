@@ -18,8 +18,8 @@ public class UserRepositoryPersistence implements UserRepository{
 	}
 	
 	@Override
-	public User getByMail(String mail) {
-		UserEntity userEntity = userRepositoryJPA.findByMail(mail);
+	public User getByUser(String user) {
+		UserEntity userEntity = userRepositoryJPA.findByUser(user);
 		return UserBuilder.convertirADominio(userEntity);
 	}
 
