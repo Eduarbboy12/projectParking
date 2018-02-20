@@ -35,6 +35,8 @@ public class Vigilant {
 			System.out.println("placa: " + plaque);
 			System.out.println("fecha: " + inputDate);
 			
+			
+			
 			//this.vehicleRepository.
 		} else {
 			throw new VehicleException(CAR_IS_ENTRY);
