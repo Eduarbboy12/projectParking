@@ -37,20 +37,20 @@ public class VehicleService {
 		return;
 	}
 	
-	public VehicleEntity findByPlaca(String placa) {
-		return vehicleRepositoryJPA.findByPlaca(placa);
+	public VehicleEntity findByPlaque(String plaque) {
+		return vehicleRepositoryJPA.findByPlaque(plaque);
 	}
 	
-	public VehicleEntity findByTipo(String tipo) {
-		return vehicleRepositoryJPA.findByTipo(tipo);
+	public VehicleEntity findByTipo(String type) {
+		return vehicleRepositoryJPA.findByType(type);
 	}
 	
 	public void saveController(VehicleEntity vehicle) {
-		vigilant.InVehicle(vehicle.getPlaca(), vehicle.getTipo());
+		vigilant.InputVehicle(vehicle.getPlaque(), vehicle.getType());
 	}
 	
-	public Vehicle getByPlaca(String placa) {
-		return vehicleRepository.getByPlaca(placa);
+	public Vehicle getByPlaca(String plaque) {
+		return vehicleRepository.getByPlaque(plaque);
 	}
 	
 

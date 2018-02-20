@@ -18,11 +18,11 @@ public class RateEntity {
 	@Column(name = "type", nullable = false)
 	private String type;
 	
-	@Column(name = "RateName", nullable = false)
-	private String RateName;
+	@Column(name = "rateName", nullable = false)
+	private String rateName;
 	
-	@Column(name = "RateValue", nullable = false)
-	private int RateValue;
+	@Column(name = "rateValue", nullable = false)
+	private int rateValue;
 
 	public long getId() {
 		return id;
@@ -41,19 +41,19 @@ public class RateEntity {
 	}
 
 	public String getRateName() {
-		return RateName;
-	}
-
-	public void setRateName(String rateName) {
-		RateName = rateName;
+		return rateName;
 	}
 
 	public int getRateValue() {
-		return RateValue;
+		return rateValue;
 	}
 
 	public void setRateValue(int rateValue) {
-		RateValue = rateValue;
+		this.rateValue = rateValue;
+	}
+
+	public void setRateName(String rateName) {
+		this.rateName = rateName;
 	}
 
 }

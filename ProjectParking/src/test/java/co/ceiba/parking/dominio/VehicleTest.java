@@ -31,7 +31,6 @@ public class VehicleTest {
 		assertEquals(CYLINDER, vehicle.getCylinder());
 		assertEquals(DOCUMENT, vehicle.getDocument());
 		
-		
 	}
 
 }

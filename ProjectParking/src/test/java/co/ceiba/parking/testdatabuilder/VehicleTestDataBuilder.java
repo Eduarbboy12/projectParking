@@ -44,8 +44,5 @@ public class VehicleTestDataBuilder {
 	public Vehicle build() {
 		return new Vehicle(this.type, this.plaque, this.cylinder, this.document);
 	}
-		
-		
-	
 
 }
