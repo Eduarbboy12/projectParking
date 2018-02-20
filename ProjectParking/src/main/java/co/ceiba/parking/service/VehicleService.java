@@ -45,8 +45,8 @@ public class VehicleService {
 		return vehicleRepositoryJPA.findByType(type);
 	}
 	
-	public void saveController(VehicleEntity vehicle) {
-		vigilant.InputVehicle(vehicle.getPlaque(), vehicle.getType());
+	public void saveController(Vehicle vehicle) {
+		vigilant.inputVehicle(vehicle, vehicle.getType());
 	}
 	
 	public Vehicle getByPlaque(String plaque) {

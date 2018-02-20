@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.ceiba.parking.dominio.Vehicle;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
 import co.ceiba.parking.service.VehicleService;
 
@@ -26,11 +27,11 @@ public class VehicleController {
 	
 	@RequestMapping(value = "/createvehicle", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String create(@RequestBody VehicleEntity vehicleEntity) {
+	public String create(@RequestBody Vehicle vehicle) {
 		String userId = "";
 		try {
-			vehicleService.saveController(vehicleEntity);
-			userId = String.valueOf(vehicleEntity.getId());
+			vehicleService.saveController(vehicle);
+			userId = String.valueOf(vehicle.getPlaque());
 		} catch (Exception ex) {
 			return "Error creating the user: " + ex.toString();
 		}
@@ -60,6 +61,13 @@ public class VehicleController {
 			return "Error updating the user: " + ex.toString();
 		}
 		return "User succesfully updated!";
+	}
+	
+	@RequestMapping(value = "/vehicle/{mail}", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getByUser(@PathVariable String plaque) {
+		System.out.println("controller:" + vehicleService.findByPlaque(plaque));
+		return vehicleService.findByPlaque(plaque);
 	}
 
 }

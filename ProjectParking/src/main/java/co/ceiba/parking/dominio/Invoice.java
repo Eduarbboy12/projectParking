@@ -7,36 +7,36 @@ import co.ceiba.parking.persistence.entity.VehicleEntity;
 
 public class Invoice {
 
-	private VehicleEntity vehicleEntity;
-	private RateEntity rateEntity;
+	private Vehicle vehicle;
+	private Rate rate;
 	private Date dateinput;
 	private Date dateoutput;
 	private double valuepay;
 	private double timeparking;
 	
-	public Invoice(VehicleEntity vehicleEntity, RateEntity rateEntity, Date dateinput, Date dateoutput, double valuepay, double timeparking) {
-		this.vehicleEntity = vehicleEntity;
-		this.rateEntity = rateEntity;
+	public Invoice(Vehicle vehicle, Rate rate, Date dateinput, Date dateoutput, double valuepay, double timeparking) {
+		this.vehicle = vehicle;
+		this.rate = rate;
 		this.dateinput = dateinput;
 		this.dateoutput = dateoutput;
 		this.valuepay = valuepay;
 		this.timeparking = timeparking;
 	}
 
-	public VehicleEntity getVehicleEntity() {
-		return vehicleEntity;
+	public Vehicle getVehicle() {
+		return vehicle;
 	}
 
-	public void setVehicleEntity(VehicleEntity vehicleEntity) {
-		this.vehicleEntity = vehicleEntity;
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 
-	public RateEntity getRateEntity() {
-		return rateEntity;
+	public Rate getRate() {
+		return rate;
 	}
 
-	public void setRateEntity(RateEntity rateEntity) {
-		this.rateEntity = rateEntity;
+	public void setRate(Rate rate) {
+		this.rate = rate;
 	}
 
 	public Date getDateinput() {
