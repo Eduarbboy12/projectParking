@@ -12,9 +12,11 @@ import co.ceiba.parking.service.VehicleService;
 
 public class Vigilant {
 
-	public static final String NO_HAY_MAS_CUPOS_DISPONIBLES = "No hay cupos Disponibles";
+	public static final String NO_MORE_AVAILABLE_QUOTAS = "No hay cupos Disponibles";
 	public static final String CAR_IS_ENTRY = "El carro ya se encuentra parqueado";
 	public static final String CAR_NOT_IS_AUTORIZED_BY_PLACA = "El vehiculo no esta autorizado para parquear";
+	public static final int SPACE_AVAILABLE_CAR = 20;
+	public static final int SPACE_AVAILABLE_MOTORBYKE = 10;
 
 	private UserService userService;
 	private VehicleService vehicleService;
@@ -35,7 +37,7 @@ public class Vigilant {
 			String placaValidate = vehicle.getPlaque().toUpperCase();
 			if (placaValidate.charAt(0) == 'A') {
 				if(isAuthorized(inputDate)) {
-					if(spaceAvailable()) {
+					if(spaceAvailable(vehicle.getType())) {
 						
 					}
 				} else {
@@ -132,7 +134,33 @@ public class Vigilant {
 	 * 
 	 * @return
 	 */
-	public boolean spaceAvailable() {
+	public boolean spaceAvailable(String type) {
+		if(type == "CARRO") {
+			if(isSpaceAviableCar()) {
+				return true;
+			}
+			return false;
+		} else {
+			if(isSpaceAviableMotorByke()) {
+				return true;
+			}
+			return false;
+		}
+	}
+	
+	public boolean isSpaceAviableCar() {
+		int countCarStore = 1;
+		if(countCarStore > SPACE_AVAILABLE_CAR) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isSpaceAviableMotorByke() {
+		int countCarStore = 1;
+		if(countCarStore > SPACE_AVAILABLE_MOTORBYKE) {
+			return false;
+		}
 		return true;
 	}
 
