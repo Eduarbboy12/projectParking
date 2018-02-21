@@ -62,11 +62,12 @@ public class UserController {
 		return "User succesfully updated!";
 	}
 	
+	
 	@RequestMapping(value = "/get-by-email/{mail}", method = RequestMethod.GET)
 	@ResponseBody
-	public Object getByUser(@PathVariable String user) {
-		System.out.println("controller:" + userService.findByUser(user));
-		return userService.findByUser(user);
+	public Object getByUser(@PathVariable String mail) {
+		System.out.println("controller:" + userService.findByUser(mail));
+		return userService.findByUser(mail);
 	}
 	
 }

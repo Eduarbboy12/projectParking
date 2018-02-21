@@ -41,10 +41,12 @@ public class Vigilant {
 			if (!isAuthorized(inputDate)) {
 				throw new VehicleException(CAR_NOT_IS_AUTORIZED_BY_PLACA);
 			} 
-		} 
-		if (spaceAvailable(vehicle)) {
-
 		}
+		if (!spaceAvailable(vehicle)) {
+			throw new VehicleException(NO_MORE_AVAILABLE_QUOTAS);
+		}
+		/*falta el guardado del vehiculo y del registro inicial de la factura*/
+		vehicleService.PreSave(vehicle);
 	}
 
 	public void outputVehicle() {
@@ -126,33 +128,52 @@ public class Vigilant {
 
 	/**
 	 * 
+	 * @param vehicle
 	 * @return
 	 */
 	public boolean spaceAvailable(Vehicle vehicle) {
 		if (vehicle.getType() == "CARRO") {
-			if (isSpaceAviableCar(vehicle)) {
+			if (isSpaceAviableCar(vehicle, SPACE_AVAILABLE_CAR)) {
 				return true;
 			}
 			return false;
 		} else {
-			if (isSpaceAviableMotorByke(vehicle)) {
+			if (isSpaceAviableMotorByke(vehicle, SPACE_AVAILABLE_MOTORBYKE)) {
 				return true;
 			}
 			return false;
 		}
 	}
 
-	public boolean isSpaceAviableCar(Vehicle vehicle) {
+	/**
+	 * 
+	 * @param vehicle
+	 * @param spaceAvialbleCar
+	 * @return
+	 */
+	public boolean isSpaceAviableCar(Vehicle vehicle, int spaceAvialbleCar) {
+		if(vehicle == null || vehicle.getType() == null) {
+			return false;
+		}
 		Long countCarStore = this.invoiceService.getVehicleAndInvoiceStore(vehicle.getType());
-		if (countCarStore > SPACE_AVAILABLE_CAR) {
+		if (countCarStore > spaceAvialbleCar) {
 			return false;
 		}
 		return true;
 	}
 
-	public boolean isSpaceAviableMotorByke(Vehicle vehicle) {
+	/**
+	 * 
+	 * @param vehicle
+	 * @param spaceAvialble
+	 * @return
+	 */
+	public boolean isSpaceAviableMotorByke(Vehicle vehicle, int spaceAvialbleMotorByke) {
+		if(vehicle == null || vehicle.getType() == null) {
+			return false;
+		}
 		Long countCarStore = this.invoiceService.getVehicleAndInvoiceStore(vehicle.getType());
-		if (countCarStore > SPACE_AVAILABLE_MOTORBYKE) {
+		if (countCarStore > spaceAvialbleMotorByke) {
 			return false;
 		}
 		return true;

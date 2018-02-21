@@ -30,7 +30,7 @@ public class VehicleController {
 	public String create(@RequestBody Vehicle vehicle) {
 		String userId = "";
 		try {
-			vehicleService.saveController(vehicle);
+			vehicleService.saveValidate(vehicle);
 			userId = String.valueOf(vehicle.getPlaque());
 		} catch (Exception ex) {
 			return "Error creating the user: " + ex.toString();

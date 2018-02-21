@@ -168,8 +168,7 @@ public class VigilantTest {
 		// Assert		
 		assertNull(invoiceExist);
 	}
-	
-	/************************** is occuped *******************************/
+
 	@Test
 	public void isOccupedExistTest() {
 		
@@ -281,6 +280,118 @@ public class VigilantTest {
 		
 		// Assert
 		Assert.assertTrue(vigilante.isAuthorized(StartDateValidate));
+	}
+	
+	@Test
+	public void isSpaceAviableCarTest() {
+		
+		// Arrange
+		
+		int spaceAvialbleCar = 20;
+		Long countReturn = 5L;
+		
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conType("CARRO").build();
+		
+		UserService userService = mock(UserService.class);
+		VehicleService vehicleService = mock(VehicleService.class);
+		InvoiceService invoiceService = mock(InvoiceService.class);
+		RateService rateService = mock(RateService.class);
+		
+		when(invoiceService.getVehicleAndInvoiceStore(vehicle.getType())).thenReturn(countReturn);
+		
+		Vigilant vigilante = new Vigilant(userService, vehicleService, invoiceService, rateService);
+		
+		// act
+		vigilante.isSpaceAviableCar(vehicle, spaceAvialbleCar);
+		
+		// Assert
+		assertTrue(vigilante.isSpaceAviableCar(vehicle, spaceAvialbleCar));
+	}
+	
+	@Test
+	public void isNotSpaceAviableCarTest() {
+		
+		// Arrange
+		
+		int spaceAvialbleCar = 20;
+		Long countReturn = 30L;
+		
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conType("CARRO").build();
+		
+		UserService userService = mock(UserService.class);
+		VehicleService vehicleService = mock(VehicleService.class);
+		InvoiceService invoiceService = mock(InvoiceService.class);
+		RateService rateService = mock(RateService.class);
+		
+		when(invoiceService.getVehicleAndInvoiceStore(vehicle.getType())).thenReturn(countReturn);
+		
+		Vigilant vigilante = new Vigilant(userService, vehicleService, invoiceService, rateService);
+		
+		// act
+		vigilante.isSpaceAviableCar(vehicle, spaceAvialbleCar);
+		
+		// Assert
+		assertFalse(vigilante.isSpaceAviableCar(vehicle, spaceAvialbleCar));
+	}
+	
+	@Test
+	public void isSpaceAviableMotorBykeTest() {
+		
+		// Arrange
+		
+		int spaceAvialbleMotorByke = 10;
+		Long countReturn = 5L;
+		
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conType("MOTO").build();
+		
+		UserService userService = mock(UserService.class);
+		VehicleService vehicleService = mock(VehicleService.class);
+		InvoiceService invoiceService = mock(InvoiceService.class);
+		RateService rateService = mock(RateService.class);
+		
+		when(invoiceService.getVehicleAndInvoiceStore(vehicle.getType())).thenReturn(countReturn);
+		
+		Vigilant vigilante = new Vigilant(userService, vehicleService, invoiceService, rateService);
+		
+		// act
+		vigilante.isSpaceAviableMotorByke(vehicle, spaceAvialbleMotorByke);
+		
+		// Assert
+		assertTrue(vigilante.isSpaceAviableMotorByke(vehicle, spaceAvialbleMotorByke));
+	}
+	
+	@Test
+	public void isNotSpaceAviableMotorBykeTest() {
+		
+		// Arrange
+		
+		int spaceAvialbleCar = 20;
+		Long countReturn = 30L;
+		
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conType("MOTO").build();
+		
+		UserService userService = mock(UserService.class);
+		VehicleService vehicleService = mock(VehicleService.class);
+		InvoiceService invoiceService = mock(InvoiceService.class);
+		RateService rateService = mock(RateService.class);
+		
+		when(invoiceService.getVehicleAndInvoiceStore(vehicle.getType())).thenReturn(countReturn);
+		
+		Vigilant vigilante = new Vigilant(userService, vehicleService, invoiceService, rateService);
+		
+		// act
+		vigilante.isSpaceAviableMotorByke(vehicle, spaceAvialbleCar);
+		
+		// Assert
+		assertFalse(vigilante.isSpaceAviableMotorByke(vehicle, spaceAvialbleCar));
 	}
 
 }

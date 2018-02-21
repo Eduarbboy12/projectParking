@@ -118,15 +118,18 @@ app.controller(
 				var login = {};
 
 				login.correo = $scope.logForm.correo;
-
+				console.log('prueba');
 				if (login.correo !== undefined) {						
 						$scope.Message = $http.get("http://localhost:8080/get-by-email/" + login.correo)
 					    .then(function(response) {
+					    	console.log('prueba');
 					        $scope.response = response.data;
-					        if($scope.response.mail !== undefined){
+					        console.log($scope.response);
+					        if($scope.response.user !== undefined){
 					        	window.location.href = "./views/main/main.html";
 					        } else {
-					        	$scope.Message = "El campo Correo Electrónico es incorrecto";
+					        	console.log('prueba');
+					        	$scope.Message = "El campo Correo Electrónico es incorrecto sdkhfgskdhfg";
 					        }
 					    });						
 				} else {
