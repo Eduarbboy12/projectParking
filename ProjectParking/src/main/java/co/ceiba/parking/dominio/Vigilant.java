@@ -33,21 +33,17 @@ public class Vigilant {
 
 	public void inputVehicle(Vehicle vehicle, String type) {
 		LocalDateTime inputDate = LocalDateTime.now();
-		if (!isOccuped(vehicle.getPlaque())) {
-			String placaValidate = vehicle.getPlaque().toUpperCase();
-			if (placaValidate.charAt(0) == 'A') {
-				if (isAuthorized(inputDate)) {
-					if (spaceAvailable(vehicle.getType())) {
-
-					}
-				} else {
-					throw new VehicleException(CAR_NOT_IS_AUTORIZED_BY_PLACA);
-				}
-			} else {
-				System.out.println("no inicia por la letra a");
-			}
-		} else {
+		String placaValidate = vehicle.getPlaque().toUpperCase();
+		if (isOccuped(vehicle.getPlaque())) {
 			throw new VehicleException(CAR_IS_ENTRY);
+		}
+		if (placaValidate.charAt(0) == 'A') {
+			if (!isAuthorized(inputDate)) {
+				throw new VehicleException(CAR_NOT_IS_AUTORIZED_BY_PLACA);
+			} 
+		} 
+		if (spaceAvailable(vehicle)) {
+
 		}
 	}
 
@@ -61,18 +57,17 @@ public class Vigilant {
 	 * @return
 	 */
 	public boolean isOccuped(String plaque) {
-		if (vehicleExist(plaque)) {
-			Vehicle vehicle = isVehicleExist(plaque);
-			if (vehicle != null && vehicle.getPlaque() != null) {
-				Invoice invoice = isInvoiceExist(vehicle);
-				if (invoice != null && invoice.getDateoutput() != null) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
+		if (!vehicleExist(plaque)) {
+			return false;
+		}
+		Vehicle vehicle = isVehicleExist(plaque);
+		if (vehicle == null || vehicle.getPlaque() == null) {
+			return false;
+		}
+
+		Invoice invoice = isInvoiceExist(vehicle);
+		if (invoice == null || invoice.getDateoutput() == null) {
+			return true;
 		}
 		return false;
 	}
@@ -133,30 +128,30 @@ public class Vigilant {
 	 * 
 	 * @return
 	 */
-	public boolean spaceAvailable(String type) {
-		if (type == "CARRO") {
-			if (isSpaceAviableCar()) {
+	public boolean spaceAvailable(Vehicle vehicle) {
+		if (vehicle.getType() == "CARRO") {
+			if (isSpaceAviableCar(vehicle)) {
 				return true;
 			}
 			return false;
 		} else {
-			if (isSpaceAviableMotorByke()) {
+			if (isSpaceAviableMotorByke(vehicle)) {
 				return true;
 			}
 			return false;
 		}
 	}
 
-	public boolean isSpaceAviableCar() {
-		int countCarStore = 1;
+	public boolean isSpaceAviableCar(Vehicle vehicle) {
+		Long countCarStore = this.invoiceService.getVehicleAndInvoiceStore(vehicle.getType());
 		if (countCarStore > SPACE_AVAILABLE_CAR) {
 			return false;
 		}
 		return true;
 	}
 
-	public boolean isSpaceAviableMotorByke() {
-		int countCarStore = 1;
+	public boolean isSpaceAviableMotorByke(Vehicle vehicle) {
+		Long countCarStore = this.invoiceService.getVehicleAndInvoiceStore(vehicle.getType());
 		if (countCarStore > SPACE_AVAILABLE_MOTORBYKE) {
 			return false;
 		}

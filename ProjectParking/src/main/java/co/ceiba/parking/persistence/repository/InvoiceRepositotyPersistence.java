@@ -22,5 +22,10 @@ public class InvoiceRepositotyPersistence implements InvoiceRepository {
 		InvoiceEntity invoiceEntity = invoiceRepositoryJPA.findByVehicleEntity(vehicle);
 		return InvoiceBuilder.convertirADominio(invoiceEntity);
 	}
+	
+	public Long getByVehicleAndInvoiceStore(String type) {
+		Long countvehicleStore = invoiceRepositoryJPA.countByVehicleEntity(type);
+		return countvehicleStore;
+	}
 
 }

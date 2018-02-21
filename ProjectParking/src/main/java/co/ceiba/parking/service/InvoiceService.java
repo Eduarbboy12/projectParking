@@ -37,5 +37,9 @@ public class InvoiceService {
 	public Invoice getVehiculo(Vehicle vehicle) {
 		return invoiceRepository.getByVehiculo(vehicle);
 	}
+	
+	public Long getVehicleAndInvoiceStore(String type) {
+		return invoiceRepository.getByVehicleAndInvoiceStore(type);
+	}
 
 }

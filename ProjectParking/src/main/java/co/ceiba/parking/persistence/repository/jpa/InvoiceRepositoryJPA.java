@@ -13,4 +13,6 @@ public interface InvoiceRepositoryJPA extends CrudRepository<InvoiceEntity, Long
 	
 	public InvoiceEntity findByValuepay(double valuepay);
 	
+	public Long countByVehicleEntity(String type);
+	
 }

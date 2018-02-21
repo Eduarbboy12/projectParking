@@ -11,5 +11,12 @@ public interface InvoiceRepository {
 	 * @return
 	 */
 	Invoice getByVehiculo(Vehicle vehicle);
+	
+	/**
+	 * 
+	 * @param vehicle
+	 * @return
+	 */
+	Long getByVehicleAndInvoiceStore(String type);
 
 }
