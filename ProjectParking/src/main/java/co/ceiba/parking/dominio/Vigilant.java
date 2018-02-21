@@ -22,6 +22,7 @@ public class Vigilant {
 	private VehicleService vehicleService;
 	private InvoiceService invoiceService;
 	private RateService rateService;
+	public LocalDateTime inputDate = LocalDateTime.now();
 
 	public Vigilant(UserService userService, VehicleService vehicleService, InvoiceService invoiceService,
 			RateService rateService) {
@@ -31,8 +32,7 @@ public class Vigilant {
 		this.rateService = rateService;
 	}
 
-	public void inputVehicle(Vehicle vehicle, String type) {
-		LocalDateTime inputDate = LocalDateTime.now();
+	public void inputVehicle(Vehicle vehicle) {
 		String placaValidate = vehicle.getPlaque().toUpperCase();
 		if (isOccuped(vehicle.getPlaque())) {
 			throw new VehicleException(CAR_IS_ENTRY);
@@ -40,13 +40,21 @@ public class Vigilant {
 		if (placaValidate.charAt(0) == 'A') {
 			if (!isAuthorized(inputDate)) {
 				throw new VehicleException(CAR_NOT_IS_AUTORIZED_BY_PLACA);
-			} 
+			}
 		}
 		if (!spaceAvailable(vehicle)) {
 			throw new VehicleException(NO_MORE_AVAILABLE_QUOTAS);
 		}
-		/*falta el guardado del vehiculo y del registro inicial de la factura*/
-		vehicleService.PreSave(vehicle);
+		if (!vehicleExist(vehicle.getPlaque())) {
+			vehicleService.PreSave(vehicle);
+		}
+
+	}
+
+	public void inputInvoice(Invoice invoice) {
+		inputDate = LocalDateTime.now();
+		
+		
 	}
 
 	public void outputVehicle() {
@@ -152,7 +160,7 @@ public class Vigilant {
 	 * @return
 	 */
 	public boolean isSpaceAviableCar(Vehicle vehicle, int spaceAvialbleCar) {
-		if(vehicle == null || vehicle.getType() == null) {
+		if (vehicle == null || vehicle.getType() == null) {
 			return false;
 		}
 		Long countCarStore = this.invoiceService.getVehicleAndInvoiceStore(vehicle.getType());
@@ -169,7 +177,7 @@ public class Vigilant {
 	 * @return
 	 */
 	public boolean isSpaceAviableMotorByke(Vehicle vehicle, int spaceAvialbleMotorByke) {
-		if(vehicle == null || vehicle.getType() == null) {
+		if (vehicle == null || vehicle.getType() == null) {
 			return false;
 		}
 		Long countCarStore = this.invoiceService.getVehicleAndInvoiceStore(vehicle.getType());

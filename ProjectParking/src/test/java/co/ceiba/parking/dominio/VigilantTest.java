@@ -221,6 +221,8 @@ public class VigilantTest {
 	public void inputVehicleTest() {
 		
 		// arrange
+		LocalDateTime StartDateValidate = LocalDateTime.of(2018, Calendar.FEBRUARY, 20, 10, 10);
+		
 		InvoiceTestDataBuilder invoiceTestDataBuilder = new InvoiceTestDataBuilder();
 		
 		Invoice invoice = invoiceTestDataBuilder.build();
@@ -233,18 +235,44 @@ public class VigilantTest {
 		Vigilant vigilante = new Vigilant(userService, vehicleService, invoiceService, rateService);
 		
 		// act
-		vigilante.inputVehicle(invoice.getVehicle(), invoice.getVehicle().getType());
+		vigilante.inputVehicle(invoice.getVehicle());
 		
 		// Assert
-		Assert.assertTrue(true);
-		
+		Assert.assertFalse(vigilante.isOccuped(invoice.getVehicle().getPlaque()));
+		Assert.assertTrue(vigilante.isAuthorized(StartDateValidate));
+		Assert.assertTrue(vigilante.spaceAvailable(invoice.getVehicle()));		
 	}
+	
+	@Test
+	public void inputVehicleNotTest() {
+		
+		// arrange
+		LocalDateTime StartDateValidate = LocalDateTime.of(2018, Calendar.FEBRUARY, 28, 10, 10);
+		
+		InvoiceTestDataBuilder invoiceTestDataBuilder = new InvoiceTestDataBuilder();
+		
+		Invoice invoice = invoiceTestDataBuilder.build();
+		
+		UserService userService = mock(UserService.class);
+		VehicleService vehicleService = mock(VehicleService.class);
+		InvoiceService invoiceService = mock(InvoiceService.class);
+		RateService rateService = mock(RateService.class);
+		
+		Vigilant vigilante = new Vigilant(userService, vehicleService, invoiceService, rateService);
+		
+		// act
+		vigilante.inputVehicle(invoice.getVehicle());
+		
+		// Assert
+		Assert.assertFalse(vigilante.isOccuped(invoice.getVehicle().getPlaque()));
+		Assert.assertFalse(vigilante.isAuthorized(StartDateValidate));	
+	}
+	
 	
 	@Test
 	public void isNotAuthorizedTest() {
 		
 		// Arrange
-		
 		LocalDateTime StartDateValidate = LocalDateTime.of(2018, Calendar.FEBRUARY, 28, 10, 10);
 		
 		UserService userService = mock(UserService.class);

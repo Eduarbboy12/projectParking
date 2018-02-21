@@ -47,7 +47,7 @@ public class VehicleService {
 	}
 	
 	public void saveValidate(Vehicle vehicle) {
-		vigilant.inputVehicle(vehicle, vehicle.getType());
+		vigilant.inputVehicle(vehicle);
 	}
 	
 	public Vehicle getByPlaque(String plaque) {
