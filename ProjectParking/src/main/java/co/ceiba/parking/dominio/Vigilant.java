@@ -18,10 +18,10 @@ public class Vigilant {
 	public static final int SPACE_AVAILABLE_CAR = 20;
 	public static final int SPACE_AVAILABLE_MOTORBYKE = 10;
 
-	private UserService userService;
-	private VehicleService vehicleService;
-	private InvoiceService invoiceService;
-	private RateService rateService;
+	private UserService userService = new UserService();
+	private VehicleService vehicleService = new VehicleService();
+	private InvoiceService invoiceService  = new InvoiceService();
+	private RateService rateService = new RateService();
 	public LocalDateTime inputDate = LocalDateTime.now();
 
 	public Vigilant(UserService userService, VehicleService vehicleService, InvoiceService invoiceService,
@@ -33,7 +33,6 @@ public class Vigilant {
 	}
 
 	public void inputVehicle(Vehicle vehicle) {
-		System.out.println("inputVehicle");
 		String placaValidate = vehicle.getPlaque().toUpperCase();
 		if (isOccuped(vehicle.getPlaque())) {
 			throw new VehicleException(CAR_IS_ENTRY);
@@ -89,6 +88,7 @@ public class Vigilant {
 	 * @return
 	 */
 	public boolean vehicleExist(String plaque) {
+		vehicleService = new VehicleService();
 		Vehicle vehicle = this.vehicleService.getByPlaque(plaque);
 		if (vehicle != null && vehicle.getPlaque() != null && vehicle.getPlaque().equals(plaque)) {
 			return true;

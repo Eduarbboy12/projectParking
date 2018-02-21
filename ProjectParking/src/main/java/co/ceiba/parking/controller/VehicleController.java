@@ -33,8 +33,8 @@ public class VehicleController {
 			vehicleService.saveValidate(vehicleEntity);
 			userId = String.valueOf(vehicleEntity.getPlaque());
 		} catch (Exception ex) {
-			System.out.println(ex.toString());
-			System.out.println(ex.getStackTrace());
+			System.out.println(ex.fillInStackTrace());
+			ex.printStackTrace();
 			return "Error creating the user: " + ex.toString();
 		}
 		return "User succesfully created with id = " + userId;
