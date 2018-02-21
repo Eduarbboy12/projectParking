@@ -1,12 +1,7 @@
 var app = angular.module('myApp', [ 'ngResource' ]);
 
-app.controller(
-		'UserController',
-		[
-				'$scope',
-				'$resource',
-				function($scope, $resource) {
-
+app.controller('UserController', ['$scope', '$resource', function($scope, $resource) {
+	
 					function fetchAllUser() {
 						$scope.users = $resource('http://localhost:8080/user')
 								.query(function(data) {
@@ -31,25 +26,18 @@ app.controller(
 						var user = {};
 
 						user.id = $scope.userForm.id;
-						user.nombre = $scope.userForm.nombre;
-						user.apellido = $scope.userForm.apellido;
-						user.documento = $scope.userForm.documento;
-						user.telefono = $scope.userForm.telefono;
-						user.direccion = $scope.userForm.direccion;
-						user.mail = $scope.userForm.mail;
-						user.clave = $scope.userForm.clave;
-						user.confirmPassword = "";
+						user.name = $scope.userForm.name;
+						user.lastname = $scope.userForm.lastname;
+						user.document = $scope.userForm.document;
+						user.user = $scope.userForm.user;
 
 						$scope.Message = User.save(user);
 
-						$scope.userForm.Id = "";
-						$scope.userForm.Nombre = "";
-						$scope.userForm.Apellido = "";
-						$scope.userForm.Documento = "";
-						$scope.userForm.Telefono = "";
-						$scope.userForm.Direccion = "";
-						$scope.userForm.Mail = "";
-						$scope.userForm.Clave = "";
+						$scope.userForm.id = "";
+						$scope.userForm.name = "";
+						$scope.userForm.lastname = "";
+						$scope.userForm.document = "";
+						$scope.userForm.user = "";
 					};
 					
 					$scope.deleteRec = function(){
@@ -66,11 +54,11 @@ app.controller(
 						    
 						});
 								
-						$scope.personForm.id = "";
-						$scope.personForm.name="";
-						$scope.personForm.mobile="";
-						$scope.personForm.password="";
-						$scope.personForm.email="";
+						$scope.userForm.id = "";
+						$scope.userForm.nombre = "";
+						$scope.userForm.apellido = "";
+						$scope.userForm.documento = "";
+						$scope.userForm.user = "";
 				    };
 
 					$scope.update = function() {
@@ -87,25 +75,19 @@ app.controller(
 
 						var user = {};
 
-						user.Id = $scope.userForm.Id;
-						user.Nombre = $scope.userForm.Nombre;
-						user.Apellido = $scope.userForm.Apellido;
-						user.Documento = $scope.userForm.Documento;
-						user.Telefono = $scope.userForm.Telefono;
-						user.Direccion = $scope.userForm.Direccion;
-						user.Mail = $scope.userForm.Mail;
-						user.Clave = $scope.userForm.Clave;
-						user.confirmPassword = "";
+						user.id = $scope.userForm.id;
+						user.nombre = $scope.userForm.nombre;
+						user.apellido = $scope.userForm.apellido;
+						user.documento = $scope.userForm.documento;
+						user.user = $scope.userForm.user;
 
 						$scope.Message = User.save({id : $scope.userForm.Id}, user);
 
-						$scope.userForm.Id = "";
-						$scope.userForm.Nombre = "";
-						$scope.userForm.Apellido = "";
-						$scope.userForm.Telefono = "";
-						$scope.userForm.Direccion = "";
-						$scope.userForm.Mail = "";
-						$scope.userForm.Clave = "";
+						$scope.userForm.id = "";
+						$scope.userForm.nombre = "";
+						$scope.userForm.apellido = "";
+						$scope.userForm.documento = "";
+						$scope.userForm.user = "";
 					};
 
 				} ])
@@ -136,6 +118,49 @@ app.controller(
 					$scope.Message = "El campo Correo Electrónico es obligatorio";
 				}
 
+			};
+
+		} ])
+		
+.controller('MainController',['$scope', '$resource', function($scope, $resource) {
+	
+			function fetchAllVehicle() {
+				$scope.vehicles = $resource('http://localhost:8080/vehicle')
+						.query(function(data) {
+							return data;
+						});
+			};
+		
+			fetchAllVehicle();
+		
+			$scope.refresh = function() {
+				fetchAllVehicle();
+			};
+	
+
+			$scope.create = function() {
+				Vehicle = $resource("http://localhost:8080/createvehicle", {}, {
+					save : {
+						method : 'PUT',
+						isArray : false
+					}
+				});
+
+				var vehicle = {};
+				
+				vehicle.id = $scope.mainForm.id;
+				vehicle.type = $scope.mainForm.type;
+				vehicle.plaque = $scope.mainForm.plaque;
+				vehicle.cylinder = $scope.mainForm.cylinder;
+				vehicle.document = $scope.mainForm.document;
+
+				$scope.Message = Vehicle.save(vehicle);
+
+				$scope.mainForm.id = "";
+				$scope.mainForm.type = "";
+				$scope.mainForm.plaque = "";
+				$scope.mainForm.cylinder = "";
+				$scope.mainForm.document = "";
 			};
 
 		} ]);

@@ -27,12 +27,14 @@ public class VehicleController {
 	
 	@RequestMapping(value = "/createvehicle", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String create(@RequestBody Vehicle vehicle) {
+	public String create(@RequestBody VehicleEntity vehicleEntity) {
 		String userId = "";
 		try {
-			vehicleService.saveValidate(vehicle);
-			userId = String.valueOf(vehicle.getPlaque());
+			vehicleService.saveValidate(vehicleEntity);
+			userId = String.valueOf(vehicleEntity.getPlaque());
 		} catch (Exception ex) {
+			System.out.println(ex.toString());
+			System.out.println(ex.getStackTrace());
 			return "Error creating the user: " + ex.toString();
 		}
 		return "User succesfully created with id = " + userId;

@@ -9,8 +9,8 @@
 				<img src="../../img/logoParking.png" class="sidebar-img img-circle">
 			</div>
 			<ul class=snap-ul>
-				<li><a href="../main/main.html">Inicio</a></li>
-				<li><a href="#">Crear Usuario</a></li>
+				<li><a href="../main/main.html">Home</a></li>
+				<li><a href="#">Create User</a></li>
 			</ul>
 		</div>
 		</snap-drawer>
@@ -37,9 +37,9 @@
 						</tr>
 						<tr ng-repeat="row in users">
 							<td><span ng-bind="row.id"></span></td>
-							<td><span ng-bind="row.documento"></span></td>
-							<td><span ng-bind="row.apellido"></span></td>
-							<td><span ng-bind="row.nombre"></span></td>
+							<td><span ng-bind="row.document"></span></td>
+							<td><span ng-bind="row.lastName"></span></td>
+							<td><span ng-bind="row.name"></span></td>
 							<td><span ng-bind="row.user"></span></td>
 							<td>
 						</tr>
@@ -49,32 +49,26 @@
 					
 					<div class="form-group">
 						<label class=blue_font>Document</label> <input class=form-control
-							type="text" id="documento" ng-model="userForm.documento"
-							placeholder="Documento" autocomplete="off">
+							type="text" id="document" ng-model="userForm.document"
+							placeholder="Document" autocomplete="off">
 					</div>
 					
 					<div class="form-group">
 						<label class=blue_font>LastName</label> <input class=form-control
-							type="text" id="apellido" ng-model="userForm.apellido"
-							placeholder="Apellido" autocomplete="off">
+							type="text" id="lastname" ng-model="userForm.lastname"
+							placeholder="LastName" autocomplete="off">
 					</div>
 
 					<div class="form-group">
 						<label class=blue_font>Name</label> <input class=form-control
-							type="text" id="nombre" ng-model="userForm.nombre"
-							placeholder="Nombre" autocomplete="off">
+							type="text" id="name" ng-model="userForm.name"
+							placeholder="Name" autocomplete="off">
 					</div>
 
 					<div class="form-group">
 						<label class=blue_font>User</label> <input class=form-control
-							type="text" id="mail" ng-model="userForm.mail" placeholder="Mail"
+							type="text" id="user" ng-model="userForm.user" placeholder="User"
 							autocomplete="off">
-					</div>
-
-					<div class="form-group">
-						<label class=blue_font>Clave</label> <input class=form-control
-							type="text" id="clave" ng-model="userForm.clave"
-							placeholder="Clave" autocomplete="off">
 					</div>
 
 					<div class="btn-wrapper">

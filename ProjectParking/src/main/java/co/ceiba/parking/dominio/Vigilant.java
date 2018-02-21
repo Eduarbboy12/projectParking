@@ -33,6 +33,7 @@ public class Vigilant {
 	}
 
 	public void inputVehicle(Vehicle vehicle) {
+		System.out.println("inputVehicle");
 		String placaValidate = vehicle.getPlaque().toUpperCase();
 		if (isOccuped(vehicle.getPlaque())) {
 			throw new VehicleException(CAR_IS_ENTRY);

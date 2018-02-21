@@ -14,7 +14,7 @@ import co.ceiba.parking.persistence.repository.jpa.VehicleRepositoryJPA;
 @Service
 public class VehicleService {
 	
-	private Vigilant vigilant;
+	public Vigilant vigilant;
 	
 	private VehicleRepository vehicleRepository;
 	
@@ -46,7 +46,9 @@ public class VehicleService {
 		return vehicleRepositoryJPA.findByType(type);
 	}
 	
-	public void saveValidate(Vehicle vehicle) {
+	public void saveValidate(VehicleEntity vehicleEntity) {
+		Vehicle vehicle = VehicleBuilder.convertirADominio(vehicleEntity);
+		System.out.println(vehicle.getPlaque());
 		vigilant.inputVehicle(vehicle);
 	}
 	
