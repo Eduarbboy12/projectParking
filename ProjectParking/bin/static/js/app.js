@@ -3,7 +3,7 @@ var app = angular.module('myApp', [ 'ngResource' ]);
 app.controller('UserController', ['$scope', '$resource', function($scope, $resource) {
 	
 					function fetchAllUser() {
-						$scope.users = $resource('http://localhost:8080/user')
+						$scope.users = $resource('/user')
 								.query(function(data) {
 									return data;
 								});
@@ -16,7 +16,7 @@ app.controller('UserController', ['$scope', '$resource', function($scope, $resou
 					};
 
 					$scope.create = function() {
-						User = $resource("http://localhost:8080/create", {}, {
+						User = $resource("/create", {}, {
 							save : {
 								method : 'PUT',
 								isArray : false
@@ -42,7 +42,7 @@ app.controller('UserController', ['$scope', '$resource', function($scope, $resou
 					
 					$scope.deleteRec = function(){
 				    	User = $resource(
-				    		    "http://localhost:8080/delete/:id",
+				    		    "/delete/:id",
 				    		    {},
 				    		    {save: {method:'DELETE', params: {id: '@id'}}}
 				    	);
@@ -63,7 +63,7 @@ app.controller('UserController', ['$scope', '$resource', function($scope, $resou
 
 					$scope.update = function() {
 
-						User = $resource("http://localhost:8080/update/:id",
+						User = $resource("/update/:id",
 								{}, {
 									save : {
 										method : 'PUT',
@@ -102,7 +102,7 @@ app.controller('UserController', ['$scope', '$resource', function($scope, $resou
 				login.correo = $scope.logForm.correo;
 				console.log('prueba');
 				if (login.correo !== undefined) {						
-						$scope.Message = $http.get("http://localhost:8080/get-by-email/" + login.correo)
+						$scope.Message = $http.get("/get-by-email/" + login.correo)
 					    .then(function(response) {
 					    	console.log('prueba');
 					        $scope.response = response.data;
@@ -125,7 +125,7 @@ app.controller('UserController', ['$scope', '$resource', function($scope, $resou
 .controller('MainController',['$scope', '$resource', function($scope, $resource) {
 	
 			function fetchAllVehicle() {
-				$scope.vehicles = $resource('http://localhost:8080/vehicle')
+				$scope.vehicles = $resource('/vehicle')
 						.query(function(data) {
 							return data;
 						});
@@ -139,7 +139,7 @@ app.controller('UserController', ['$scope', '$resource', function($scope, $resou
 	
 
 			$scope.create = function() {
-				Vehicle = $resource("http://localhost:8080/createvehicle", {}, {
+				Vehicle = $resource("/createvehicle", {}, {
 					save : {
 						method : 'PUT',
 						isArray : false

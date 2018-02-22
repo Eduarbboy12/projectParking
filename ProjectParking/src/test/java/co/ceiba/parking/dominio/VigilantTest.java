@@ -4,44 +4,43 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDateTime;
-import java.util.Calendar;
-
-import org.junit.Assert;
 import org.junit.Test;
 
-import co.ceiba.parking.dominio.repositorio.InvoiceRepository;
-import co.ceiba.parking.dominio.repositorio.RateRepository;
-import co.ceiba.parking.dominio.repositorio.UserRepository;
-import co.ceiba.parking.dominio.repositorio.VehicleRepository;
-import co.ceiba.parking.testdatabuilder.InvoiceTestDataBuilder;
+import co.ceiba.parking.persistence.builder.VehicleBuilder;
+import co.ceiba.parking.persistence.entity.VehicleEntity;
+import co.ceiba.parking.persistence.repository.jpa.InvoiceRepositoryJPA;
+import co.ceiba.parking.persistence.repository.jpa.RateRepositoryJPA;
+import co.ceiba.parking.persistence.repository.jpa.UserRepositoryJPA;
+import co.ceiba.parking.persistence.repository.jpa.VehicleRepositoryJPA;
 import co.ceiba.parking.testdatabuilder.VehicleTestDataBuilder;
 
 public class VigilantTest {
 
-//	@Test
-//	public void vehicleExistTest() {
-//		
-//		// arrange
-//		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
-//		
-//		Vehicle vehicle = vehicleTestDataBuilder.build();
-//		
-//		VehicleRepository vehicleRepository = mock(VehicleRepository.class);
-//		InvoiceRepository invoiceRepository = mock(InvoiceRepository.class);
-//		RateRepository rateRepository = mock(RateRepository.class);
-//		UserRepository userRepository = mock(UserRepository.class);
-//		
-//		when(vehicleRepository.getByPlaque(vehicle.getPlaque())).thenReturn(vehicle);
-//		
-//		Vigilant vigilante = new Vigilant(vehicleRepository, invoiceRepository, rateRepository, userRepository);
-//		
-//		// act
-//		boolean vehicleExist = vigilante.vehicleExist(vehicle.getPlaque());
-//		
-//		// Assert
-//		assertTrue(vehicleExist);
-//	}
+	@Test
+	public void vehicleExistTest() {
+		
+		// arrange
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.build();
+		
+		VehicleEntity vehicleEntity = VehicleBuilder.convertirAEntity(vehicle);
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		when(vehicleRepositoryJPA.findByPlaque(vehicle.getPlaque())).thenReturn(vehicleEntity);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		boolean vehicleExist = vigilant.vehicleExist(vehicle.getPlaque());
+		
+		// Assert
+		assertTrue(vehicleExist);
+	}
 //	
 //	@Test
 //	public void vehicleNoExistTest() {

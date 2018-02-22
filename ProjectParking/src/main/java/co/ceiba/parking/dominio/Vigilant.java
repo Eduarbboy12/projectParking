@@ -3,6 +3,8 @@ package co.ceiba.parking.dominio;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +15,10 @@ import co.ceiba.parking.dominio.repositorio.RateRepository;
 import co.ceiba.parking.dominio.repositorio.UserRepository;
 import co.ceiba.parking.dominio.repositorio.VehicleRepository;
 import co.ceiba.parking.persistence.builder.InvoiceBuilder;
+import co.ceiba.parking.persistence.builder.RateBuilder;
 import co.ceiba.parking.persistence.builder.VehicleBuilder;
 import co.ceiba.parking.persistence.entity.InvoiceEntity;
+import co.ceiba.parking.persistence.entity.RateEntity;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
 import co.ceiba.parking.persistence.repository.VehicleRepositoryPersistence;
 import co.ceiba.parking.persistence.repository.jpa.InvoiceRepositoryJPA;
@@ -35,19 +39,19 @@ public class Vigilant {
 
 	@Autowired
 	private VehicleRepositoryJPA vehicleRepositoryJPA;
-	
 	@Autowired
 	private InvoiceRepositoryJPA invoiceRepositoryJPA;
-	
 	@Autowired
 	private RateRepositoryJPA rateRepositoryJPA;
-	
 	@Autowired
 	private UserRepositoryJPA userRepositoryJPA;
-	
 	public LocalDateTime inputDate = LocalDateTime.now();
 
-	public Vigilant() {
+	public Vigilant(VehicleRepositoryJPA vehicleRepositoryJPA, InvoiceRepositoryJPA invoiceRepositoryJPA, RateRepositoryJPA rateRepositoryJPA, UserRepositoryJPA userRepositoryJPA) {
+		this.vehicleRepositoryJPA = vehicleRepositoryJPA;
+		this.invoiceRepositoryJPA = invoiceRepositoryJPA;
+		this.rateRepositoryJPA = rateRepositoryJPA;
+		this.userRepositoryJPA = userRepositoryJPA;
 	}
 	
 	public Vehicle inputVehicle(Vehicle vehicle) {
@@ -69,10 +73,6 @@ public class Vigilant {
 			throw new VehicleException(NO_MORE_AVAILABLE_QUOTAS);
 		}
 
-	}
-
-	public void inputInvoice(Invoice invoice) {
-		inputDate = LocalDateTime.now();
 	}
 
 	public void outputVehicle() {

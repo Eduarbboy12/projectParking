@@ -20,6 +20,7 @@ public class VehicleService {
 	@Autowired
 	public Vigilant vigilant;
 	
+	@Autowired
 	public InvoiceService invoiceService;
 	
 	private VehicleRepository vehicleRepository;
