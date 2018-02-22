@@ -20,12 +20,12 @@ public class InvoiceEntity {
 	private long id;
 	
 	@ManyToOne
-	@JoinColumn(name="vehicleEntity",referencedColumnName="id")
-	private VehicleEntity vehicleEntity;
+	@JoinColumn(name="vehicle",referencedColumnName="id")
+	private VehicleEntity vehicle;
 	
 	@ManyToOne
-	@JoinColumn(name="rateEntity",referencedColumnName="id")
-	private RateEntity rateEntity;
+	@JoinColumn(name="rate",referencedColumnName="id")
+	private RateEntity rate;
 	
 	@Column(name = "dateinput")
 	private Date dateinput;
@@ -47,20 +47,20 @@ public class InvoiceEntity {
 		this.id = id;
 	}
 
-	public VehicleEntity getVehicleEntity() {
-		return vehicleEntity;
+	public VehicleEntity getVehicle() {
+		return vehicle;
 	}
 
-	public void setVehicleEntity(VehicleEntity vehicleEntity) {
-		this.vehicleEntity = vehicleEntity;
+	public void setVehicle(VehicleEntity vehicle) {
+		this.vehicle = vehicle;
 	}
 
 	public RateEntity getRateEntity() {
-		return rateEntity;
+		return rate;
 	}
 
 	public void setRateEntity(RateEntity rateEntity) {
-		this.rateEntity = rateEntity;
+		this.rate = rateEntity;
 	}
 
 	public Date getDateinput() {

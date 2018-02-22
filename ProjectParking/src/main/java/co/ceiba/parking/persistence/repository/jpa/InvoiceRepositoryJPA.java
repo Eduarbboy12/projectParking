@@ -9,10 +9,10 @@ import co.ceiba.parking.persistence.entity.InvoiceEntity;
 @Repository
 public interface InvoiceRepositoryJPA extends CrudRepository<InvoiceEntity, Long> {
 	
-	public InvoiceEntity findByVehicleEntity(Vehicle vehicle);
-	
 	public InvoiceEntity findByValuepay(double valuepay);
 	
-	public Long countByVehicleEntity(String type);
+	public Long countByVehicleType(String type);
+	
+	public InvoiceEntity findByVehiclePlaque(String plaque);
 	
 }

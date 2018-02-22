@@ -35,7 +35,7 @@ public class VehicleController {
 		} catch (Exception ex) {
 			System.out.println(ex.fillInStackTrace());
 			ex.printStackTrace();
-			return "Error creating the user: " + ex.toString();
+			return "Error creating the vehicle: " + ex.toString();
 		}
 		return "User succesfully created with id = " + userId;
 

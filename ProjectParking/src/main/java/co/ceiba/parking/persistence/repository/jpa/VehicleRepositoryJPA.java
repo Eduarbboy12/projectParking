@@ -10,4 +10,8 @@ public interface VehicleRepositoryJPA extends CrudRepository<VehicleEntity, Long
 	public VehicleEntity findByPlaque(String plaque);
 	
 	public VehicleEntity findByType(String type);
+	
+	public Long countByType(String type);
+	
+	
 }

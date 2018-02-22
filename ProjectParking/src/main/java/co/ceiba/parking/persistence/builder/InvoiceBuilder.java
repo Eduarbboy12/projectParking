@@ -16,9 +16,9 @@ public class InvoiceBuilder {
 		Invoice invoice = null;
 		if (invoiceEntity != null) {
 
-			Vehicle vehiculo = new Vehicle(invoiceEntity.getVehicleEntity().getType(),
-					invoiceEntity.getVehicleEntity().getPlaque(), invoiceEntity.getVehicleEntity().getCylinder(),
-					invoiceEntity.getVehicleEntity().getDocument());
+			Vehicle vehiculo = new Vehicle(invoiceEntity.getVehicle().getType(),
+					invoiceEntity.getVehicle().getPlaque(), invoiceEntity.getVehicle().getCylinder(),
+					invoiceEntity.getVehicle().getDocument());
 			
 			Rate rate = new Rate(invoiceEntity.getRateEntity().getType(), invoiceEntity.getRateEntity().getRateName(),
 					invoiceEntity.getRateEntity().getRateValue());
@@ -43,7 +43,7 @@ public class InvoiceBuilder {
 		rateEntity.setRateValue(invoice.getRate().getRatevalue());
 		
 		InvoiceEntity invoiceEntity = new InvoiceEntity();
-		invoiceEntity.setVehicleEntity(vehicleEntity);
+		invoiceEntity.setVehicle(vehicleEntity);
 		invoiceEntity.setRateEntity(rateEntity);
 		invoiceEntity.setDateinput(invoice.getDateinput());
 		invoiceEntity.setDateoutput(invoice.getDateoutput());

@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
-@Entity(name = "UserEntity")
+@Entity(name = "User")
 public class UserEntity {
 	
 	@Id

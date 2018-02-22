@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 
-@Entity(name = "VehicleEntity")
+@Entity(name = "Vehicle")
+@NamedQuery(name = "Vehicle.findByPlaque", query = "SELECT vehicle FROM Vehicle vehicle WHERE vehicle.plaque = :plaque")
 public class VehicleEntity {
 
 	@Id

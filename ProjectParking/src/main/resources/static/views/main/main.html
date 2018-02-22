@@ -41,10 +41,10 @@
 					<table class="table table-responsive table-hover table-condensed">
 						<tr>
 							<th>ID</th>
+							<th>Type</th>
+							<th>Plaque</th>
+							<th>Displacement</th>
 							<th>Document</th>
-							<th>LastName</th>
-							<th>Name</th>
-							<th>User</th>
 						</tr>
 						<tr ng-repeat="row in vehicles">
 							<td><span ng-bind="row.id"></span></td>
@@ -59,10 +59,10 @@
 					<p class="bg-info info-msg" id="info1">{{Message}}</p>
 
 					<div class="form-group">
-						<label class=blue_font>Tipo Vehiculo</label> <select
+						<label class=blue_font>Type Vehicle</label> <select
 							class=form-control id="type" name="type" ng-model="mainForm.type">
-							<option value="CARRO">Carro</option>
-							<option value="MOTO">Moto</option>
+							<option value="CARRO">Car</option>
+							<option value="MOTO">Motorbyke</option>
 						</select>
 					</div>
 

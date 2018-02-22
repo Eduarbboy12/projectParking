@@ -4,12 +4,25 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import co.ceiba.parking.dominio.exception.VehicleException;
-import co.ceiba.parking.service.InvoiceService;
-import co.ceiba.parking.service.RateService;
-import co.ceiba.parking.service.UserService;
-import co.ceiba.parking.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import co.ceiba.parking.dominio.exception.VehicleException;
+import co.ceiba.parking.dominio.repositorio.InvoiceRepository;
+import co.ceiba.parking.dominio.repositorio.RateRepository;
+import co.ceiba.parking.dominio.repositorio.UserRepository;
+import co.ceiba.parking.dominio.repositorio.VehicleRepository;
+import co.ceiba.parking.persistence.builder.InvoiceBuilder;
+import co.ceiba.parking.persistence.builder.VehicleBuilder;
+import co.ceiba.parking.persistence.entity.InvoiceEntity;
+import co.ceiba.parking.persistence.entity.VehicleEntity;
+import co.ceiba.parking.persistence.repository.VehicleRepositoryPersistence;
+import co.ceiba.parking.persistence.repository.jpa.InvoiceRepositoryJPA;
+import co.ceiba.parking.persistence.repository.jpa.RateRepositoryJPA;
+import co.ceiba.parking.persistence.repository.jpa.UserRepositoryJPA;
+import co.ceiba.parking.persistence.repository.jpa.VehicleRepositoryJPA;
+
+@Service
 public class Vigilant {
 
 	public static final String NO_MORE_AVAILABLE_QUOTAS = "No hay cupos Disponibles";
@@ -17,22 +30,32 @@ public class Vigilant {
 	public static final String CAR_NOT_IS_AUTORIZED_BY_PLACA = "El vehiculo no esta autorizado para parquear";
 	public static final int SPACE_AVAILABLE_CAR = 20;
 	public static final int SPACE_AVAILABLE_MOTORBYKE = 10;
+	public static final String STATE_CAR = "CARRO";
+	public static final String STATE_MOTORBYKE = "MOTO";
 
-	private UserService userService = new UserService();
-	private VehicleService vehicleService = new VehicleService();
-	private InvoiceService invoiceService  = new InvoiceService();
-	private RateService rateService = new RateService();
+	@Autowired
+	private VehicleRepositoryJPA vehicleRepositoryJPA;
+	
+	@Autowired
+	private InvoiceRepositoryJPA invoiceRepositoryJPA;
+	
+	@Autowired
+	private RateRepositoryJPA rateRepositoryJPA;
+	
+	@Autowired
+	private UserRepositoryJPA userRepositoryJPA;
+	
 	public LocalDateTime inputDate = LocalDateTime.now();
 
-	public Vigilant(UserService userService, VehicleService vehicleService, InvoiceService invoiceService,
-			RateService rateService) {
-		this.userService = userService;
-		this.vehicleService = vehicleService;
-		this.invoiceService = invoiceService;
-		this.rateService = rateService;
+	public Vigilant() {
+	}
+	
+	public Vehicle inputVehicle(Vehicle vehicle) {
+		ValidateInputVehicle(vehicle);
+		return vehicle;
 	}
 
-	public void inputVehicle(Vehicle vehicle) {
+	public void ValidateInputVehicle(Vehicle vehicle) {
 		String placaValidate = vehicle.getPlaque().toUpperCase();
 		if (isOccuped(vehicle.getPlaque())) {
 			throw new VehicleException(CAR_IS_ENTRY);
@@ -45,16 +68,11 @@ public class Vigilant {
 		if (!spaceAvailable(vehicle)) {
 			throw new VehicleException(NO_MORE_AVAILABLE_QUOTAS);
 		}
-		if (!vehicleExist(vehicle.getPlaque())) {
-			vehicleService.PreSave(vehicle);
-		}
 
 	}
 
 	public void inputInvoice(Invoice invoice) {
 		inputDate = LocalDateTime.now();
-		
-		
 	}
 
 	public void outputVehicle() {
@@ -88,9 +106,8 @@ public class Vigilant {
 	 * @return
 	 */
 	public boolean vehicleExist(String plaque) {
-		vehicleService = new VehicleService();
-		Vehicle vehicle = this.vehicleService.getByPlaque(plaque);
-		if (vehicle != null && vehicle.getPlaque() != null && vehicle.getPlaque().equals(plaque)) {
+		VehicleEntity vehicleEntity = this.vehicleRepositoryJPA.findByPlaque(plaque);
+		if (vehicleEntity != null && vehicleEntity.getPlaque() != null) {
 			return true;
 		}
 		return false;
@@ -102,8 +119,9 @@ public class Vigilant {
 	 * @return
 	 */
 	public Vehicle isVehicleExist(String plaque) {
-		Vehicle vehicle = this.vehicleService.getByPlaque(plaque);
-		if (vehicle != null && vehicle.getPlaque() != null && vehicle.getPlaque().equals(plaque)) {
+		VehicleEntity vehicleEntity = this.vehicleRepositoryJPA.findByPlaque(plaque);
+		Vehicle vehicle = VehicleBuilder.convertirADominio(vehicleEntity);
+		if (vehicle != null && vehicle.getPlaque() != null) {
 			return vehicle;
 		}
 		return vehicle;
@@ -115,7 +133,9 @@ public class Vigilant {
 	 * @return
 	 */
 	public Invoice isInvoiceExist(Vehicle vehicle) {
-		Invoice invoice = this.invoiceService.getVehiculo(vehicle);
+		InvoiceEntity invoiceEntity = this.invoiceRepositoryJPA.findByVehiclePlaque(vehicle.getPlaque());
+		
+		Invoice invoice = InvoiceBuilder.convertirADominio(invoiceEntity);
 		if (invoice != null && invoice.getVehicle().getPlaque() != null) {
 			return invoice;
 		}
@@ -141,7 +161,7 @@ public class Vigilant {
 	 * @return
 	 */
 	public boolean spaceAvailable(Vehicle vehicle) {
-		if (vehicle.getType() == "CARRO") {
+		if (vehicle.getType().equals(STATE_CAR)) {
 			if (isSpaceAviableCar(vehicle, SPACE_AVAILABLE_CAR)) {
 				return true;
 			}
@@ -163,8 +183,8 @@ public class Vigilant {
 	public boolean isSpaceAviableCar(Vehicle vehicle, int spaceAvialbleCar) {
 		if (vehicle == null || vehicle.getType() == null) {
 			return false;
-		}
-		Long countCarStore = this.invoiceService.getVehicleAndInvoiceStore(vehicle.getType());
+		}		
+		Long countCarStore = this.invoiceRepositoryJPA.countByVehicleType(vehicle.getType());
 		if (countCarStore > spaceAvialbleCar) {
 			return false;
 		}
@@ -181,7 +201,7 @@ public class Vigilant {
 		if (vehicle == null || vehicle.getType() == null) {
 			return false;
 		}
-		Long countCarStore = this.invoiceService.getVehicleAndInvoiceStore(vehicle.getType());
+		Long countCarStore = this.invoiceRepositoryJPA.countByVehicleType(vehicle.getType());
 		if (countCarStore > spaceAvialbleMotorByke) {
 			return false;
 		}

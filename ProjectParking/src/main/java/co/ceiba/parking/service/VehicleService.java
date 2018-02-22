@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import co.ceiba.parking.dominio.Vehicle;
 import co.ceiba.parking.dominio.Vigilant;
+import co.ceiba.parking.dominio.repositorio.InvoiceRepository;
+import co.ceiba.parking.dominio.repositorio.RateRepository;
+import co.ceiba.parking.dominio.repositorio.UserRepository;
 import co.ceiba.parking.dominio.repositorio.VehicleRepository;
 import co.ceiba.parking.persistence.builder.VehicleBuilder;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
@@ -14,14 +17,15 @@ import co.ceiba.parking.persistence.repository.jpa.VehicleRepositoryJPA;
 @Service
 public class VehicleService {
 	
-	private UserService userService;
-	private VehicleService vehicleService;
-	private InvoiceService invoiceService;
-	private RateService rateService;
-	
+	@Autowired
 	public Vigilant vigilant;
 	
-	public VehicleRepository vehicleRepository;
+	public InvoiceService invoiceService;
+	
+	private VehicleRepository vehicleRepository;
+	private InvoiceRepository invoiceRepository;
+	private RateRepository rateRepository;
+	private UserRepository userRepository;
 	
 	@Autowired
 	private VehicleRepositoryJPA vehicleRepositoryJPA;
@@ -53,8 +57,10 @@ public class VehicleService {
 	
 	public void saveValidate(VehicleEntity vehicleEntity) {
 		Vehicle vehicle = VehicleBuilder.convertirADominio(vehicleEntity);
-		vigilant = new Vigilant(userService, vehicleService, invoiceService, rateService);
-		vigilant.inputVehicle(vehicle);
+		Vehicle vehiclePreSave = vigilant.inputVehicle(vehicle);
+		VehicleEntity vehicleEntitySave = VehicleBuilder.convertirAEntity(vehiclePreSave);
+		save(vehicleEntitySave);
+		invoiceService.validateInvoice(vehiclePreSave);
 	}
 	
 	public Vehicle getByPlaque(String plaque) {

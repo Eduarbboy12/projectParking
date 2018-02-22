@@ -17,6 +17,9 @@ public class VehicleRepositoryPersistence implements VehicleRepository {
 		this.entityManager = entityManager;
 	}
 	
+	public VehicleRepositoryPersistence() {
+	}
+	
 	public Vehicle getByPlaque(String plaque) {
 		VehicleEntity vehicleEntity = this.vehicleRepositoryJPA.findByPlaque(plaque);
 		return VehicleBuilder.convertirADominio(vehicleEntity);

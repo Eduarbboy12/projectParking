@@ -16,8 +16,7 @@ public class InvoiceService {
 	@Autowired
 	private InvoiceRepositoryJPA invoiceRepositoryJPA;
 	
-	private InvoiceRepository invoiceRepository;
-	
+	@Autowired
 	private Vigilant vigilant;
 	
 	public Object findAll() {
@@ -37,16 +36,8 @@ public class InvoiceService {
 		return;
 	}
 	
-	public Invoice getVehiculo(Vehicle vehicle) {
-		return invoiceRepository.getByVehiculo(vehicle);
-	}
-	
-	public Long getVehicleAndInvoiceStore(String type) {
-		return invoiceRepository.getByVehicleAndInvoiceStore(type);
-	}
-	
-	public void saveValidate(Invoice invoice) {
-		vigilant.inputInvoice(invoice);
+	public void validateInvoice(Vehicle vehicle) {
+		
 	}
 
 }
