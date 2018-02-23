@@ -142,7 +142,7 @@ public class Vigilant {
 		} else {
 			valuePay = (days * VALUE_DAY_MOTORBYKE) + (hour * VALUE_HOUR_MOTORBYKE);
 		}
-		if (Integer.parseInt(invoice.getVehicle().getCylinder()) > CYLINDER_AVIABLE) {
+		if (Integer.parseInt(invoice.getVehicle().getCylinder()) > CYLINDER_AVIABLE && invoice.getVehicle().getType().equals(STATE_MOTORBYKE)) {
 			valuePay += 2000;
 		}
 		invoice.setDateoutput(exitDate);
