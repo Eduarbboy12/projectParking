@@ -92,33 +92,24 @@ app.controller('UserController', ['$scope', '$resource', function($scope, $resou
 
 				} ])
 
-.controller('LoginController',
-		[ '$scope', '$resource', '$http', function($scope, $resource, $http) {
+.controller('ExitController',[ '$scope', '$resource', function($scope, $resource) {
 
-			$scope.login = function() {
-
-				var login = {};
-
-				login.correo = $scope.logForm.correo;
-				console.log('prueba');
-				if (login.correo !== undefined) {						
-						$scope.Message = $http.get("/get-by-email/" + login.correo)
-					    .then(function(response) {
-					    	console.log('prueba');
-					        $scope.response = response.data;
-					        console.log($scope.response);
-					        if($scope.response.user !== undefined){
-					        	window.location.href = "./views/main/main.html";
-					        } else {
-					        	console.log('prueba');
-					        	$scope.Message = "El campo Correo Electrónico es incorrecto sdkhfgskdhfg";
-					        }
-					    });						
-				} else {
-					$scope.Message = "El campo Correo Electrónico es obligatorio";
-				}
-
-			};
+					$scope.update = function(){
+						
+				    	Invoice = $resource(
+				    		    "/invoice/:plaque",
+				    		    {},
+				    		    {save: {method:'PUT', params: {plaque: '@plaque'}}}
+				    	);
+				    	
+						var invoice = {};
+						
+						invoice.plaque = $scope.exitForm.plaque;
+						
+						$scope.Message = Invoice.save({plaque: $scope.exitForm.plaque});
+								
+						$scope.exitForm.plaque = "";
+				    };
 
 		} ])
 		
@@ -161,6 +152,36 @@ app.controller('UserController', ['$scope', '$resource', function($scope, $resou
 				$scope.mainForm.plaque = "";
 				$scope.mainForm.cylinder = "";
 				$scope.mainForm.document = "";
+			};
+
+		} ])
+		
+.controller('LoginController',
+		[ '$scope', '$resource', '$http', function($scope, $resource, $http) {
+
+			$scope.login = function() {
+
+				var login = {};
+
+				login.correo = $scope.logForm.correo;
+				console.log('prueba');
+				if (login.correo !== undefined) {						
+						$scope.Message = $http.get("/get-by-email/" + login.correo)
+					    .then(function(response) {
+					    	console.log('prueba');
+					        $scope.response = response.data;
+					        console.log($scope.response);
+					        if($scope.response.user !== undefined){
+					        	window.location.href = "./views/main/main.html";
+					        } else {
+					        	console.log('prueba');
+					        	$scope.Message = "El campo Correo Electrónico es incorrecto sdkhfgskdhfg";
+					        }
+					    });						
+				} else {
+					$scope.Message = "El campo Correo Electrónico es obligatorio";
+				}
+
 			};
 
 		} ]);

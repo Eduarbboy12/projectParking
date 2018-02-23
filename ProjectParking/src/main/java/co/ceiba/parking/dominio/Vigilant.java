@@ -1,8 +1,9 @@
 package co.ceiba.parking.dominio;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,19 @@ public class Vigilant {
 	public static final String NO_MORE_AVAILABLE_QUOTAS = "No hay cupos Disponibles";
 	public static final String CAR_IS_ENTRY = "El carro ya se encuentra parqueado";
 	public static final String CAR_NOT_IS_AUTORIZED_BY_PLACA = "El vehiculo no esta autorizado para parquear";
+	public static final String PLAQUE_NOT_STORE = "La placa ingresada ya no esta en el sistema";
+	public static final String VEHICLE_IS_EXIT = "El carro ya salio del sistema";
 	public static final int SPACE_AVAILABLE_CAR = 20;
 	public static final int SPACE_AVAILABLE_MOTORBYKE = 10;
+	public static final int CYLINDER_AVIABLE = 500;
 	public static final String STATE_CAR = "CARRO";
 	public static final String STATE_MOTORBYKE = "MOTO";
+	public static final int HORADIA = 24;
+	public static final int HORADIAMAX = 9;
+	public static final int VALUE_HOUR_MOTORBYKE = 500;
+	public static final int VALUE_DAY_MOTORBYKE = 4000;
+	public static final int VALUE_HOUR_CAR = 1000;
+	public static final int VALUE_DAY_CAR = 8000;
 
 	@Autowired
 	private VehicleRepositoryJPA vehicleRepositoryJPA;
@@ -36,27 +46,44 @@ public class Vigilant {
 	private RateRepositoryJPA rateRepositoryJPA;
 	@Autowired
 	private UserRepositoryJPA userRepositoryJPA;
-	
-	public static final LocalDateTime inputDate = LocalDateTime.now();
 
-	public Vigilant(VehicleRepositoryJPA vehicleRepositoryJPA, InvoiceRepositoryJPA invoiceRepositoryJPA, RateRepositoryJPA rateRepositoryJPA, UserRepositoryJPA userRepositoryJPA) {
+	public static final LocalDateTime currentDate = LocalDateTime.now();
+
+	/**
+	 * 
+	 * @param vehicleRepositoryJPA
+	 * @param invoiceRepositoryJPA
+	 * @param rateRepositoryJPA
+	 * @param userRepositoryJPA
+	 */
+	public Vigilant(VehicleRepositoryJPA vehicleRepositoryJPA, InvoiceRepositoryJPA invoiceRepositoryJPA,
+			RateRepositoryJPA rateRepositoryJPA, UserRepositoryJPA userRepositoryJPA) {
 		this.vehicleRepositoryJPA = vehicleRepositoryJPA;
 		this.invoiceRepositoryJPA = invoiceRepositoryJPA;
 		this.rateRepositoryJPA = rateRepositoryJPA;
 		this.userRepositoryJPA = userRepositoryJPA;
 	}
-	
+
+	/**
+	 * 
+	 * @param vehicle
+	 * @return
+	 */
 	public Vehicle inputVehicle(Vehicle vehicle) {
 		validateInputVehicle(vehicle);
 		return vehicle;
 	}
 
+	/**
+	 * 
+	 * @param vehicle
+	 */
 	public void validateInputVehicle(Vehicle vehicle) {
 		String placaValidate = vehicle.getPlaque().toUpperCase();
 		if (isOccuped(vehicle.getPlaque())) {
 			throw new VehicleException(CAR_IS_ENTRY);
 		}
-		if (placaValidate.charAt(0) == 'A' && !isAuthorized(inputDate)) {
+		if (placaValidate.charAt(0) == 'A' && !isAuthorized(currentDate)) {
 			throw new VehicleException(CAR_NOT_IS_AUTORIZED_BY_PLACA);
 		}
 		if (!spaceAvailable(vehicle)) {
@@ -65,8 +92,58 @@ public class Vigilant {
 
 	}
 
-	public void outputVehicle() {
-		LocalDate outputDate = LocalDate.now();
+	/**
+	 * 
+	 * @param plaque
+	 */
+	public Invoice outputVehicle(String plaque) {
+		if(plaque == null) {
+			throw new VehicleException(PLAQUE_NOT_STORE);
+		}
+		int days = 0;
+		int hour = 0;
+		int minute = 0;
+		int valuePay = 0;
+		InvoiceEntity invoiceEntity = this.invoiceRepositoryJPA.findByVehiclePlaque(plaque);
+		Invoice invoice = InvoiceBuilder.convertirADominio(invoiceEntity);
+		if(invoice == null || invoice.getVehicle() == null || invoice.getVehicle().getPlaque() == null || invoice.getDateoutput() != null) {
+			throw new VehicleException(PLAQUE_NOT_STORE);
+		}
+		Date exitDate = Date.from(currentDate.atZone(ZoneId.systemDefault()).toInstant());
+		int diff = (int) ((exitDate.getTime() - invoice.getDateinput().getTime()) / 1000);
+		if (diff > 86400) {
+			days = (int) Math.floor(diff / 86400);
+			diff = diff - (days * 86400);
+		}
+		if (diff > 3600) {
+			hour = (int) Math.floor(diff / 3600);
+			diff = diff - (hour * 3600);
+		}
+		if (diff > 60) {
+			minute = (int) Math.floor(diff / 60);
+			diff = diff - (minute * 60);
+		}
+
+		if ((minute % 60) >= 1) {
+			hour++;
+			minute = 0;
+		}
+		if (hour > 9) {
+			days++;
+			hour = 0;
+		}
+		if (invoice.getVehicle().getType().equals(STATE_CAR)) {
+			valuePay = (days * VALUE_DAY_CAR) + (hour * VALUE_HOUR_CAR);
+		} else {
+			valuePay = (days * VALUE_DAY_MOTORBYKE) + (hour * VALUE_HOUR_MOTORBYKE);
+		}
+		if (Integer.parseInt(invoice.getVehicle().getCylinder()) > CYLINDER_AVIABLE) {
+			valuePay += 2000;
+		}
+		invoice.setDateoutput(exitDate);
+		invoice.setTimeparking(days);
+		invoice.setValuepay(valuePay);
+		return invoice;
 	}
 
 	/**
@@ -124,7 +201,7 @@ public class Vigilant {
 	 */
 	public Invoice isInvoiceExist(Vehicle vehicle) {
 		InvoiceEntity invoiceEntity = this.invoiceRepositoryJPA.findByVehiclePlaque(vehicle.getPlaque());
-		
+
 		Invoice invoice = InvoiceBuilder.convertirADominio(invoiceEntity);
 		if (invoice != null && invoice.getVehicle().getPlaque() != null) {
 			return invoice;
@@ -173,7 +250,7 @@ public class Vigilant {
 	public boolean isSpaceAviableCar(Vehicle vehicle, int spaceAvialbleCar) {
 		if (vehicle == null || vehicle.getType() == null) {
 			return false;
-		}		
+		}
 		Long countCarStore = this.invoiceRepositoryJPA.countByVehicleType(vehicle.getType());
 		if (countCarStore > spaceAvialbleCar) {
 			return false;

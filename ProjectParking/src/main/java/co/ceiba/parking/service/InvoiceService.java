@@ -7,8 +7,10 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.ceiba.parking.dominio.Invoice;
 import co.ceiba.parking.dominio.Vehicle;
 import co.ceiba.parking.dominio.Vigilant;
+import co.ceiba.parking.persistence.builder.InvoiceBuilder;
 import co.ceiba.parking.persistence.entity.InvoiceEntity;
 import co.ceiba.parking.persistence.entity.RateEntity;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
@@ -58,6 +60,17 @@ public class InvoiceService {
 		invoiceEntity.setRateEntity(rateEntity);
 		invoiceEntity.setDateinput(inputDate);		
 		save(invoiceEntity);
+	}
+	
+	public void ValidateUpdate(String plaque) {
+		InvoiceEntity invoiceEntityCurrent = invoiceRepositoryJPA.findByVehiclePlaque(plaque);
+		Invoice invoice = vigilant.outputVehicle(plaque);
+		InvoiceEntity invoiceEntity = InvoiceBuilder.convertirAEntity(invoice);
+		invoiceEntity.setId(invoiceEntityCurrent.getId());
+		invoiceEntity.setRateEntity(invoiceEntityCurrent.getRateEntity());
+		invoiceEntity.setVehicle(invoiceEntityCurrent.getVehicle());
+		save(invoiceEntity);
+		
 	}
 
 }

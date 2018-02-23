@@ -1,5 +1,6 @@
 package co.ceiba.parking.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -49,5 +50,20 @@ public class InvoiceController {
 		}
 		return "User succesfully updated!";
 	}
+	
+	
+	@RequestMapping("/invoice/{plaque}")
+	@ResponseBody
+	public String updateVehicleByPlaque(@PathVariable String plaque) {
+		try {
+			invoiceService.ValidateUpdate(plaque);
+		} catch (Exception ex) {
+			Logger.getLogger(ex.getMessage());
+			System.out.println(ex.fillInStackTrace());
+			return "Error updating the user: " + ex.toString();
+		}
+		return "User succesfully updated!";
+	}
+	
 
 }

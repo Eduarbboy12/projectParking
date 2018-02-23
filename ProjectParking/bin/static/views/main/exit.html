@@ -37,12 +37,12 @@
 		</div>
 		<div>
 			<div style="width: 60%; padding-left: 20px;">
-				<form name="mainForm">
+				<form name="exitForm">
 					<p class="bg-info info-msg" id="info1">{{Message}}</p>
 
 					<div class="form-group">
 						<label class=blue_font>Plaque</label> <input class=form-control
-							type="text" id="plaque" ng-model="mainForm.plaque"
+							type="text" id="plaque" ng-model="exitForm.plaque"
 							placeholder="Plaque" autocomplete="off" maxlength="10">
 					</div>
 					
@@ -50,7 +50,7 @@
 						<div class="row-gutter-5">
 							<div class="col-md-4 col-xs-6 col-sm-6">
 								<button class="btn btn-primary btn-lg btn-white" type="button"
-									data-ng-click="create()" id="Create">Create</button>
+									data-ng-click="update()" id="Create">Exit Vehicle</button>
 							</div>
 							
 							<div class="col-md-4 col-xs-6 col-sm-6">
