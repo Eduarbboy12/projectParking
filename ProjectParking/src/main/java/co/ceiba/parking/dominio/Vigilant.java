@@ -105,12 +105,13 @@ public class Vigilant {
 		int hour = 0;
 		int minute = 0;
 		int valuePay = 0;
+		LocalDateTime currentDateExit = LocalDateTime.now();
 		InvoiceEntity invoiceEntity = this.invoiceRepositoryJPA.findByVehiclePlaque(plaque);
 		Invoice invoice = InvoiceBuilder.convertirADominio(invoiceEntity);
 		if(invoice == null || invoice.getVehicle() == null || invoice.getVehicle().getPlaque() == null || invoice.getDateoutput() != null) {
 			throw new VehicleException(PLAQUE_NOT_STORE);
 		}
-		Date exitDate = Date.from(currentDate.atZone(ZoneId.systemDefault()).toInstant());
+		Date exitDate = Date.from(currentDateExit.atZone(ZoneId.systemDefault()).toInstant());
 		int diff = (int) ((exitDate.getTime() - invoice.getDateinput().getTime()) / 1000);
 		if (diff > 86400) {
 			days = (int) Math.floor(diff / 86400);
@@ -124,7 +125,10 @@ public class Vigilant {
 			minute = (int) Math.floor(diff / 60);
 			diff = diff - (minute * 60);
 		}
-
+		if ((diff % 60) >= 1) {
+			minute++;
+			diff = 0;
+		}
 		if ((minute % 60) >= 1) {
 			hour++;
 			minute = 0;

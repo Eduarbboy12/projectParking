@@ -10,7 +10,6 @@ import java.util.Calendar;
 import org.junit.Assert;
 import org.junit.Test;
 
-import co.ceiba.parking.dominio.exception.InvoiceException;
 import co.ceiba.parking.persistence.builder.InvoiceBuilder;
 import co.ceiba.parking.persistence.builder.VehicleBuilder;
 import co.ceiba.parking.persistence.entity.InvoiceEntity;
