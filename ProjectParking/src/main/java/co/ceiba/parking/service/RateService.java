@@ -16,8 +16,8 @@ public class RateService {
 		return rateRepositoryJPA.findAll();
 	}
 	
-	public RateEntity findById(long Id) {
-		return rateRepositoryJPA.findOne(Id);
+	public RateEntity findById(long id) {
+		return rateRepositoryJPA.findOne(id);
 	}
 	
 	public RateEntity save(RateEntity rateEntity){

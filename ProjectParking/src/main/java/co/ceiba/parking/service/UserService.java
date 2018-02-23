@@ -16,8 +16,8 @@ public class UserService {
         return userRepository.findAll();
     }
 	
-	public UserEntity findById(long Id) {
-		return userRepository.findOne(Id);
+	public UserEntity findById(long id) {
+		return userRepository.findOne(id);
 	}
 	
 	public UserEntity save(UserEntity user){

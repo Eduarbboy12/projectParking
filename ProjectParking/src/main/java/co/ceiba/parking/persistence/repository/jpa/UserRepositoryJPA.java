@@ -7,5 +7,5 @@ import co.ceiba.parking.persistence.entity.UserEntity;
 
 @Repository
 public interface UserRepositoryJPA extends CrudRepository<UserEntity,Long> {
-	public UserEntity findByUser(String User);	
+	public UserEntity findByUser(String user);	
 }

@@ -5,7 +5,11 @@ import co.ceiba.parking.persistence.entity.RateEntity;
 
 public class RateBuilder {
 	
+	/**
+	 * Constructor
+	 */
 	public RateBuilder() {
+		// Do nothing because is a constructor.
 	}
 
 	public static Rate convertirADominio(RateEntity rateEntity) {

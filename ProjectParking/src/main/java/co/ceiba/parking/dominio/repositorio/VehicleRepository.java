@@ -10,10 +10,4 @@ public interface VehicleRepository {
 	 * @return
 	 */
 	Vehicle getByPlaque(String plaque);
-	
-	/**
-	 * 
-	 * @param vehicle
-	 */
-	void saveVehicle(Vehicle vehicle);
 }

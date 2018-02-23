@@ -9,7 +9,11 @@ import co.ceiba.parking.persistence.entity.VehicleEntity;
 
 public class InvoiceBuilder {
 
+	/**
+	 * Constructor
+	 */
 	public InvoiceBuilder() {
+		// Do nothing because is a constructor.
 	}
 
 	public static Invoice convertirADominio(InvoiceEntity invoiceEntity) {

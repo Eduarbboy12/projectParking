@@ -5,9 +5,6 @@ import org.springframework.stereotype.Service;
 
 import co.ceiba.parking.dominio.Vehicle;
 import co.ceiba.parking.dominio.Vigilant;
-import co.ceiba.parking.dominio.repositorio.InvoiceRepository;
-import co.ceiba.parking.dominio.repositorio.RateRepository;
-import co.ceiba.parking.dominio.repositorio.UserRepository;
 import co.ceiba.parking.dominio.repositorio.VehicleRepository;
 import co.ceiba.parking.persistence.builder.VehicleBuilder;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
@@ -24,9 +21,6 @@ public class VehicleService {
 	public InvoiceService invoiceService;
 	
 	private VehicleRepository vehicleRepository;
-	private InvoiceRepository invoiceRepository;
-	private RateRepository rateRepository;
-	private UserRepository userRepository;
 	
 	@Autowired
 	private VehicleRepositoryJPA vehicleRepositoryJPA;
@@ -35,8 +29,8 @@ public class VehicleService {
 		return vehicleRepositoryJPA.findAll();
 	}
 	
-	public VehicleEntity findById(long Id) {
-		return vehicleRepositoryJPA.findOne(Id);
+	public VehicleEntity findById(long id) {
+		return vehicleRepositoryJPA.findOne(id);
 	}
 	
 	public VehicleEntity save(VehicleEntity vehicle){
@@ -68,7 +62,7 @@ public class VehicleService {
 		return vehicleRepository.getByPlaque(plaque);
 	}
 	
-	public void PreSave(Vehicle vehicle) {
+	public void preSave(Vehicle vehicle) {
 		VehicleEntity vehicleEntity = VehicleBuilder.convertirAEntity(vehicle);
 		save(vehicleEntity);
 	}

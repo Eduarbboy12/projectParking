@@ -5,7 +5,11 @@ import co.ceiba.parking.persistence.entity.VehicleEntity;
 
 public class VehicleBuilder {
 
+	/**
+	 * Contructor
+	 */
 	public VehicleBuilder() {
+		// Do nothing because is a constructor.
 	}
 
 	public static Vehicle convertirADominio(VehicleEntity vehicleEntity) {

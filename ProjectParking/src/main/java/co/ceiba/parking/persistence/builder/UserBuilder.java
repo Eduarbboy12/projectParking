@@ -5,7 +5,11 @@ import co.ceiba.parking.persistence.entity.UserEntity;
 
 public class UserBuilder {
 
+	/**
+	 * Contructor
+	 */
 	public UserBuilder() {
+		// Do nothing because is a constructor.
 	}
 
 	public static User convertirADominio(UserEntity userEntity) {
