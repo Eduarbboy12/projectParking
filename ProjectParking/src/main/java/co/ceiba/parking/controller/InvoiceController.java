@@ -58,8 +58,6 @@ public class InvoiceController {
 		try {
 			invoiceService.ValidateUpdate(plaque);
 		} catch (Exception ex) {
-			Logger.getLogger(ex.getMessage());
-			System.out.println(ex.fillInStackTrace());
 			return "Error updating the user: " + ex.toString();
 		}
 		return "User succesfully updated!";

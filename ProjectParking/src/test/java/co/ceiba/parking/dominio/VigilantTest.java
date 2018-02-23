@@ -10,6 +10,7 @@ import java.util.Calendar;
 import org.junit.Assert;
 import org.junit.Test;
 
+import co.ceiba.parking.dominio.exception.InvoiceException;
 import co.ceiba.parking.persistence.builder.InvoiceBuilder;
 import co.ceiba.parking.persistence.builder.VehicleBuilder;
 import co.ceiba.parking.persistence.entity.InvoiceEntity;
@@ -434,28 +435,6 @@ public class VigilantTest {
 		assertFalse(vigilant.isSpaceAviableMotorByke(vehicle, spaceAvialbleCar));
 	}
 	
-	@Test
-	public void isOutputVehicleTest() {
-		InvoiceTestDataBuilder invoiceTestDataBuilder = new InvoiceTestDataBuilder();
-		
-		Invoice invoice = invoiceTestDataBuilder.build();
-		
-		InvoiceEntity invoiceEntity = InvoiceBuilder.convertirAEntity(invoice);
-		
-		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
-		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
-		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
-		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
-		
-		when(invoiceRepositoryJPA.findByVehiclePlaque(invoice.getVehicle().getPlaque())).thenReturn(invoiceEntity);
-		
-		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
-		
-		vigilant.outputVehicle(invoice.getVehicle().getPlaque());
-		
-		assertNull(vigilant.outputVehicle(invoice.getVehicle().getPlaque()));
-		
-	}
 
 }
 

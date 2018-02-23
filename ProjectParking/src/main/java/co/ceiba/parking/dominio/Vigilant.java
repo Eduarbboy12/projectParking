@@ -8,6 +8,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.ceiba.parking.dominio.exception.InvoiceException;
 import co.ceiba.parking.dominio.exception.VehicleException;
 import co.ceiba.parking.persistence.builder.InvoiceBuilder;
 import co.ceiba.parking.persistence.builder.VehicleBuilder;
@@ -98,7 +99,7 @@ public class Vigilant {
 	 */
 	public Invoice outputVehicle(String plaque) {
 		if(plaque == null) {
-			throw new VehicleException(PLAQUE_NOT_STORE);
+			throw new InvoiceException(PLAQUE_NOT_STORE);
 		}
 		int days = 0;
 		int hour = 0;
