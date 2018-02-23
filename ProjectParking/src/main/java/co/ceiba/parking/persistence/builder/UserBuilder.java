@@ -5,6 +5,9 @@ import co.ceiba.parking.persistence.entity.UserEntity;
 
 public class UserBuilder {
 
+	/**
+	 * Contructor
+	 */
 	public UserBuilder() {
 	}
 

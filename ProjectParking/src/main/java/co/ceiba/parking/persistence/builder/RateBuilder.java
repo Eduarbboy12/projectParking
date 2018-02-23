@@ -5,6 +5,9 @@ import co.ceiba.parking.persistence.entity.RateEntity;
 
 public class RateBuilder {
 	
+	/**
+	 * Constructor
+	 */
 	public RateBuilder() {
 	}
 

@@ -9,6 +9,9 @@ import co.ceiba.parking.persistence.entity.VehicleEntity;
 
 public class InvoiceBuilder {
 
+	/**
+	 * Constructor
+	 */
 	public InvoiceBuilder() {
 	}
 

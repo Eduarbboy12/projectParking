@@ -51,8 +51,6 @@ public class InvoiceService {
 	public void validateInvoice(Vehicle vehicle) {
 		LocalDateTime localInputDate = LocalDateTime.now();
 		Date inputDate = Date.from(localInputDate.atZone(ZoneId.systemDefault()).toInstant());
-//		LocalDate inputDateInvoice = LocalDate.now();
-//		Date DateInto= Date.from(inputDateInvoice.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		VehicleEntity vehicleEntity = vehicleRepositoryJPA.findByPlaque(vehicle.getPlaque());
 		RateEntity rateEntity = rateRepositoryJPA.findByRateName("NA");
 		InvoiceEntity invoiceEntity = new InvoiceEntity();

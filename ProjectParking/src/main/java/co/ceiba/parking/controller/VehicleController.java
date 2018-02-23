@@ -1,5 +1,6 @@
 package co.ceiba.parking.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -9,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import co.ceiba.parking.dominio.Vehicle;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
 import co.ceiba.parking.service.VehicleService;
+
 
 @Controller
 public class VehicleController {
@@ -33,8 +34,7 @@ public class VehicleController {
 			vehicleService.saveValidate(vehicleEntity);
 			userId = String.valueOf(vehicleEntity.getPlaque());
 		} catch (Exception ex) {
-			System.out.println(ex.fillInStackTrace());
-			ex.printStackTrace();
+			Logger.getLogger(ex.getMessage());
 			return "Error creating the vehicle: " + ex.toString();
 		}
 		return "User succesfully created with id = " + userId;
@@ -68,7 +68,6 @@ public class VehicleController {
 	@RequestMapping(value = "/vehicle/{mail}", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getByUser(@PathVariable String plaque) {
-		System.out.println("controller:" + vehicleService.findByPlaque(plaque));
 		return vehicleService.findByPlaque(plaque);
 	}
 

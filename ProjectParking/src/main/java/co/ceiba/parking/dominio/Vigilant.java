@@ -3,24 +3,15 @@ package co.ceiba.parking.dominio;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.ceiba.parking.dominio.exception.VehicleException;
-import co.ceiba.parking.dominio.repositorio.InvoiceRepository;
-import co.ceiba.parking.dominio.repositorio.RateRepository;
-import co.ceiba.parking.dominio.repositorio.UserRepository;
-import co.ceiba.parking.dominio.repositorio.VehicleRepository;
 import co.ceiba.parking.persistence.builder.InvoiceBuilder;
-import co.ceiba.parking.persistence.builder.RateBuilder;
 import co.ceiba.parking.persistence.builder.VehicleBuilder;
 import co.ceiba.parking.persistence.entity.InvoiceEntity;
-import co.ceiba.parking.persistence.entity.RateEntity;
 import co.ceiba.parking.persistence.entity.VehicleEntity;
-import co.ceiba.parking.persistence.repository.VehicleRepositoryPersistence;
 import co.ceiba.parking.persistence.repository.jpa.InvoiceRepositoryJPA;
 import co.ceiba.parking.persistence.repository.jpa.RateRepositoryJPA;
 import co.ceiba.parking.persistence.repository.jpa.UserRepositoryJPA;
@@ -45,6 +36,7 @@ public class Vigilant {
 	private RateRepositoryJPA rateRepositoryJPA;
 	@Autowired
 	private UserRepositoryJPA userRepositoryJPA;
+	
 	public LocalDateTime inputDate = LocalDateTime.now();
 
 	public Vigilant(VehicleRepositoryJPA vehicleRepositoryJPA, InvoiceRepositoryJPA invoiceRepositoryJPA, RateRepositoryJPA rateRepositoryJPA, UserRepositoryJPA userRepositoryJPA) {

@@ -2,9 +2,6 @@ package co.ceiba.parking.dominio;
 
 import java.util.Date;
 
-import co.ceiba.parking.persistence.entity.RateEntity;
-import co.ceiba.parking.persistence.entity.VehicleEntity;
-
 public class Invoice {
 
 	private Vehicle vehicle;
