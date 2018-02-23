@@ -38,18 +38,6 @@ public class InvoiceController {
 
 	}
 	
-	@RequestMapping("/deleteinvoice/{id}")
-	@ResponseBody
-	public String delete(@PathVariable long id) {
-		try {
-			InvoiceEntity invoiceEntity = invoiceService.findById(id);
-			invoiceService.delete(invoiceEntity);
-		} catch (Exception ex) {
-			return "Error deleting the user:" + ex.toString();
-		}
-		return "User succesfully deleted!";
-	}
-	
 	@RequestMapping("/updateinvoice/{id}")
 	@ResponseBody
 	public String updateVehicle(@RequestBody InvoiceEntity invoiceEntity, @PathVariable Long id) {

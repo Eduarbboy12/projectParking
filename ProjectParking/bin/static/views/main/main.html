@@ -2,14 +2,15 @@
 <html lang="en-US">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+<meta name="viewport"
+	content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 <link rel="stylesheet" href="../../css/bootstrap.min.css">
 <link rel=stylesheet href="../../css/main.css">
 <link rel=stylesheet href="../../css/vendor.css">
 <title>Parking</title>
 </head>
-<body ng-app="myApp">
-	<div ng-controller="MainController">
+<body>
+	<div>
 
 		<snap-drawer>
 		<div class=snap-menu>
@@ -27,82 +28,40 @@
 
 		<snap-content snap-opt-tap-to-close="false" class="snap-content"
 			style="transform: translate3d(250px, 0px, 0px);"> <a
-			snap-toggle="left" > <span
-			class="menutoggle">
-		</span>
+			snap-toggle="left"> <span class="menutoggle"> </span>
 		</a>
 		<div class="fr">
-			<h2>Enter Parking</h2>
+			<h1>Parking Ceiba Software House</h1>
 			<br>
 		</div>
 		<div>
 			<div style="width: 60%; padding-left: 20px;">
-				<form name="mainForm">
-					<table class="table table-responsive table-hover table-condensed">
-						<tr>
-							<th>ID</th>
-							<th>Type</th>
-							<th>Plaque</th>
-							<th>Displacement</th>
-							<th>Document</th>
-						</tr>
-						<tr ng-repeat="row in vehicles">
-							<td><span ng-bind="row.id"></span></td>
-							<td><span ng-bind="row.type"></span></td>
-							<td><span ng-bind="row.plaque"></span></td>
-							<td><span ng-bind="row.cylinder"></span></td>
-							<td><span ng-bind="row.document"></span></td>
-							<td>
-						</tr>
-					</table>
-				
-					<p class="bg-info info-msg" id="info1">{{Message}}</p>
-
-					<div class="form-group">
-						<label class=blue_font>Type Vehicle</label> <select
-							class=form-control id="type" name="type" ng-model="mainForm.type">
-							<option value="CARRO">Car</option>
-							<option value="MOTO">Motorbyke</option>
-						</select>
+				<div class="jumbotron" style="background-color: #18aa8d !important;">
+					<div class=container>
+						<h1>Enter Parking</h1>
+						You want to park here?<br> <br>
+						<p>
+							<a href="entry.html" 
+							class="btn btn-primary btn-lg btn-white">Entry</a>
+						</p>
 					</div>
-
-					<div class="form-group">
-						<label class=blue_font>Plaque</label> <input class=form-control
-							type="text" id="plaque" ng-model="mainForm.plaque"
-							placeholder="Plaque" autocomplete="off" maxlength="10">
+				</div>
+			</div>
+			<div style="width: 60%; padding-left: 20px;">
+				<div class="jumbotron" style="background-color: #18aa8d !important;">
+					<div class=container>
+						<h1>Exit Parking</h1>
+						You want to exit park here?<br> <br>
+						<p>
+							<a href="exit.html" 
+							class="btn btn-primary btn-lg btn-white">Exit</a>
+						</p>
 					</div>
-					
-					<div class="form-group">
-						<label class=blue_font>Displacement</label> <input class=form-control
-							type="text" id="cylinder" ng-model="mainForm.cylinder"
-							placeholder="Displacement" autocomplete="off" maxlength="30">
-					</div>
-
-					<div class="form-group">
-						<label class=blue_font>Document</label> <input
-							class=form-control type="text" id="document"
-							ng-model="mainForm.document" placeholder="Document"
-							autocomplete="off" maxlength="20">
-					</div>
-					
-					<div class="btn-wrapper">
-						<div class="row-gutter-5">
-							<div class="col-md-4 col-xs-6 col-sm-6">
-								<button class="btn btn-primary btn-lg btn-white" type="button"
-									data-ng-click="create()" id="Create">Create</button>
-							</div>
-							<div class="col-md-4 col-xs-6 col-sm-6">
-								<button class="btn btn-primary btn-lg btn-white" type="button"
-									data-ng-click="refresh()" id="refresh">Refresh</button>
-							</div>
-						</div>
-					</div>
-
-				</form>
+				</div>
 			</div>
 		</div>
 		</snap-content>
-		
+
 
 	</div>
 

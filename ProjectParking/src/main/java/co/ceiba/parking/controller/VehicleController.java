@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,37 +37,6 @@ public class VehicleController {
 			return "Error creating the vehicle: " + ex.toString();
 		}
 		return "User succesfully created with id = " + userId;
-
-	}
-	
-	@RequestMapping("/deletevehicle/{id}")
-	@ResponseBody
-	public String delete(@PathVariable long id) {
-		try {
-			VehicleEntity vehicleEntity = vehicleService.findById(id);
-			vehicleService.delete(vehicleEntity);
-		} catch (Exception ex) {
-			return "Error deleting the user:" + ex.toString();
-		}
-		return "User succesfully deleted!";
-	}
-	
-	@RequestMapping("/updatevehicle/{id}")
-	@ResponseBody
-	public String updateVehicle(@RequestBody VehicleEntity vehicleEntity, @PathVariable Long id) {
-		try {
-			vehicleEntity.setId(id);
-			vehicleService.save(vehicleEntity);
-		} catch (Exception ex) {
-			return "Error updating the user: " + ex.toString();
-		}
-		return "User succesfully updated!";
-	}
-	
-	@RequestMapping(value = "/vehicle/{mail}", method = RequestMethod.GET)
-	@ResponseBody
-	public Object getByUser(@PathVariable String plaque) {
-		return vehicleService.findByPlaque(plaque);
 	}
 
 }

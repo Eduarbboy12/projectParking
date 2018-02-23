@@ -36,32 +36,7 @@ public class UserController {
 		}
 		return "User succesfully created with id = " + userId;
 
-	}
-	
-	@RequestMapping("/delete/{id}")
-	@ResponseBody
-	public String delete(@PathVariable long id) {
-		try {
-			UserEntity user = userService.findById(id);
-			userService.delete(user);
-		} catch (Exception ex) {
-			return "Error deleting the user:" + ex.toString();
-		}
-		return "User succesfully deleted!";
-	}
-
-	@RequestMapping("/update/{id}")
-	@ResponseBody
-	public String updateUser(@RequestBody UserEntity user, @PathVariable Long id) {
-		try {
-			user.setId(id);
-			userService.save(user);
-		} catch (Exception ex) {
-			return "Error updating the user: " + ex.toString();
-		}
-		return "User succesfully updated!";
-	}
-	
+	}	
 	
 	@RequestMapping(value = "/get-by-email/{mail}", method = RequestMethod.GET)
 	@ResponseBody
