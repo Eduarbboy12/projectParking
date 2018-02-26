@@ -257,10 +257,7 @@ public class Vigilant {
 			return false;
 		}
 		Long countCarStore = this.invoiceRepositoryJPA.countByVehicleType(vehicle.getType());
-		if (countCarStore > spaceAvialbleCar) {
-			return false;
-		}
-		return true;
+		return (countCarStore <= spaceAvialbleCar);
 	}
 
 	/**
@@ -274,10 +271,7 @@ public class Vigilant {
 			return false;
 		}
 		Long countCarStore = this.invoiceRepositoryJPA.countByVehicleType(vehicle.getType());
-		if (countCarStore > spaceAvialbleMotorByke) {
-			return false;
-		}
-		return true;
+		return (countCarStore <= spaceAvialbleMotorByke);
 	}
 
 }
