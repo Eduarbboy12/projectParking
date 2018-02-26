@@ -12,7 +12,7 @@ public class InvoiceBuilder {
 	/**
 	 * Constructor
 	 */
-	public InvoiceBuilder() {
+	private InvoiceBuilder() {
 		// Do nothing because is a constructor.
 	}
 

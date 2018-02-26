@@ -8,7 +8,7 @@ public class VehicleBuilder {
 	/**
 	 * Contructor
 	 */
-	public VehicleBuilder() {
+	private VehicleBuilder() {
 		// Do nothing because is a constructor.
 	}
 

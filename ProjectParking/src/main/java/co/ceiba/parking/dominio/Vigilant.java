@@ -114,15 +114,15 @@ public class Vigilant {
 		Date exitDate = Date.from(currentDateExit.atZone(ZoneId.systemDefault()).toInstant());
 		int diff = (int) ((exitDate.getTime() - invoice.getDateinput().getTime()) / 1000);
 		if (diff > 86400) {
-			days = (int) (diff / 86400);
+			days = (diff / 86400);
 			diff = diff - (days * 86400);
 		}
 		if (diff > 3600) {
-			hour = (int) (diff / 3600);
+			hour = (diff / 3600);
 			diff = diff - (hour * 3600);
 		}
 		if (diff > 60) {
-			minute = (int) (diff / 60);
+			minute = (diff / 60);
 			diff = diff - (minute * 60);
 		}
 		if ((diff % 60) >= 1) {
