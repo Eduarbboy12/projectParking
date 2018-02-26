@@ -16,18 +16,9 @@ public class UserService {
         return userRepository.findAll();
     }
 	
-	public UserEntity findById(long id) {
-		return userRepository.findOne(id);
-	}
-	
 	public UserEntity save(UserEntity user){
         return userRepository.save(user);
     }
-	
-	public void delete(UserEntity user) {
-		userRepository.delete(user);
-		return;
-	}
 	
 	public UserEntity findByUser(String user) {
 		return userRepository.findByUser(user);

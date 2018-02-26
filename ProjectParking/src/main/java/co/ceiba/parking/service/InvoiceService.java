@@ -37,18 +37,9 @@ public class InvoiceService {
 		return invoiceRepositoryJPA.findAll();
 	}
 	
-	public InvoiceEntity findById(long id) {
-		return invoiceRepositoryJPA.findOne(id);
-	}
-	
 	public InvoiceEntity save(InvoiceEntity invoice){
         return invoiceRepositoryJPA.save(invoice);
     }
-	
-	public void delete(InvoiceEntity invoice) {
-		invoiceRepositoryJPA.delete(invoice);
-		return;
-	}
 	
 	public void validateInvoice(Vehicle vehicle) {
 		LocalDateTime localInputDate = LocalDateTime.now();

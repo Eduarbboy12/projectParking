@@ -26,26 +26,9 @@ public class VehicleService {
 		return vehicleRepositoryJPA.findAll();
 	}
 	
-	public VehicleEntity findById(long id) {
-		return vehicleRepositoryJPA.findOne(id);
-	}
-	
 	public VehicleEntity save(VehicleEntity vehicle){
         return vehicleRepositoryJPA.save(vehicle);
     }
-	
-	public void delete(VehicleEntity vehicle) {
-		vehicleRepositoryJPA.delete(vehicle);
-		return;
-	}
-	
-	public VehicleEntity findByPlaque(String plaque) {
-		return vehicleRepositoryJPA.findByPlaque(plaque);
-	}
-	
-	public VehicleEntity findByTipo(String type) {
-		return vehicleRepositoryJPA.findByType(type);
-	}
 	
 	public void saveValidate(VehicleEntity vehicleEntity) {
 		Vehicle vehicle = VehicleBuilder.convertirADominio(vehicleEntity);
@@ -53,11 +36,6 @@ public class VehicleService {
 		VehicleEntity vehicleEntitySave = VehicleBuilder.convertirAEntity(vehiclePreSave);
 		save(vehicleEntitySave);
 		invoiceService.validateInvoice(vehiclePreSave);
-	}
-	
-	public void preSave(Vehicle vehicle) {
-		VehicleEntity vehicleEntity = VehicleBuilder.convertirAEntity(vehicle);
-		save(vehicleEntity);
 	}
 	
 

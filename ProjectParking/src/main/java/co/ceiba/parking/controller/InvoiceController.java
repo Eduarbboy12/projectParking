@@ -38,19 +38,6 @@ public class InvoiceController {
 
 	}
 	
-	@RequestMapping("/updateinvoice/{id}")
-	@ResponseBody
-	public String updateVehicle(@RequestBody InvoiceEntity invoiceEntity, @PathVariable Long id) {
-		try {
-			invoiceEntity.setId(id);
-			invoiceService.save(invoiceEntity);
-		} catch (Exception ex) {
-			return "Error updating the user: " + ex.toString();
-		}
-		return "User succesfully updated!";
-	}
-	
-	
 	@RequestMapping("/invoice/{plaque}")
 	@ResponseBody
 	public String updateVehicleByPlaque(@PathVariable String plaque) {
