@@ -42,7 +42,7 @@ public class InvoiceController {
 	@ResponseBody
 	public String updateVehicleByPlaque(@PathVariable String plaque) {
 		try {
-			invoiceService.ValidateUpdate(plaque);
+			invoiceService.validateUpdate(plaque);
 		} catch (Exception ex) {
 			return "Error updating the user: " + ex.toString();
 		}

@@ -18,32 +18,16 @@ public class User {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getLastName() {
 		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public String getDocument() {
 		return document;
 	}
 
-	public void setDocument(String document) {
-		this.document = document;
-	}
-
 	public String getUser() {
 		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
 	}
 	
 }

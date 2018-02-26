@@ -18,32 +18,16 @@ public class Vehicle {
 		return type;
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public String getPlaque() {
 		return plaque;
-	}
-
-	public void setPlaque(String plaque) {
-		this.plaque = plaque;
 	}
 
 	public String getCylinder() {
 		return cylinder;
 	}
 
-	public void setCylinder(String cylinder) {
-		this.cylinder = cylinder;
-	}
-
 	public String getDocument() {
 		return document;
-	}
-
-	public void setDocument(String document) {
-		this.document = document;
 	}
 	
 

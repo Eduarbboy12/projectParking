@@ -71,21 +71,21 @@ public class VigilantTest {
 
 	}
 	
-//	@Test
-//	public void logUserTest() throws Exception {
-//		// when
-//		MockHttpServletRequestBuilder response = get("/get-by-email/cardia01").accept(MediaType.APPLICATION_JSON);
-//
-//		MvcResult mvcResult = this.mockMvc.perform(response).andExpect(status().isOk()).andReturn();
-//
-//		byte[] responseUser = mvcResult.getResponse().getContentAsByteArray();
-//
-//		List<UserEntity> msg = this.objectMapper.readValue(responseUser, new TypeReference<List<UserEntity>>() {
-//		});
-//		
-//		assertEquals("cardia01", msg.get(0).getUser());
-//
-//	}
+	@Test
+	public void logUserTest() throws Exception {
+		// when
+		MockHttpServletRequestBuilder response = get("/get-by-email/cardia01").accept(MediaType.APPLICATION_JSON);
+
+		MvcResult mvcResult = this.mockMvc.perform(response).andExpect(status().isOk()).andReturn();
+
+		byte[] responseUser = mvcResult.getResponse().getContentAsByteArray();
+
+		UserEntity msg = this.objectMapper.readValue(responseUser, new TypeReference<UserEntity>() {
+		});
+		
+		assertEquals("cardia01", msg.getUser());
+
+	}
 	
 	
 	@Test
@@ -151,6 +151,21 @@ public class VigilantTest {
 	}
 	
 	@Test
+	public void isNotCreateUserTest() throws Exception {
+		// when
+		MockHttpServletRequestBuilder response = put("/create")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"lastName\":\"LastName\", \"document\":\"1234\", \"user\":\"adminadmin\"}");
+
+		MvcResult mvcResult = this.mockMvc.perform(response).andExpect(status().isOk()).andReturn();
+
+		String responseUser = mvcResult.getResponse().getContentAsString();
+
+		assertEquals(responseUser, responseUser);
+
+	}
+	
+	@Test
 	public void isNotUserTest() throws Exception {
 		// when
 		MockHttpServletRequestBuilder response = put("/create")
@@ -171,6 +186,21 @@ public class VigilantTest {
 		MockHttpServletRequestBuilder response = put("/createrate")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("{\"type\":\"CARRO\", \"rateName\":\"Tarifa2\", \"rateValue\":\"0\"}");
+
+		MvcResult mvcResult = this.mockMvc.perform(response).andExpect(status().isOk()).andReturn();
+
+		String responseUser = mvcResult.getResponse().getContentAsString();
+
+		assertEquals(responseUser, responseUser);
+
+	}
+	
+	@Test
+	public void isNotRateTest() throws Exception {
+		// when
+		MockHttpServletRequestBuilder response = put("/createrate")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"rateName\":\"Tarifa2\", \"rateValue\":\"0\"}");
 
 		MvcResult mvcResult = this.mockMvc.perform(response).andExpect(status().isOk()).andReturn();
 
@@ -211,9 +241,38 @@ public class VigilantTest {
 	}
 	
 	@Test
+	public void isNotCreateInvoiceTest() throws Exception {
+		// when
+		MockHttpServletRequestBuilder response = put("/createInvoice")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"vehicle\":{\"type\":\"CARRO\",\"plaque\":\"abc123\",\"cylinder\":\"1000\",\"document\":\"1234\"},\"dateinput\":1519392071000,\"dateoutput\":null,\"timeparking\":0.0,\"valuepay\":0.0,\"rateEntity\":{\"id\":11,\"type\":\"CARRO\",\"rateName\":\"TarifaTest\",\"rateValue\":0}}");
+
+		MvcResult mvcResult = this.mockMvc.perform(response).andExpect(status().isOk()).andReturn();
+
+		String responseVehicle = mvcResult.getResponse().getContentAsString();
+
+		assertEquals(responseVehicle, responseVehicle);
+
+	}
+	
+	@Test
 	public void isCreateVehicleTest() throws Exception {
 		// when
 		MockHttpServletRequestBuilder response = put("/invoice/KHK123")
+				.contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult mvcResult = this.mockMvc.perform(response).andExpect(status().isOk()).andReturn();
+
+		String responseVehicle = mvcResult.getResponse().getContentAsString();
+
+		assertEquals(responseVehicle, responseVehicle);
+
+	}
+	
+	@Test
+	public void isNotCreateVehicleTest() throws Exception {
+		// when
+		MockHttpServletRequestBuilder response = put("/invoice/FFFTTT5")
 				.contentType(MediaType.APPLICATION_JSON);
 
 		MvcResult mvcResult = this.mockMvc.perform(response).andExpect(status().isOk()).andReturn();
