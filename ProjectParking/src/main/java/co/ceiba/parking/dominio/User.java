@@ -5,13 +5,13 @@ public class User {
 	private String name;
 	private String lastName;
 	private String document;
-	private String user;
+	private String usuario;
 	
 	public User(String name, String lastName, String document, String user) {
 		this.name = name;
 		this.lastName = lastName;
 		this.document=document;
-		this.user=user;
+		this.usuario=user;
 	}
 
 	public String getName() {
@@ -27,7 +27,7 @@ public class User {
 	}
 
 	public String getUser() {
-		return user;
+		return usuario;
 	}
 	
 }
