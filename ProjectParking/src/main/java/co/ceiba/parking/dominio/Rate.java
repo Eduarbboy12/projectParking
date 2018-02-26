@@ -16,24 +16,12 @@ public class Rate {
 		return type;
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public String getRatename() {
 		return ratename;
 	}
 
-	public void setRatename(String ratename) {
-		this.ratename = ratename;
-	}
-
 	public int getRatevalue() {
 		return ratevalue;
-	}
-
-	public void setRatevalue(int ratevalue) {
-		this.ratevalue = ratevalue;
 	}
 
 }
