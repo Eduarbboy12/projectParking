@@ -33,6 +33,7 @@
 		</a>
 		<div class="fr">
 			<h2>Exit Parking</h2>
+			<p>So that the vehicle leaves the parking lot it is necessary to enter the plate!</p>
 			<br>
 		</div>
 		<div>
@@ -63,6 +64,30 @@
 									href="main.html" id="refresh">Back</a>
 							</div>
 						</div>
+					</div>
+					
+					<br>
+					<br>
+					<br>
+					<br>
+					<div>
+						<table class="table table-responsive table-hover table-condensed">
+						<tr>
+							<th>ID</th>
+							<th>Type</th>
+							<th>Plaque</th>
+							<th>Displacement</th>
+							<th>Document</th>
+						</tr>
+						<tr ng-repeat="row in vehicles">
+							<td><span ng-bind="row.id"></span></td>
+							<td><span ng-bind="row.type"></span></td>
+							<td><span ng-bind="row.plaque"></span></td>
+							<td><span ng-bind="row.cylinder"></span></td>
+							<td><span ng-bind="row.document"></span></td>
+							<td>
+						</tr>
+					</table>
 					</div>
 					
 					

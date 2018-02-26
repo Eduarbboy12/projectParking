@@ -10,6 +10,8 @@ import java.util.Calendar;
 import org.junit.Assert;
 import org.junit.Test;
 
+import co.ceiba.parking.dominio.exception.InvoiceException;
+import co.ceiba.parking.dominio.exception.VehicleException;
 import co.ceiba.parking.persistence.builder.InvoiceBuilder;
 import co.ceiba.parking.persistence.builder.VehicleBuilder;
 import co.ceiba.parking.persistence.entity.InvoiceEntity;
@@ -127,6 +129,32 @@ public class VigilantTest {
 	}
 	
 	@Test
+	public void isNullVehicleNoExistTest() {
+		
+		// arrange
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conPlaque(null).build();
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		when(vehicleRepositoryJPA.findByPlaque(vehicle.getPlaque())).thenReturn(null);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		Vehicle vehicleExists = vigilant.isVehicleExist(vehicle.getPlaque());
+		
+		// Assert		
+		assertNull(vehicleExists);
+	}
+	
+	
+	
+	@Test
 	public void isInvoiceExistTest() {
 		
 		// arrange
@@ -232,9 +260,7 @@ public class VigilantTest {
 	@Test
 	public void inputVehicleTest() {
 		
-		// arrange
-		LocalDateTime StartDateValidate = LocalDateTime.of(2018, Calendar.FEBRUARY, 20, 10, 10);
-		
+		// arrange		
 		InvoiceTestDataBuilder invoiceTestDataBuilder = new InvoiceTestDataBuilder();
 		
 		Invoice invoice = invoiceTestDataBuilder.build();
@@ -247,19 +273,18 @@ public class VigilantTest {
 		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
 		
 		// act
-		vigilant.inputVehicle(invoice.getVehicle());
-		
-		// Assert
-		Assert.assertFalse(vigilant.isOccuped(invoice.getVehicle().getPlaque()));
-		Assert.assertTrue(vigilant.isAuthorized(StartDateValidate));
-		Assert.assertTrue(vigilant.spaceAvailable(invoice.getVehicle()));		
+		try {
+			vigilant.inputVehicle(invoice.getVehicle());
+		} catch (VehicleException ve) {
+			Assert.assertEquals(Vigilant.CAR_NOT_IS_AUTORIZED_BY_PLACA, ve.getMessage());
+		}
+			
 	}
 	
 	@Test
 	public void inputVehicleNotTest() {
 		
 		// arrange
-		LocalDateTime StartDateValidate = LocalDateTime.of(2018, Calendar.FEBRUARY, 28, 10, 10);
 		
 		InvoiceTestDataBuilder invoiceTestDataBuilder = new InvoiceTestDataBuilder();
 		
@@ -273,19 +298,39 @@ public class VigilantTest {
 		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
 		
 		// act
-		vigilant.inputVehicle(invoice.getVehicle());
-		
-		// Assert
-		Assert.assertFalse(vigilant.isOccuped(invoice.getVehicle().getPlaque()));
-		Assert.assertFalse(vigilant.isAuthorized(StartDateValidate));	
+		try {
+			vigilant.inputVehicle(invoice.getVehicle());
+		} catch (VehicleException e) {
+			assertEquals(Vigilant.CAR_NOT_IS_AUTORIZED_BY_PLACA, e.getMessage());
+		}
 	}
 	
 	
 	@Test
-	public void isNotAuthorizedTest() {
+	public void isNotAuthorizedSundayTest() {
 		
 		// Arrange
 		LocalDateTime StartDateValidate = LocalDateTime.of(2018, Calendar.FEBRUARY, 28, 10, 10);
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		vigilant.isAuthorized(StartDateValidate);
+		
+		// Assert
+		Assert.assertFalse(vigilant.isAuthorized(StartDateValidate));
+	}
+	
+	@Test
+	public void isNotAuthorizedMondayTest() {
+		
+		// Arrange
+		LocalDateTime StartDateValidate = LocalDateTime.of(2018, Calendar.FEBRUARY, 29, 10, 10);
 		
 		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
 		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
@@ -379,6 +424,60 @@ public class VigilantTest {
 	}
 	
 	@Test
+	public void isNullNotSpaceAviableCarTest() {
+		
+		// Arrange
+		
+		int spaceAvialbleCar = 20;
+		Long countReturn = 30L;
+		
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conType(null).build();
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		when(invoiceRepositoryJPA.countByVehicleType(vehicle.getType())).thenReturn(countReturn);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		vigilant.isSpaceAviableCar(vehicle, spaceAvialbleCar);
+		
+		// Assert
+		assertFalse(vigilant.isSpaceAviableCar(vehicle, spaceAvialbleCar));
+	}
+	
+	@Test
+	public void isNullSpaceAviableCarTest() {
+		
+		// Arrange
+		
+		int spaceAvialbleCar = 20;
+		Long countReturn = 30L;
+		
+		Vehicle vehicle = null;
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		when(invoiceRepositoryJPA.countByVehicleType("CARRO")).thenReturn(countReturn);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		vigilant.isSpaceAviableCar(vehicle, spaceAvialbleCar);
+		
+		// Assert
+		assertFalse(vigilant.isSpaceAviableCar(vehicle, spaceAvialbleCar));
+	}
+	
+	@Test
 	public void isSpaceAviableMotorBykeTest() {
 		
 		// Arrange
@@ -434,6 +533,224 @@ public class VigilantTest {
 		assertFalse(vigilant.isSpaceAviableMotorByke(vehicle, spaceAvialbleCar));
 	}
 	
+	@Test
+	public void isNullNotSpaceAviableMotorBykeTest() {
+		
+		// Arrange
+		
+		int spaceAvialbleCar = 20;
+		Long countReturn = 5L;
+		
+		Vehicle vehicle = null;
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		when(invoiceRepositoryJPA.countByVehicleType("CARRO")).thenReturn(countReturn);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		vigilant.isSpaceAviableMotorByke(vehicle, spaceAvialbleCar);
+		
+		// Assert
+		assertFalse(vigilant.isSpaceAviableMotorByke(vehicle, spaceAvialbleCar));
+	}
+	
+	@Test
+	public void isNullSpaceAviableMotorBykeTest() {
+		
+		// Arrange
+		
+		int spaceAvialbleCar = 20;
+		
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conType(null).build();
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		when(invoiceRepositoryJPA.countByVehicleType(vehicle.getType())).thenReturn(null);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		vigilant.isSpaceAviableMotorByke(vehicle, spaceAvialbleCar);
+		
+		// Assert
+		assertFalse(vigilant.isSpaceAviableMotorByke(vehicle, spaceAvialbleCar));
+	}
+	
+	@Test
+	public void spaceAvailableCarTest() {
+		
+		// Arrange
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conType("MOTO").build();
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		vigilant.spaceAvailable(vehicle);
+		
+		// Assert
+		assertTrue(vigilant.spaceAvailable(vehicle));
+		
+	}
+	
+	@Test
+	public void notSpaceAvailableCarTest() {
+		
+		// Arrange
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.build();
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		vigilant.spaceAvailable(vehicle);
+		
+		// Assert
+		assertTrue(vigilant.spaceAvailable(vehicle));
+		
+	}
+	
+	@Test
+	public void isSpaceAvailableTest() {
+		
+		//Arrange
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conType(null).build();
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		try {
+			vigilant.spaceAvailable(vehicle);
+		} catch (VehicleException e) {
+			// Assert
+			assertEquals(Vigilant.PLAQUE_NOT_STORE, e.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void isNullSpaceAvailableTest() {
+		
+		//Arrange		
+		Vehicle vehicle = null;
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		try {
+			vigilant.spaceAvailable(vehicle);
+		} catch (VehicleException ve) {
+			
+			// Assert
+			Assert.assertEquals(Vigilant.PLAQUE_NOT_STORE, ve.getMessage());
+		}
+		
+	}
+	
+	@Test
+	public void isInputVehicleTest() {
+		// arrange		
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conPlaque("ZZA123").build();
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		//when(invoiceRepositoryJPA.countByVehicleType(vehicle.getType())).thenReturn(null);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		Vehicle vehicleTest = vigilant.inputVehicle(vehicle);
+		
+		assertEquals(vehicleTest.getType(), vehicle.getType());
+		
+		
+	}
+	
+	@Test
+	public void isNullOutputVehicle() {
+		//Arrange		
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conPlaque(null).build();
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		try {
+			vigilant.outputVehicle(vehicle.getPlaque());
+		} catch (InvoiceException ve) {
+			
+			// Assert
+			Assert.assertEquals(Vigilant.PLAQUE_NOT_STORE, ve.getMessage());
+		}
+	}
+	
+	@Test
+	public void isOutputVehicle() {
+		//Arrange		
+		InvoiceTestDataBuilder invoiceTestDataBuilder = new InvoiceTestDataBuilder();
+		
+		Invoice invoice = invoiceTestDataBuilder.build();
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		try {
+			Invoice invoiceTest = vigilant.outputVehicle(invoice.getVehicle().getPlaque());
+		} catch (VehicleException e) {
+			// Assert
+			Assert.assertEquals(Vigilant.PLAQUE_NOT_STORE , e.getMessage());
+		}
+	}
 
 }
 

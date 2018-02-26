@@ -27,11 +27,11 @@ public class Vigilant {
 	public static final String CAR_NOT_IS_AUTORIZED_BY_PLACA = "El vehiculo no esta autorizado para parquear";
 	public static final String PLAQUE_NOT_STORE = "La placa ingresada ya no esta en el sistema";
 	public static final String VEHICLE_IS_EXIT = "El carro ya salio del sistema";
+	public static final String STATE_CAR = "CARRO";
+	public static final String STATE_MOTORBYKE = "MOTO";
 	public static final int SPACE_AVAILABLE_CAR = 20;
 	public static final int SPACE_AVAILABLE_MOTORBYKE = 10;
 	public static final int CYLINDER_AVIABLE = 500;
-	public static final String STATE_CAR = "CARRO";
-	public static final String STATE_MOTORBYKE = "MOTO";
 	public static final int HORADIA = 24;
 	public static final int HORADIAMAX = 9;
 	public static final int VALUE_HOUR_MOTORBYKE = 500;
@@ -101,10 +101,10 @@ public class Vigilant {
 		if(plaque == null) {
 			throw new InvoiceException(PLAQUE_NOT_STORE);
 		}
-		int days = 0;
-		int hour = 0;
-		int minute = 0;
-		int valuePay = 0;
+		double days = 0;
+		double hour = 0;
+		double minute = 0;
+		double valuePay = 0;
 		LocalDateTime currentDateExit = LocalDateTime.now();
 		InvoiceEntity invoiceEntity = this.invoiceRepositoryJPA.findByVehiclePlaque(plaque);
 		Invoice invoice = InvoiceBuilder.convertirADominio(invoiceEntity);
@@ -112,26 +112,24 @@ public class Vigilant {
 			throw new VehicleException(PLAQUE_NOT_STORE);
 		}
 		Date exitDate = Date.from(currentDateExit.atZone(ZoneId.systemDefault()).toInstant());
-		int diff = (int) ((exitDate.getTime() - invoice.getDateinput().getTime()) / 1000);
+		double diff = ((exitDate.getTime() - invoice.getDateinput().getTime()) / 1000);
 		if (diff > 86400) {
-			days = (int) Math.floor(diff / 86400);
+			days = (diff / 86400);
 			diff = diff - (days * 86400);
 		}
 		if (diff > 3600) {
-			hour = (int) Math.floor(diff / 3600);
+			hour = (diff / 3600);
 			diff = diff - (hour * 3600);
 		}
 		if (diff > 60) {
-			minute = (int) Math.floor(diff / 60);
+			minute = (diff / 60);
 			diff = diff - (minute * 60);
 		}
 		if ((diff % 60) >= 1) {
 			minute++;
-			diff = 0;
 		}
 		if ((minute % 60) >= 1) {
 			hour++;
-			minute = 0;
 		}
 		if (hour > 9) {
 			days++;
@@ -142,7 +140,8 @@ public class Vigilant {
 		} else {
 			valuePay = (days * VALUE_DAY_MOTORBYKE) + (hour * VALUE_HOUR_MOTORBYKE);
 		}
-		if (Integer.parseInt(invoice.getVehicle().getCylinder()) > CYLINDER_AVIABLE && invoice.getVehicle().getType().equals(STATE_MOTORBYKE)) {
+		if (Integer.parseInt(invoice.getVehicle().getCylinder()) > CYLINDER_AVIABLE 
+				&& invoice.getVehicle().getType().equals(STATE_MOTORBYKE)) {
 			valuePay += 2000;
 		}
 		invoice.setDateoutput(exitDate);
@@ -233,17 +232,19 @@ public class Vigilant {
 	 * @return
 	 */
 	public boolean spaceAvailable(Vehicle vehicle) {
+		if(vehicle == null || vehicle.getType() == null) {
+			throw new VehicleException(PLAQUE_NOT_STORE);
+		}
 		if (vehicle.getType().equals(STATE_CAR)) {
 			if (isSpaceAviableCar(vehicle, SPACE_AVAILABLE_CAR)) {
 				return true;
 			}
-			return false;
 		} else {
 			if (isSpaceAviableMotorByke(vehicle, SPACE_AVAILABLE_MOTORBYKE)) {
 				return true;
 			}
-			return false;
 		}
+		return false;
 	}
 
 	/**
