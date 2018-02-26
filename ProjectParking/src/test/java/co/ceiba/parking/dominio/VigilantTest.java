@@ -751,6 +751,64 @@ public class VigilantTest {
 			Assert.assertEquals(Vigilant.PLAQUE_NOT_STORE , e.getMessage());
 		}
 	}
+	
+	@Test
+	public void isOtherOutputVehicle() {
+		//Arrange		
+		InvoiceTestDataBuilder invoiceTestDataBuilder = new InvoiceTestDataBuilder();
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conPlaque("MJM160").build();
+		Invoice invoice = invoiceTestDataBuilder.conVehicle(vehicle).conDateOutput(null).build();
+		
+		InvoiceEntity invoiceEntity = InvoiceBuilder.convertirAEntity(invoice);
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		when(invoiceRepositoryJPA.findByVehiclePlaque(invoice.getVehicle().getPlaque())).thenReturn(invoiceEntity);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		try {
+			Invoice invoiceTest = vigilant.outputVehicle(invoice.getVehicle().getPlaque());
+		} catch (VehicleException e) {
+			// Assert
+			Assert.assertEquals(Vigilant.PLAQUE_NOT_STORE , e.getMessage());
+		}
+	}
+	
+	@Test
+	public void isOutputVehicleMotorByke() {
+		//Arrange		
+		InvoiceTestDataBuilder invoiceTestDataBuilder = new InvoiceTestDataBuilder();
+		VehicleTestDataBuilder vehicleTestDataBuilder = new VehicleTestDataBuilder();
+		
+		Vehicle vehicle = vehicleTestDataBuilder.conPlaque("MOT123").conCylinder("1000").conType("MOTO").build();
+		Invoice invoice = invoiceTestDataBuilder.conVehicle(vehicle).conDateOutput(null).build();
+		
+		InvoiceEntity invoiceEntity = InvoiceBuilder.convertirAEntity(invoice);
+		
+		VehicleRepositoryJPA vehicleRepositoryJPA = mock(VehicleRepositoryJPA.class);
+		InvoiceRepositoryJPA invoiceRepositoryJPA = mock(InvoiceRepositoryJPA.class);
+		RateRepositoryJPA rateRepositoryJPA = mock(RateRepositoryJPA.class);
+		UserRepositoryJPA userRepositoryJPA = mock(UserRepositoryJPA.class);
+		
+		when(invoiceRepositoryJPA.findByVehiclePlaque(invoice.getVehicle().getPlaque())).thenReturn(invoiceEntity);
+		
+		Vigilant vigilant = new Vigilant(vehicleRepositoryJPA, invoiceRepositoryJPA, rateRepositoryJPA, userRepositoryJPA);
+		
+		// act
+		try {
+			Invoice invoiceTest = vigilant.outputVehicle(invoice.getVehicle().getPlaque());
+		} catch (VehicleException e) {
+			// Assert
+			Assert.assertEquals(Vigilant.PLAQUE_NOT_STORE , e.getMessage());
+		}
+	}
 
 }
 

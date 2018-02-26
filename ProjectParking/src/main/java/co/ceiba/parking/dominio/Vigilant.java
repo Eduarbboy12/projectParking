@@ -101,10 +101,10 @@ public class Vigilant {
 		if(plaque == null) {
 			throw new InvoiceException(PLAQUE_NOT_STORE);
 		}
-		double days = 0;
-		double hour = 0;
-		double minute = 0;
-		double valuePay = 0;
+		int days = 0;
+		int hour = 0;
+		int minute = 0;
+		int valuePay = 0;
 		LocalDateTime currentDateExit = LocalDateTime.now();
 		InvoiceEntity invoiceEntity = this.invoiceRepositoryJPA.findByVehiclePlaque(plaque);
 		Invoice invoice = InvoiceBuilder.convertirADominio(invoiceEntity);
@@ -112,17 +112,17 @@ public class Vigilant {
 			throw new VehicleException(PLAQUE_NOT_STORE);
 		}
 		Date exitDate = Date.from(currentDateExit.atZone(ZoneId.systemDefault()).toInstant());
-		double diff = ((exitDate.getTime() - invoice.getDateinput().getTime()) / 1000);
+		int diff = (int) ((exitDate.getTime() - invoice.getDateinput().getTime()) / 1000);
 		if (diff > 86400) {
-			days = (diff / 86400);
+			days = (int) (diff / 86400);
 			diff = diff - (days * 86400);
 		}
 		if (diff > 3600) {
-			hour = (diff / 3600);
+			hour = (int) (diff / 3600);
 			diff = diff - (hour * 3600);
 		}
 		if (diff > 60) {
-			minute = (diff / 60);
+			minute = (int) (diff / 60);
 			diff = diff - (minute * 60);
 		}
 		if ((diff % 60) >= 1) {
@@ -140,8 +140,7 @@ public class Vigilant {
 		} else {
 			valuePay = (days * VALUE_DAY_MOTORBYKE) + (hour * VALUE_HOUR_MOTORBYKE);
 		}
-		if (Integer.parseInt(invoice.getVehicle().getCylinder()) > CYLINDER_AVIABLE 
-				&& invoice.getVehicle().getType().equals(STATE_MOTORBYKE)) {
+		if (Integer.parseInt(invoice.getVehicle().getCylinder()) > CYLINDER_AVIABLE && invoice.getVehicle().getType().equals(STATE_MOTORBYKE)) {
 			valuePay += 2000;
 		}
 		invoice.setDateoutput(exitDate);
